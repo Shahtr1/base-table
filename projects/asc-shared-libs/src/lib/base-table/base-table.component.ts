@@ -9,6 +9,8 @@ import { TableRowSelectEvent } from 'primeng/table';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
+  @Input() items: TData[] = [];
+
   @Output() selectedItemsChange = new EventEmitter<TData[]>();
 
   @Output() onTableRowSelect = new EventEmitter<TData>();
@@ -76,8 +78,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() showCaption = true;
   @Input() showSummary = true;
-
-  @Input() items: TData[] = [];
 
   constructor() {}
 
