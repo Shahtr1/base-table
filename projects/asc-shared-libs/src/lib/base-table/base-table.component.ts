@@ -26,6 +26,8 @@ export class BaseTableComponent implements OnInit {
 
   @Input() customSortFn?: (event: SortEvent) => number;
 
+  @Input() rowsSelectionDisabled = false;
+
   private _rowSize = 10;
 
   @Input() set rowSize(value: number) {
@@ -84,6 +86,10 @@ export class BaseTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.columnWidth = 100 / 2;
+  }
+
+  isRowSelectable() {
+    return !this.rowsSelectionDisabled;
   }
 
   getCustomSortFn(event: SortEvent) {

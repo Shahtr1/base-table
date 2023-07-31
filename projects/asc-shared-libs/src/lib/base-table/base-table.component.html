@@ -16,6 +16,7 @@
   [globalFilterFields]="globalFilterFields"
   [selectionMode]="selectionMode"
   [(selection)]="selectedItems"
+  [rowSelectable]="isRowSelectable"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
@@ -44,7 +45,7 @@
     <tr>
       <th style="width: 4rem">
         <p-tableHeaderCheckbox
-          *ngIf="selectionMode === 'multiple'"
+          *ngIf="selectionMode === 'multiple' && isRowSelectable()"
         ></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="code" [width]="columnWidth + '%'">
@@ -71,10 +72,12 @@
         <p-tableCheckbox
           [value]="item"
           *ngIf="selectionMode === 'multiple'"
+          [disabled]="!isRowSelectable()"
         ></p-tableCheckbox>
         <p-tableRadioButton
           [value]="item"
           *ngIf="selectionMode === 'single'"
+          [disabled]="!isRowSelectable()"
         ></p-tableRadioButton>
       </td>
       <td>{{ item.code }}</td>
