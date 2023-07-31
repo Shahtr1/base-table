@@ -5,7 +5,7 @@ import { SortEvent } from 'primeng/api';
 @Component({
   selector: 'lib-base-table',
   templateUrl: './base-table.component.html',
-  styleUrls: ['./base-table.component.css'],
+  styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent implements OnInit {
   public columnWidth = 0;
