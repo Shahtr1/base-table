@@ -22,8 +22,13 @@
   </ng-container>
   <ng-template pTemplate="header">
     <tr>
-      <th>Code</th>
-      <th>Category</th>
+      <th pSortableColumn="code">
+        Code <p-sortIcon field="code" *ngIf="isTableSortable"></p-sortIcon>
+      </th>
+      <th pSortableColumn="category">
+        Category
+        <p-sortIcon field="category" *ngIf="isTableSortable"></p-sortIcon>
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product>

@@ -7,6 +7,8 @@ import { Size } from '../model/base-table.model';
   styleUrls: ['./base-table.component.css'],
 })
 export class BaseTableComponent {
+  @Input() isTableSortable = true;
+
   private _rowSize = 10;
 
   @Input() set rowSize(value: number) {
