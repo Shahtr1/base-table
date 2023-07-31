@@ -12,7 +12,7 @@ export class BaseTableComponent implements OnInit {
 
   @Input() selectionMode: 'single' | 'multiple' = 'multiple';
 
-  @Input() selectedItems: any[] = [];
+  @Input() selectedItems: any[] | any = [];
 
   public columnWidth = 0;
 
