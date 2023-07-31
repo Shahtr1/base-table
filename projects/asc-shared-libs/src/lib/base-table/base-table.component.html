@@ -10,14 +10,16 @@
   [currentPageReportTemplate]="currentPageReportTemplate"
   [rowsPerPageOptions]="rowsPerPageOptions"
 >
-  <ng-template pTemplate="caption">
-    <ng-container>
-      <div #ref>
-        <ng-content select="caption"></ng-content>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="ref.childNodes.length == 0">Products</ng-container>
-  </ng-template>
+  <ng-container *ngIf="showCaption">
+    <ng-template pTemplate="caption">
+      <ng-container>
+        <div #ref>
+          <ng-content select="caption"></ng-content>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="ref.childNodes.length == 0">Products</ng-container>
+    </ng-template>
+  </ng-container>
   <ng-template pTemplate="header">
     <tr>
       <th>Code</th>
@@ -30,9 +32,9 @@
       <td>{{ product.category }}</td>
     </tr>
   </ng-template>
-  <ng-template pTemplate="summary">
-    <div class="flex align-items-center justify-content-between">
-      In total there are {{ products ? products.length : 0 }} products.
-    </div>
-  </ng-template>
+  <ng-container *ngIf="showSummary">
+    <ng-template pTemplate="summary">
+      <ng-content select="summary"></ng-content>
+    </ng-template>
+  </ng-container>
 </p-table>

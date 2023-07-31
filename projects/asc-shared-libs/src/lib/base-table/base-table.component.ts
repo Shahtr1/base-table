@@ -45,6 +45,9 @@ export class BaseTableComponent {
     return this._selectedSize;
   }
 
+  @Input() showCaption = true;
+  @Input() showSummary = true;
+
   products: { code: string; category: string }[] = [
     { code: '1', category: 'New' },
     { code: '2', category: 'Old' },
@@ -57,4 +60,6 @@ export class BaseTableComponent {
     { code: '9', category: 'New' },
     { code: '10', category: 'Old' },
   ];
+
+  constructor() {}
 }
