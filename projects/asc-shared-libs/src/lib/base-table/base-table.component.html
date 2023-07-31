@@ -1,7 +1,14 @@
 <p-table
   [value]="products"
-  [tableStyle]="{ 'min-width': '60rem' }"
   [styleClass]="selectedSize.class"
+  styleClass="p-datatable-gridlines"
+  responsiveLayout="stack"
+  [breakpoint]="responsiveLayoutBreakPoint + 'px'"
+  [paginator]="paginator"
+  [rows]="rowSize"
+  [showCurrentPageReport]="true"
+  [currentPageReportTemplate]="currentPageReportTemplate"
+  [rowsPerPageOptions]="rowsPerPageOptions"
 >
   <ng-template pTemplate="caption">
     <ng-container>
