@@ -45,7 +45,8 @@
     <tr>
       <th style="width: 4rem">
         <p-tableHeaderCheckbox
-          *ngIf="selectionMode === 'multiple' && isRowSelectable()"
+          *ngIf="selectionMode === 'multiple'"
+          [disabled]="!isRowSelectable()"
         ></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="code" [width]="columnWidth + '%'">
