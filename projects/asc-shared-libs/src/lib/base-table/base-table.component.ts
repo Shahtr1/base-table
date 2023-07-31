@@ -8,16 +8,16 @@ import { TableRowSelectEvent } from 'primeng/table';
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.scss'],
 })
-export class BaseTableComponent implements OnInit {
-  @Output() selectedItemsChange = new EventEmitter<any[]>();
+export class BaseTableComponent<TData> implements OnInit {
+  @Output() selectedItemsChange = new EventEmitter<TData[]>();
 
-  @Output() onTableRowSelect = new EventEmitter<any>();
+  @Output() onTableRowSelect = new EventEmitter<TData>();
 
-  @Output() onTableRowUnselect = new EventEmitter<any>();
+  @Output() onTableRowUnselect = new EventEmitter<TData>();
 
   @Input() selectionMode: 'single' | 'multiple' | undefined = undefined;
 
-  @Input() selectedItems: any[] | any = [];
+  @Input() selectedItems: TData[] = [];
 
   public columnWidth = 0;
 
@@ -77,18 +77,7 @@ export class BaseTableComponent implements OnInit {
   @Input() showCaption = true;
   @Input() showSummary = true;
 
-  items: { code: string; category: string }[] = [
-    { code: '1', category: 'New' },
-    { code: '2', category: 'Old' },
-    { code: '3', category: 'New' },
-    { code: '4', category: 'Old' },
-    { code: '5', category: 'New' },
-    { code: '6', category: 'Old' },
-    { code: '7', category: 'New' },
-    { code: '8', category: 'Old' },
-    { code: '9', category: 'New' },
-    { code: '10', category: 'Old' },
-  ];
+  @Input() items: TData[] = [];
 
   constructor() {}
 
@@ -106,11 +95,11 @@ export class BaseTableComponent implements OnInit {
 
   onRowSelect(event: TableRowSelectEvent) {
     this.selectedItemsChange.emit(this.selectedItems);
-    this.onTableRowSelect.emit(event.data);
+    this.onTableRowSelect.emit(event.data as TData);
   }
 
   onRowUnselect(event: TableRowSelectEvent) {
     this.selectedItemsChange.emit(this.selectedItems);
-    this.onTableRowUnselect.emit(event.data);
+    this.onTableRowUnselect.emit(event.data as TData);
   }
 }
