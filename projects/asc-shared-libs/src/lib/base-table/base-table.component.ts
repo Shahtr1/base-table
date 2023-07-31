@@ -10,7 +10,7 @@ import { SortEvent } from 'primeng/api';
 export class BaseTableComponent implements OnInit {
   @Output() onSelectedRowsChange = new EventEmitter<any[]>();
 
-  @Input() selectionMode: 'single' | 'multiple' = 'multiple';
+  @Input() selectionMode: 'single' | 'multiple' | undefined = undefined;
 
   @Input() selectedItems: any[] | any = [];
 
