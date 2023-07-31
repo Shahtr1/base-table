@@ -69,7 +69,7 @@ export class BaseTableComponent implements OnInit {
   @Input() showCaption = true;
   @Input() showSummary = true;
 
-  products: { code: string; category: string }[] = [
+  items: { code: string; category: string }[] = [
     { code: '1', category: 'New' },
     { code: '2', category: 'Old' },
     { code: '3', category: 'New' },
