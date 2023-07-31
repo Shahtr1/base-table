@@ -9,6 +9,8 @@
   [showCurrentPageReport]="true"
   [currentPageReportTemplate]="currentPageReportTemplate"
   [rowsPerPageOptions]="rowsPerPageOptions"
+  (sortFunction)="getCustomSortFn($event)"
+  [customSort]="customSort"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
@@ -23,11 +25,11 @@
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="code">
-        Code <p-sortIcon field="code" *ngIf="isTableSortable"></p-sortIcon>
+        Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
       </th>
       <th pSortableColumn="category">
         Category
-        <p-sortIcon field="category" *ngIf="isTableSortable"></p-sortIcon>
+        <p-sortIcon field="category" *ngIf="sort"></p-sortIcon>
       </th>
     </tr>
   </ng-template>

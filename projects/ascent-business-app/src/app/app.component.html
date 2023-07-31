@@ -1,4 +1,9 @@
-<lib-base-table size="normal" [rowSize]="5">
+<lib-base-table
+  size="normal"
+  [rowSize]="5"
+  [customSort]="true"
+  [customSortFn]="customSortFn"
+>
   <ng-container ngProjectAs="caption">Nice</ng-container>
   <ng-container ngProjectAs="summary">
     <div class="flex align-items-center justify-content-between">

@@ -1,5 +1,13 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  Input,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Size } from '../model/base-table.model';
+import { SortEvent } from 'primeng/api';
+import { ColumnFilterFormElement } from 'primeng/table';
 
 @Component({
   selector: 'lib-base-table',
@@ -7,7 +15,11 @@ import { Size } from '../model/base-table.model';
   styleUrls: ['./base-table.component.css'],
 })
 export class BaseTableComponent {
-  @Input() isTableSortable = true;
+  @Input() sort = true;
+
+  @Input() customSort = false;
+
+  @Input() customSortFn?: (event: SortEvent) => number;
 
   private _rowSize = 10;
 
@@ -64,4 +76,8 @@ export class BaseTableComponent {
   ];
 
   constructor() {}
+
+  getCustomSortFn(event: SortEvent) {
+    if (this.customSortFn) this.customSortFn(event);
+  }
 }
