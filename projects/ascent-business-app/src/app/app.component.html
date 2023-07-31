@@ -1,8 +1,11 @@
 <lib-base-table
-  size="normal"
+  size="small"
   [rowSize]="5"
   [customSort]="true"
   [customSortFn]="customSortFn"
+  dataKey="code"
+  [globalFilterFields]="['code', 'category']"
+  [selectedItems]="[{ code: '1', category: 'New' }]"
 >
   <!--  <ng-container ngProjectAs="caption">Nice</ng-container>-->
   <ng-container ngProjectAs="summary">

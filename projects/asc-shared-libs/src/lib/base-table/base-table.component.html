@@ -14,6 +14,8 @@
   (sortFunction)="getCustomSortFn($event)"
   [customSort]="customSort"
   [globalFilterFields]="globalFilterFields"
+  [selectionMode]="selectionMode"
+  [(selection)]="selectedItems"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
@@ -40,6 +42,9 @@
   </ng-container>
   <ng-template pTemplate="header">
     <tr>
+      <th style="width: 4rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
       <th pSortableColumn="code" [width]="columnWidth + '%'">
         Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
       </th>
@@ -49,6 +54,7 @@
       </th>
     </tr>
     <tr>
+      <th></th>
       <th>
         <p-columnFilter type="text" field="code"></p-columnFilter>
       </th>
@@ -59,6 +65,9 @@
   </ng-template>
   <ng-template pTemplate="body" let-product>
     <tr>
+      <td>
+        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+      </td>
       <td>{{ product.code }}</td>
       <td>{{ product.category }}</td>
     </tr>

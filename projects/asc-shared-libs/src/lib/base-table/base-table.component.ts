@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Size } from '../model/base-table.model';
 import { SortEvent } from 'primeng/api';
 
@@ -8,6 +8,12 @@ import { SortEvent } from 'primeng/api';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent implements OnInit {
+  @Output() onSelectedRowsChange = new EventEmitter<any[]>();
+
+  @Input() selectionMode: 'single' | 'multiple' = 'multiple';
+
+  @Input() selectedItems: any[] = [];
+
   public columnWidth = 0;
 
   @Input() dataKey = 'id';
