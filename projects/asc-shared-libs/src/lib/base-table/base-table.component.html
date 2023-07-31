@@ -43,7 +43,9 @@
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 4rem">
-        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        <p-tableHeaderCheckbox
+          *ngIf="selectionMode === 'multiple'"
+        ></p-tableHeaderCheckbox>
       </th>
       <th pSortableColumn="code" [width]="columnWidth + '%'">
         Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
@@ -63,13 +65,20 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-product>
+  <ng-template pTemplate="body" let-item>
     <tr>
       <td>
-        <p-tableCheckbox [value]="product"></p-tableCheckbox>
+        <p-tableCheckbox
+          [value]="item"
+          *ngIf="selectionMode === 'multiple'"
+        ></p-tableCheckbox>
+        <p-tableRadioButton
+          [value]="item"
+          *ngIf="selectionMode === 'single'"
+        ></p-tableRadioButton>
       </td>
-      <td>{{ product.code }}</td>
-      <td>{{ product.category }}</td>
+      <td>{{ item.code }}</td>
+      <td>{{ item.category }}</td>
     </tr>
   </ng-template>
   <ng-container *ngIf="showSummary">
