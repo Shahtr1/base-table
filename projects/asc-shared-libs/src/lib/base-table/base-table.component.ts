@@ -34,6 +34,9 @@ export class BaseTableComponent implements OnInit {
     this._rowSize = value;
     this.rowsPerPageOptions.find((size) => size === value) ||
       this.rowsPerPageOptions.push(value);
+
+    // sort array in ascending order
+    this.rowsPerPageOptions.sort((a, b) => a - b);
   }
 
   get rowSize(): number {
