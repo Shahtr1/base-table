@@ -1,20 +1,19 @@
-import {
-  Component,
-  ContentChild,
-  Input,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Size } from '../model/base-table.model';
 import { SortEvent } from 'primeng/api';
-import { ColumnFilterFormElement } from 'primeng/table';
 
 @Component({
   selector: 'lib-base-table',
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.css'],
 })
-export class BaseTableComponent {
+export class BaseTableComponent implements OnInit {
+  public columnWidth = 0;
+
+  @Input() dataKey = 'id';
+
+  @Input() globalFilterFields: string[] = [];
+
   @Input() sort = true;
 
   @Input() customSort = false;
@@ -76,6 +75,10 @@ export class BaseTableComponent {
   ];
 
   constructor() {}
+
+  ngOnInit(): void {
+    this.columnWidth = 100 / 2;
+  }
 
   getCustomSortFn(event: SortEvent) {
     if (this.customSortFn) this.customSortFn(event);

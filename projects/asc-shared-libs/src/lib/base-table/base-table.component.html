@@ -1,4 +1,6 @@
 <p-table
+  #table
+  [dataKey]="dataKey"
   [value]="products"
   [styleClass]="selectedSize.class"
   styleClass="p-datatable-gridlines"
@@ -11,25 +13,47 @@
   [rowsPerPageOptions]="rowsPerPageOptions"
   (sortFunction)="getCustomSortFn($event)"
   [customSort]="customSort"
+  [globalFilterFields]="globalFilterFields"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
       <ng-container>
-        <div #ref>
+        <div #caption>
           <ng-content select="caption"></ng-content>
         </div>
       </ng-container>
-      <ng-container *ngIf="ref.childNodes.length == 0">Products</ng-container>
+      <ng-container *ngIf="caption.childNodes.length == 0">
+        <div class="caption-default-wrapper">
+          Products
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="table.filterGlobal($event.target!['value'], 'contains')"
+              placeholder="Search keyword"
+            />
+          </span>
+        </div>
+      </ng-container>
     </ng-template>
   </ng-container>
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="code">
+      <th pSortableColumn="code" [width]="columnWidth + '%'">
         Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
       </th>
-      <th pSortableColumn="category">
+      <th pSortableColumn="category" [width]="columnWidth + '%'">
         Category
         <p-sortIcon field="category" *ngIf="sort"></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter type="text" field="code"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="category"></p-columnFilter>
       </th>
     </tr>
   </ng-template>
