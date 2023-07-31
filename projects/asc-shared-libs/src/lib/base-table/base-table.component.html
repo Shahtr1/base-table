@@ -17,6 +17,8 @@
   [selectionMode]="selectionMode"
   [(selection)]="selectedItems"
   [rowSelectable]="isRowSelectable"
+  (onRowSelect)="onRowSelect($event)"
+  (onRowUnselect)="onRowUnselect($event)"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">

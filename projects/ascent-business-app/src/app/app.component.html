@@ -6,7 +6,9 @@
   dataKey="code"
   [selectionMode]="'multiple'"
   [globalFilterFields]="['code', 'category']"
-  [selectedItems]="[{ code: '2', category: 'Old' }]"
+  [(selectedItems)]="selectedItems"
+  (onTableRowSelect)="onRowSelect($event)"
+  (onTableRowUnselect)="onRowUnselect($event)"
 >
   <!--  <ng-container ngProjectAs="caption">Nice</ng-container>-->
   <ng-container ngProjectAs="summary">
@@ -15,3 +17,5 @@
     </div>
   </ng-container>
 </lib-base-table>
+
+{{ selectedItems | json }}

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Size } from '../model/base-table.model';
 import { SortEvent } from 'primeng/api';
+import { TableRowSelectEvent } from 'primeng/table';
 
 @Component({
   selector: 'lib-base-table',
@@ -8,7 +9,11 @@ import { SortEvent } from 'primeng/api';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent implements OnInit {
-  @Output() onSelectedRowsChange = new EventEmitter<any[]>();
+  @Output() selectedItemsChange = new EventEmitter<any[]>();
+
+  @Output() onTableRowSelect = new EventEmitter<any>();
+
+  @Output() onTableRowUnselect = new EventEmitter<any>();
 
   @Input() selectionMode: 'single' | 'multiple' | undefined = undefined;
 
@@ -97,5 +102,15 @@ export class BaseTableComponent implements OnInit {
 
   getCustomSortFn(event: SortEvent) {
     if (this.customSortFn) this.customSortFn(event);
+  }
+
+  onRowSelect(event: TableRowSelectEvent) {
+    this.selectedItemsChange.emit(this.selectedItems);
+    this.onTableRowSelect.emit(event.data);
+  }
+
+  onRowUnselect(event: TableRowSelectEvent) {
+    this.selectedItemsChange.emit(this.selectedItems);
+    this.onTableRowUnselect.emit(event.data);
   }
 }
