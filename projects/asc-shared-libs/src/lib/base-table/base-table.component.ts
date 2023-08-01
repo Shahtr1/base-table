@@ -70,7 +70,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() paginator = true;
 
-  @Input() responsiveLayoutBreakPoint: number = 768;
+  @Input() responsiveLayoutBreakpoint: number = 768;
 
   @Input() currentPageReportTemplate =
     'Showing {first} to {last} of {totalRecords} entries';
