@@ -47,10 +47,12 @@
     <tr>
       <th style="width: 4rem">
         <p-tableHeaderCheckbox
+          (click)="selectAll($event)"
           *ngIf="selectionMode === 'multiple'"
           [disabled]="!isRowSelectable()"
         ></p-tableHeaderCheckbox>
       </th>
+      <th style="width: 5rem" *ngIf="rowExpand"></th>
       <th pSortableColumn="code" [width]="columnWidth + '%'">
         Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
       </th>
@@ -61,6 +63,7 @@
     </tr>
     <tr>
       <th></th>
+      <th></th>
       <th>
         <p-columnFilter type="text" field="code"></p-columnFilter>
       </th>
@@ -69,7 +72,7 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-item>
+  <ng-template pTemplate="body" let-item let-expanded="expanded">
     <tr>
       <td>
         <p-tableCheckbox
@@ -83,6 +86,16 @@
           [disabled]="!isRowSelectable()"
         ></p-tableRadioButton>
       </td>
+      <td *ngIf="rowExpand">
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="item"
+          class="p-button-text p-button-rounded p-button-plain"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+        ></button>
+      </td>
       <td>{{ item.code }}</td>
       <td>{{ item.category }}</td>
     </tr>
@@ -92,4 +105,7 @@
       <ng-content select="summary"></ng-content>
     </ng-template>
   </ng-container>
+  <ng-template pTemplate="rowexpansion" let-product>
+    <ng-content select="rowExpansion"></ng-content>
+  </ng-template>
 </p-table>

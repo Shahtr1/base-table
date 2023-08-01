@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseTableComponent } from './base-table/base-table.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [AscSharedLibsComponent, BaseTableComponent],
@@ -13,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
     BrowserAnimationsModule,
     TableModule,
     InputTextModule,
+    ButtonModule,
+    RippleModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })

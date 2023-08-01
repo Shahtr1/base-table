@@ -10,6 +10,7 @@
   (onTableRowSelect)="onRowSelect($event)"
   (onTableRowUnselect)="onRowUnselect($event)"
   [items]="items"
+  [rowExpand]="true"
 >
   <!--  <ng-container ngProjectAs="caption">Nice</ng-container>-->
   <ng-container ngProjectAs="summary">
@@ -17,6 +18,7 @@
       In total there are many products.
     </div>
   </ng-container>
+  <ng-container ngProjectAs="rowExpansion"> hi </ng-container>
 </lib-base-table>
 
 {{ selectedItems | json }}

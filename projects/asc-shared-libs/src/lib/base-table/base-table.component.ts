@@ -21,6 +21,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() selectedItems: TData[] = [];
 
+  @Input() rowExpand = false;
+
   public columnWidth = 0;
 
   @Input() dataKey = 'id';
@@ -101,5 +103,9 @@ export class BaseTableComponent<TData> implements OnInit {
   onRowUnselect(event: TableRowSelectEvent) {
     this.selectedItemsChange.emit(this.selectedItems);
     this.onTableRowUnselect.emit(event.data as TData);
+  }
+
+  selectAll(data: Event) {
+    this.selectedItemsChange.emit(this.selectedItems);
   }
 }
