@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { Size } from '../model/base-table.model';
 import { SortEvent } from 'primeng/api';
 import { TableRowSelectEvent } from 'primeng/table';
@@ -9,6 +17,8 @@ import { TableRowSelectEvent } from 'primeng/table';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
+  @Input() emptyMessage = 'No records found';
+
   @Input() items: TData[] = [];
 
   @Output() selectedItemsChange = new EventEmitter<TData[]>();
@@ -80,6 +90,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() showCaption = true;
   @Input() showSummary = true;
+
+  @Input() rowExpansionTemplate!: TemplateRef<any>;
 
   constructor() {}
 

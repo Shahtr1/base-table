@@ -28,7 +28,12 @@
         </div>
       </ng-container>
       <ng-container *ngIf="caption.childNodes.length == 0">
-        <div class="caption-default-wrapper">
+        <div
+          class="caption-default-wrapper"
+          [ngStyle]="{
+            padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
+          }"
+        >
           Products
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
@@ -105,7 +110,15 @@
       <ng-content select="summary"></ng-content>
     </ng-template>
   </ng-container>
-  <ng-template pTemplate="rowexpansion" let-product>
-    <ng-content select="rowExpansion"></ng-content>
+  <ng-template pTemplate="rowexpansion" let-item>
+    <ng-container
+      *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
+    >
+    </ng-container>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6" style="text-align: center">{{ emptyMessage }}</td>
+    </tr>
   </ng-template>
 </p-table>

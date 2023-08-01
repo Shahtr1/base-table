@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
+
+type SubProduct = {
+  code: string;
+  category: string;
+};
 
 type Product = {
   code: string;
   category: string;
+  subProducts: SubProduct[];
 };
 
 @Component({
@@ -11,21 +17,36 @@ type Product = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  items: Product[] = [
-    { code: '1', category: 'New' },
-    { code: '2', category: 'Old' },
-    { code: '3', category: 'New' },
-    { code: '4', category: 'Old' },
-    { code: '5', category: 'New' },
-    { code: '6', category: 'Old' },
-    { code: '7', category: 'New' },
-    { code: '8', category: 'Old' },
-    { code: '9', category: 'New' },
-    { code: '10', category: 'Old' },
-  ];
+export class AppComponent implements OnInit {
+  items: Product[] = [];
 
-  selectedItems: Product[] = [{ code: '2', category: 'Old' }];
+  selectedItems: Product[] = [];
+
+  ngOnInit() {
+    this.addDummyProducts();
+  }
+
+  private addDummyProducts() {
+    for (let i = 0; i < 100; i++) {
+      this.items.push({
+        code: i.toString(),
+        category: 'category ' + i,
+        subProducts: [
+          {
+            code: 'sub A ' + i,
+            category: 'sub category A ' + i,
+          },
+          {
+            code: 'sub B ' + i,
+            category: 'sub category B ' + i,
+          },
+        ],
+      });
+    }
+
+    this.selectedItems.push(this.items.find((item) => item.code === '3')!);
+  }
+
   customSortFn: (event: SortEvent) => number = (event: SortEvent) => {
     console.log('event', event);
     return 1;
