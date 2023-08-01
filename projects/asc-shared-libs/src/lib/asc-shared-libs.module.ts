@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [AscSharedLibsComponent, BaseTableComponent],
@@ -21,6 +22,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     RippleModule,
     ToolbarModule,
     FileUploadModule,
+    TooltipModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })
