@@ -1,6 +1,5 @@
 import {
   Component,
-  ContentChild,
   EventEmitter,
   Input,
   OnInit,
@@ -8,7 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Size } from '../model/base-table.model';
-import { SortEvent } from 'primeng/api';
+import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { TableRowSelectEvent } from 'primeng/table';
 
 @Component({
@@ -99,10 +98,12 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() rowExpansionTemplate!: TemplateRef<any>;
 
-  constructor() {}
+  constructor(private primengConfig: PrimeNGConfig) {}
 
   ngOnInit(): void {
     this.columnWidth = 100 / 2;
+
+    this.primengConfig.ripple = true;
   }
 
   isRowSelectable() {
@@ -126,4 +127,8 @@ export class BaseTableComponent<TData> implements OnInit {
   selectAll(data: Event) {
     this.selectedItemsChange.emit(this.selectedItems);
   }
+
+  deleteSelectedItems() {}
+
+  openNew() {}
 }

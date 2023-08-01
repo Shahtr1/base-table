@@ -1,129 +1,174 @@
-<p-table
-  #table
-  [dataKey]="dataKey"
-  [value]="items"
-  [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
-  responsiveLayout="stack"
-  [breakpoint]="responsiveLayoutBreakpoint + 'px'"
-  [paginator]="paginator"
-  [rows]="rowSize"
-  [showCurrentPageReport]="true"
-  [currentPageReportTemplate]="currentPageReportTemplate"
-  [rowsPerPageOptions]="rowsPerPageOptions"
-  (sortFunction)="getCustomSortFn($event)"
-  [customSort]="customSort"
-  [globalFilterFields]="globalFilterFields"
-  [selectionMode]="selectionMode"
-  [(selection)]="selectedItems"
-  [rowSelectable]="isRowSelectable"
-  (onRowSelect)="onRowSelect($event)"
-  (onRowUnselect)="onRowUnselect($event)"
-  [selectionPageOnly]="selectionPageOnly"
-  [rowHover]="rowHover"
-  [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
-  [scrollable]="scrollHeight !== 'auto'"
-  [resizableColumns]="true"
-  columnResizeMode="expand"
->
-  <ng-container *ngIf="showCaption">
-    <ng-template pTemplate="caption">
-      <ng-container>
-        <div #caption>
-          <ng-content select="caption"></ng-content>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="caption.childNodes.length == 0">
-        <div
-          class="caption-default-wrapper"
-          [ngStyle]="{
-            padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
-          }"
-        >
-          Products
-          <span class="p-input-icon-left ml-auto">
-            <i class="pi pi-search"></i>
-            <input
-              pInputText
-              type="text"
-              (input)="table.filterGlobal($event.target!['value'], 'contains')"
-              placeholder="Search keyword"
-            />
-          </span>
-        </div>
-      </ng-container>
+<div class="card">
+  <p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2"
+        (click)="openNew()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-trash"
+        class="p-button-danger"
+        (click)="deleteSelectedItems()"
+        [disabled]="!selectedItems || !selectedItems.length"
+      ></button>
     </ng-template>
-  </ng-container>
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 4rem">
-        <p-tableHeaderCheckbox
-          (click)="selectAll($event)"
-          *ngIf="selectionMode === 'multiple'"
-          [disabled]="!isRowSelectable()"
-        ></p-tableHeaderCheckbox>
-      </th>
-      <th style="width: 5rem" *ngIf="rowExpand"></th>
-      <th pSortableColumn="code" [width]="columnWidth + '%'">
-        Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
-      </th>
-      <th pSortableColumn="category" [width]="columnWidth + '%'">
-        Category
-        <p-sortIcon field="category" *ngIf="sort"></p-sortIcon>
-      </th>
-    </tr>
-    <tr>
-      <th></th>
-      <th *ngIf="rowExpand"></th>
-      <th>
-        <p-columnFilter type="text" field="code"></p-columnFilter>
-      </th>
-      <th>
-        <p-columnFilter type="text" field="category"></p-columnFilter>
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-item let-expanded="expanded">
-    <tr>
-      <td>
-        <p-tableCheckbox
-          [value]="item"
-          *ngIf="selectionMode === 'multiple'"
-          [disabled]="!isRowSelectable()"
-        ></p-tableCheckbox>
-        <p-tableRadioButton
-          [value]="item"
-          *ngIf="selectionMode === 'single'"
-          [disabled]="!isRowSelectable()"
-        ></p-tableRadioButton>
-      </td>
-      <td *ngIf="rowExpand">
-        <button
-          type="button"
-          pButton
-          pRipple
-          [pRowToggler]="item"
-          class="p-button-text p-button-rounded p-button-plain"
-          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-        ></button>
-      </td>
-      <td>{{ item.code }}</td>
-      <td>{{ item.category }}</td>
-    </tr>
-  </ng-template>
-  <ng-container *ngIf="showSummary">
-    <ng-template pTemplate="summary">
-      <ng-content select="summary"></ng-content>
+
+    <ng-template pTemplate="right">
+      <p-fileUpload
+        mode="basic"
+        accept="image/*"
+        [maxFileSize]="1000000"
+        label="Import"
+        chooseLabel="Import"
+        class="mr-2 inline-block"
+      ></p-fileUpload>
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+      ></button>
     </ng-template>
-  </ng-container>
-  <ng-template pTemplate="rowexpansion" let-item>
-    <ng-container
-      *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
-    >
+  </p-toolbar>
+
+  <p-table
+    #table
+    [dataKey]="dataKey"
+    [value]="items"
+    [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
+    responsiveLayout="stack"
+    [breakpoint]="responsiveLayoutBreakpoint + 'px'"
+    [paginator]="paginator"
+    [rows]="rowSize"
+    [showCurrentPageReport]="true"
+    [currentPageReportTemplate]="currentPageReportTemplate"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    (sortFunction)="getCustomSortFn($event)"
+    [customSort]="customSort"
+    [globalFilterFields]="globalFilterFields"
+    [selectionMode]="selectionMode"
+    [(selection)]="selectedItems"
+    [rowSelectable]="isRowSelectable"
+    (onRowSelect)="onRowSelect($event)"
+    (onRowUnselect)="onRowUnselect($event)"
+    [selectionPageOnly]="selectionPageOnly"
+    [rowHover]="rowHover"
+    [scrollHeight]="
+      scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'
+    "
+    [scrollable]="scrollHeight !== 'auto'"
+    [resizableColumns]="true"
+    columnResizeMode="expand"
+  >
+    <ng-container *ngIf="showCaption">
+      <ng-template pTemplate="caption">
+        <ng-container>
+          <div #caption>
+            <ng-content select="caption"></ng-content>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="caption.childNodes.length == 0">
+          <div
+            class="caption-default-wrapper"
+            [ngStyle]="{
+              padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
+            }"
+          >
+            Products
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="
+                  table.filterGlobal($event.target!['value'], 'contains')
+                "
+                placeholder="Search keyword"
+              />
+            </span>
+          </div>
+        </ng-container>
+      </ng-template>
     </ng-container>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td colspan="6" style="text-align: center">{{ emptyMessage }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox
+            (click)="selectAll($event)"
+            *ngIf="selectionMode === 'multiple'"
+            [disabled]="!isRowSelectable()"
+          ></p-tableHeaderCheckbox>
+        </th>
+        <th style="width: 5rem" *ngIf="rowExpand"></th>
+        <th pSortableColumn="code" [width]="columnWidth + '%'">
+          Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
+        </th>
+        <th pSortableColumn="category" [width]="columnWidth + '%'">
+          Category
+          <p-sortIcon field="category" *ngIf="sort"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th *ngIf="rowExpand"></th>
+        <th>
+          <p-columnFilter type="text" field="code"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="category"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-expanded="expanded">
+      <tr>
+        <td>
+          <p-tableCheckbox
+            [value]="item"
+            *ngIf="selectionMode === 'multiple'"
+            [disabled]="!isRowSelectable()"
+          ></p-tableCheckbox>
+          <p-tableRadioButton
+            [value]="item"
+            *ngIf="selectionMode === 'single'"
+            [disabled]="!isRowSelectable()"
+          ></p-tableRadioButton>
+        </td>
+        <td *ngIf="rowExpand">
+          <button
+            type="button"
+            pButton
+            pRipple
+            [pRowToggler]="item"
+            class="p-button-text p-button-rounded p-button-plain"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          ></button>
+        </td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.category }}</td>
+      </tr>
+    </ng-template>
+    <ng-container *ngIf="showSummary">
+      <ng-template pTemplate="summary">
+        <ng-content select="summary"></ng-content>
+      </ng-template>
+    </ng-container>
+    <ng-template pTemplate="rowexpansion" let-item>
+      <ng-container
+        *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
+      >
+      </ng-container>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" style="text-align: center">{{ emptyMessage }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
