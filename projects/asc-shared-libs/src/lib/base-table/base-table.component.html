@@ -2,8 +2,7 @@
   #table
   [dataKey]="dataKey"
   [value]="items"
-  [styleClass]="selectedSize.class"
-  styleClass="p-datatable-gridlines"
+  [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
   responsiveLayout="stack"
   [breakpoint]="responsiveLayoutBreakpoint + 'px'"
   [paginator]="paginator"
@@ -24,6 +23,7 @@
   [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
   [scrollable]="scrollHeight !== 'auto'"
   [resizableColumns]="true"
+  columnResizeMode="expand"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
