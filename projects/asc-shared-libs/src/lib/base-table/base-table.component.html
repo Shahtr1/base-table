@@ -19,6 +19,7 @@
   [rowSelectable]="isRowSelectable"
   (onRowSelect)="onRowSelect($event)"
   (onRowUnselect)="onRowUnselect($event)"
+  [selectionPageOnly]="selectionPageOnly"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">

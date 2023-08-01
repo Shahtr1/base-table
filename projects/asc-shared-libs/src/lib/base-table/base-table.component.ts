@@ -19,6 +19,8 @@ import { TableRowSelectEvent } from 'primeng/table';
 export class BaseTableComponent<TData> implements OnInit {
   @Input() emptyMessage = 'No records found';
 
+  @Input() selectionPageOnly = true;
+
   @Input() items: TData[] = [];
 
   @Output() selectedItemsChange = new EventEmitter<TData[]>();
