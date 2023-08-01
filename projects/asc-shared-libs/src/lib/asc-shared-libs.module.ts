@@ -10,9 +10,10 @@ import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
+import { ExportButtonsComponent } from './base-table/comps/export-buttons/export-buttons.component';
 
 @NgModule({
-  declarations: [AscSharedLibsComponent, BaseTableComponent],
+  declarations: [AscSharedLibsComponent, BaseTableComponent, ExportButtonsComponent],
   imports: [
     ReactiveFormsModule,
     BrowserAnimationsModule,

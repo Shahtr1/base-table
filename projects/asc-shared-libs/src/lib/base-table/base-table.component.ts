@@ -9,7 +9,6 @@ import {
 import { Size } from '../model/base-table.model';
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { TableRowSelectEvent } from 'primeng/table';
-import * as FileSaver from 'file-saver';
 import { Column, ExportColumn } from './model/base-table.model';
 
 @Component({
@@ -113,9 +112,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
     this.cols = [
       { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
-      { field: 'name', header: 'Name' },
       { field: 'category', header: 'Category' },
-      { field: 'quantity', header: 'Quantity' },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -144,41 +141,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
   selectAll(data: Event) {
     this.selectedItemsChange.emit(this.selectedItems);
-  }
-
-  exportPdf() {
-    import('jspdf').then((jsPDF) => {
-      import('jspdf-autotable').then((x) => {
-        const doc = new jsPDF.default('p', 'px', 'a4');
-        (doc as any).autoTable(this.exportColumns, this.items);
-        doc.save('products.pdf');
-      });
-    });
-  }
-
-  exportExcel() {
-    import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.items);
-      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-      const excelBuffer: any = xlsx.write(workbook, {
-        bookType: 'xlsx',
-        type: 'array',
-      });
-      this.saveAsExcelFile(excelBuffer, 'products');
-    });
-  }
-
-  saveAsExcelFile(buffer: any, fileName: string): void {
-    let EXCEL_TYPE =
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    let EXCEL_EXTENSION = '.xlsx';
-    const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE,
-    });
-    FileSaver.saveAs(
-      data,
-      fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
-    );
   }
 
   deleteSelectedItems() {}
