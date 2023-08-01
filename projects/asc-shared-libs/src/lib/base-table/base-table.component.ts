@@ -17,9 +17,13 @@ import { TableRowSelectEvent } from 'primeng/table';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
+  @Input() scrollHeight: number | 'auto' = 'auto';
+
   @Input() emptyMessage = 'No records found';
 
   @Input() selectionPageOnly = true;
+
+  @Input() rowHover = true;
 
   @Input() items: TData[] = [];
 

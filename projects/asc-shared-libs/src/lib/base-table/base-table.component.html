@@ -20,6 +20,9 @@
   (onRowSelect)="onRowSelect($event)"
   (onRowUnselect)="onRowUnselect($event)"
   [selectionPageOnly]="selectionPageOnly"
+  [rowHover]="rowHover"
+  [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
+  [scrollable]="scrollHeight !== 'auto'"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
