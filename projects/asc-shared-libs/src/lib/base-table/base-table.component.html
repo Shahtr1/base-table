@@ -23,6 +23,7 @@
   [rowHover]="rowHover"
   [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
   [scrollable]="scrollHeight !== 'auto'"
+  [resizableColumns]="true"
 >
   <ng-container *ngIf="showCaption">
     <ng-template pTemplate="caption">
@@ -72,7 +73,7 @@
     </tr>
     <tr>
       <th></th>
-      <th></th>
+      <th *ngIf="rowExpand"></th>
       <th>
         <p-columnFilter type="text" field="code"></p-columnFilter>
       </th>
