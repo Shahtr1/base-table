@@ -20,16 +20,19 @@
     & .smart-button-wrapper {
       min-height: 3rem;
       position: relative;
-      padding: 3px 3rem 3px 0.5rem;
+      padding: 3px 4rem 3px 0.7rem;
       border: 1px solid #dee2e6;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background-color: $primary-color;
+      border-radius: $border-radius;
+      color: white;
     }
 
     &::ng-deep {
       & .p-speeddial {
-        right: 0;
+        right: 0.7rem;
         top: 4px;
         align-items: center;
         & .p-speeddial-action {

@@ -60,10 +60,10 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() rowsSelectionDisabled = false;
 
-  private _rowSize = 10;
+  private _rowsPerPage = 10;
 
-  @Input() set rowSize(value: number) {
-    this._rowSize = value;
+  @Input() set rowsPerPage(value: number) {
+    this._rowsPerPage = value;
     this.rowsPerPageOptions.find((size) => size === value) ||
       this.rowsPerPageOptions.push(value);
 
@@ -71,8 +71,8 @@ export class BaseTableComponent<TData> implements OnInit {
     this.rowsPerPageOptions.sort((a, b) => a - b);
   }
 
-  get rowSize(): number {
-    return this._rowSize;
+  get rowsPerPage(): number {
+    return this._rowsPerPage;
   }
 
   @Input() paginator = true;
