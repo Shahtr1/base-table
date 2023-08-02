@@ -16,7 +16,8 @@
     "@types/file-saver": "^2.0.5",
     "file-saver": "^2.0.5",
     "@ngrx/store": "^16.1.0",
-    "@ngrx/store-devtools": "^16.1.0"
+    "@ngrx/store-devtools": "^16.1.0",
+    "zod": "^3.21.4"
   },
   "exports": {
     "." : {
