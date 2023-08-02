@@ -20,7 +20,7 @@
     & .smart-button-wrapper {
       min-height: 3rem;
       position: relative;
-      padding: 3px 4rem 3px 0.7rem;
+      padding: 3px 3rem 3px 0.7rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -30,8 +30,24 @@
     }
 
     &::ng-deep {
+      & .p-speeddial-button {
+        /* Remove button focus outline */
+        &.p-button {
+          border: none;
+          &:focus,
+          &:active {
+            box-shadow: none;
+            outline: none;
+          }
+
+          &:hover {
+            outline: none;
+          }
+        }
+      }
+
       & .p-speeddial {
-        right: 0.7rem;
+        right: 0;
         top: 4px;
         align-items: center;
         & .p-speeddial-action {

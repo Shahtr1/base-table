@@ -5,7 +5,7 @@ $success-color: #22c55e;
 $warning-color: #f59e0b;
 $help-color: #a855f7;
 $danger-color: #ef4444;
-$box-shadow: 0 0 0.3rem 0 #000;
+$box-shadow: 0 0 0.3rem 0 $primary-color;
 
 // spacings
 $border-radius: 6px;
