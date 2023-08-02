@@ -51,7 +51,7 @@
                 pInputText
                 type="text"
                 (input)="
-                  table.filterGlobal($event.target!['value'], 'contains')
+                  table.filterGlobal(getElement($event).value, 'contains')
                 "
                 placeholder="Search keyword"
               />

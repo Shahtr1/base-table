@@ -5,12 +5,15 @@ import {
   OnInit,
   Output,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { Size } from '../model/base-table.model';
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
-import { TableRowSelectEvent } from 'primeng/table';
+import { Table, TableRowSelectEvent } from 'primeng/table';
 import { Column, ExportColumn } from './model/base-table.model';
 import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
+import { TableConfigService } from '../services/table-config.service';
+import { RequestService } from '../services/request/request.service';
 
 @Component({
   selector: 'lib-base-table',
@@ -21,6 +24,8 @@ export class BaseTableComponent<TData> implements OnInit {
   cols!: Column[];
 
   exportColumns!: ExportColumn[];
+
+  @Input({ required: true }) tableId!: string;
 
   @Input() showAddButton = true;
 
@@ -88,6 +93,13 @@ export class BaseTableComponent<TData> implements OnInit {
     this._selectedSize = this.sizes.find((size) => size.name === value)!;
   }
 
+  @Input() showCaption = true;
+  @Input() showSummary = true;
+
+  @Input() rowExpansionTemplate!: TemplateRef<any>;
+
+  @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
+
   private sizes: { name: Size; class: string }[] = [
     { name: 'small', class: 'p-datatable-sm' },
     { name: 'normal', class: '' },
@@ -101,20 +113,39 @@ export class BaseTableComponent<TData> implements OnInit {
     return this._selectedSize;
   }
 
-  @Input() showCaption = true;
-  @Input() showSummary = true;
+  @ViewChild('table') table?: Table;
 
-  @Input() rowExpansionTemplate!: TemplateRef<any>;
-
-  @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
-
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    readonly restApi: RequestService,
+    private tableConfigService: TableConfigService
+  ) {}
 
   ngOnInit(): void {
-    this.columnWidth = 100 / 2;
-
     this.primengConfig.ripple = true;
+    this.setColumnWidth();
+    this.setColumnsForExport();
 
+    this.loadTableConfig();
+  }
+
+  private loadTableConfig() {
+    this.tableConfigService.load(this.tableId).subscribe((tableConfigResp) => {
+      if (tableConfigResp) {
+        console.log('tableConfigResp', tableConfigResp);
+        // const tableConfig =
+        //   this.modifyConfigFn && tableConfigResp.tableConfig.modifyConfig
+        //     ? this.modifyConfigFn(tableConfigResp)
+        //     : tableConfigResp;
+        // this.cols = tableConfig.tableCols;
+        // this.tableConfig = tableConfig.tableConfig;
+        //
+        // this.tableInit();
+      }
+    });
+  }
+
+  private setColumnsForExport() {
     this.cols = [
       { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
       { field: 'category', header: 'Category' },
@@ -124,6 +155,10 @@ export class BaseTableComponent<TData> implements OnInit {
       title: col.header,
       dataKey: col.field,
     }));
+  }
+
+  private setColumnWidth() {
+    this.columnWidth = 100 / 2;
   }
 
   isRowSelectable() {
@@ -148,5 +183,7 @@ export class BaseTableComponent<TData> implements OnInit {
     this.selectedItemsChange.emit(this.selectedItems);
   }
 
-  protected readonly undefined = undefined;
+  getElement($event: Event): HTMLInputElement {
+    return $event.target as HTMLInputElement;
+  }
 }

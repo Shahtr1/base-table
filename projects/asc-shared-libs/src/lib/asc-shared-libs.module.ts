@@ -13,6 +13,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarButtonsComponent } from './base-table/comps/toolbar-buttons/toolbar-buttons.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { CheckboxModule } from 'primeng/checkbox';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     TooltipModule,
     SpeedDialModule,
     CheckboxModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({ maxAge: 40 }),
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })
