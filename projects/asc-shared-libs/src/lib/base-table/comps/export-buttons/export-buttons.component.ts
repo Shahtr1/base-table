@@ -1,18 +1,57 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { ExportColumn } from '../../model/base-table.model';
 import { Table } from 'primeng/table';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'lib-export-buttons',
   templateUrl: './export-buttons.component.html',
   styleUrls: ['./export-buttons.component.scss'],
 })
-export class ExportButtonsComponent<TData> {
+export class ExportButtonsComponent<TData> implements OnInit {
+  menuItems: MenuItem[] = [
+    {
+      icon: 'pi pi-file',
+      tooltipOptions: {
+        tooltipPosition: 'left',
+        tooltipLabel: 'CSV',
+      },
+      command: () => {
+        this.table.exportCSV();
+      },
+    },
+    {
+      icon: 'pi pi-file-excel',
+      tooltipOptions: {
+        tooltipPosition: 'left',
+        tooltipLabel: 'Excel',
+      },
+      command: () => {
+        this.exportExcel();
+      },
+    },
+    {
+      icon: 'pi pi-file-pdf',
+      tooltipOptions: {
+        tooltipPosition: 'left',
+        tooltipLabel: 'PDF',
+      },
+
+      command: () => {
+        this.exportPdf();
+      },
+    },
+  ];
+
   @Input({ required: true }) items: TData[] = [];
   @Input({ required: true }) exportColumns: ExportColumn[] = [];
 
   @Input({ required: true }) table!: Table;
+
+  constructor() {}
+
+  ngOnInit(): void {}
 
   exportPdf() {
     import('jspdf').then((jsPDF) => {

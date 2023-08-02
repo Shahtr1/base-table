@@ -1,0 +1,16 @@
+:host {
+  & .export-buttons-wrapper {
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    &::ng-deep {
+      & .p-speeddial {
+        right: 0;
+        align-items: center;
+      }
+    }
+  }
+}

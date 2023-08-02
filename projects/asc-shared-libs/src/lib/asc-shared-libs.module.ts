@@ -11,9 +11,14 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
 import { ExportButtonsComponent } from './base-table/comps/export-buttons/export-buttons.component';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 @NgModule({
-  declarations: [AscSharedLibsComponent, BaseTableComponent, ExportButtonsComponent],
+  declarations: [
+    AscSharedLibsComponent,
+    BaseTableComponent,
+    ExportButtonsComponent,
+  ],
   imports: [
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -24,6 +29,7 @@ import { ExportButtonsComponent } from './base-table/comps/export-buttons/export
     ToolbarModule,
     FileUploadModule,
     TooltipModule,
+    SpeedDialModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })

@@ -45,22 +45,24 @@
             }"
           >
             Products
-            <lib-export-buttons
-              [items]="items"
-              [exportColumns]="exportColumns"
-              [table]="table"
-            ></lib-export-buttons>
-            <span class="p-input-icon-left ml-auto">
-              <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                (input)="
-                  table.filterGlobal($event.target!['value'], 'contains')
-                "
-                placeholder="Search keyword"
-              />
-            </span>
+            <div class="caption-default-right">
+              <lib-export-buttons
+                [items]="items"
+                [exportColumns]="exportColumns"
+                [table]="table"
+              ></lib-export-buttons>
+              <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input
+                  pInputText
+                  type="text"
+                  (input)="
+                    table.filterGlobal($event.target!['value'], 'contains')
+                  "
+                  placeholder="Search keyword"
+                />
+              </span>
+            </div>
           </div>
         </ng-container>
       </ng-template>
