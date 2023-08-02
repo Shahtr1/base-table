@@ -19,14 +19,13 @@ export class TableConfigService {
   }
 
   load(tableId: string) {
-    console.log('this.env', this.env);
+    console.log('Environment variables', this.env);
     return this.requestService
       .request(this.env.apiUrl, 'GET', '/api/v5/app-table-designs', {
         'name.equals': tableId,
       })
       .pipe(
         map((res: any) => {
-          console.log('res', res);
           if (!res.body) return;
 
           return JSON.parse(res.body[0]['tableDefinition']);
