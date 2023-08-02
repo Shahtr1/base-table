@@ -1,7 +1,7 @@
 {
   "name": "asc-shared-libs",
   "version": "0.0.1",
-  "description": "Shared libraries for ASC",
+  "description": "Shared libraries for Ascent",
   "peerDependencies": {
     "@angular/animations": "^16.1.7",
     "@angular/cdk": "^16.1.6",
