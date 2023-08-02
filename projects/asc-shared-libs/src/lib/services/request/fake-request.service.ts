@@ -9,7 +9,6 @@ import { HttpVerbs } from '../../model/lib.model';
 export class FakeRequestService implements IRequestService {
   private testData = {
     tableConfig: {
-      url: '/api/v5/account-purposes',
       export: false,
       editButton: true,
       deleteButton: true,
