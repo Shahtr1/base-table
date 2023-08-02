@@ -1,0 +1,38 @@
+<div class="export-buttons-wrapper">
+  <div class="button-wrapper">
+    <button
+      type="button"
+      pButton
+      pRipple
+      icon="pi pi-trash"
+      *ngIf="selectedItems.length > 0"
+      (click)="deleteSelectedRows()"
+      class="p-button-danger mr-2"
+      pTooltip="Delete selected rows"
+      tooltipPosition="bottom"
+    ></button>
+    <div class="smart-button-wrapper">
+      <div class="title">Export</div>
+      <div class="icon-wrapper">
+        <p-checkbox
+          *ngIf="selectedItems.length > 0"
+          label="Selected only"
+          [formControl]="selectAll"
+          [binary]="true"
+        ></p-checkbox>
+        <p-speedDial
+          [model]="menuItems"
+          direction="down"
+          showIcon="pi pi-ellipsis-v"
+          hideIcon="pi pi-times"
+          [buttonStyle]="{
+            backgroundColor: 'rgb(59, 130, 246)',
+            color: '#fff',
+            padding: '1.2rem'
+          }"
+          buttonClassName="p-button-outlined"
+        ></p-speedDial>
+      </div>
+    </div>
+  </div>
+</div>

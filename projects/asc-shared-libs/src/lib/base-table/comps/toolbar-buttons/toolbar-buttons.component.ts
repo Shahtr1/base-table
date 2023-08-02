@@ -3,25 +3,29 @@ import * as FileSaver from 'file-saver';
 import { ExportColumn } from '../../model/base-table.model';
 import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
+import { FormControl } from '@angular/forms';
+import { exportType } from './model/toolbar-button.model';
 
 @Component({
-  selector: 'lib-export-buttons',
-  templateUrl: './export-buttons.component.html',
-  styleUrls: ['./export-buttons.component.scss'],
+  selector: 'lib-toolbar-buttons',
+  templateUrl: './toolbar-buttons.component.html',
+  styleUrls: ['./toolbar-buttons.component.scss'],
 })
-export class ExportButtonsComponent<TData> implements OnInit {
+export class ToolbarButtonsComponent<TData> implements OnInit {
   menuItems: MenuItem[] = [
     {
+      id: 'csv',
       icon: 'pi pi-file',
       tooltipOptions: {
         tooltipPosition: 'left',
         tooltipLabel: 'CSV',
       },
       command: () => {
-        this.table.exportCSV();
+        this.table.exportCSV({ selectionOnly: this.selectAll.getRawValue() });
       },
     },
     {
+      id: 'excel',
       icon: 'pi pi-file-excel',
       tooltipOptions: {
         tooltipPosition: 'left',
@@ -32,6 +36,7 @@ export class ExportButtonsComponent<TData> implements OnInit {
       },
     },
     {
+      id: 'pdf',
       icon: 'pi pi-file-pdf',
       tooltipOptions: {
         tooltipPosition: 'left',
@@ -44,34 +49,56 @@ export class ExportButtonsComponent<TData> implements OnInit {
     },
   ];
 
+  @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
+
   @Input({ required: true }) items: TData[] = [];
+
+  @Input({ required: true }) selectedItems: TData[] = [];
+
   @Input({ required: true }) exportColumns: ExportColumn[] = [];
+
+  @Input() exportFileName = 'items';
 
   @Input({ required: true }) table!: Table;
 
+  selectAll = new FormControl<boolean>(false);
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filterMenuItems();
+  }
+
+  private filterMenuItems() {
+    this.menuItems = this.menuItems.filter((x) =>
+      this.exportTypes.includes(x.id as exportType)
+    );
+  }
 
   exportPdf() {
     import('jspdf').then((jsPDF) => {
       import('jspdf-autotable').then((x) => {
         const doc = new jsPDF.default('p', 'px', 'a4');
-        (doc as any).autoTable(this.exportColumns, this.items);
-        doc.save('products.pdf');
+        (doc as any).autoTable(
+          this.exportColumns,
+          this.selectAll.getRawValue() ? this.selectedItems : this.items
+        );
+        doc.save(`${this.exportFileName}.pdf`);
       });
     });
   }
 
   exportExcel() {
     import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.items);
+      const worksheet = xlsx.utils.json_to_sheet(
+        this.selectAll.getRawValue() ? this.selectedItems : this.items
+      );
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, {
         bookType: 'xlsx',
         type: 'array',
       });
-      this.saveAsExcelFile(excelBuffer, 'products');
+      this.saveAsExcelFile(excelBuffer, this.exportFileName);
     });
   }
 
@@ -87,4 +114,6 @@ export class ExportButtonsComponent<TData> implements OnInit {
       fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION
     );
   }
+
+  deleteSelectedRows() {}
 }

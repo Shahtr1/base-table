@@ -10,14 +10,15 @@ import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
-import { ExportButtonsComponent } from './base-table/comps/export-buttons/export-buttons.component';
+import { ToolbarButtonsComponent } from './base-table/comps/toolbar-buttons/toolbar-buttons.component';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
     AscSharedLibsComponent,
     BaseTableComponent,
-    ExportButtonsComponent,
+    ToolbarButtonsComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -30,6 +31,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
     FileUploadModule,
     TooltipModule,
     SpeedDialModule,
+    CheckboxModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })

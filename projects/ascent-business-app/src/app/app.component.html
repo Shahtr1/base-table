@@ -6,13 +6,13 @@
   dataKey="code"
   [selectionMode]="'multiple'"
   [globalFilterFields]="['code', 'category']"
-  [(selectedItems)]="selectedItems"
   (onTableRowSelect)="onRowSelect($event)"
   (onTableRowUnselect)="onRowUnselect($event)"
   [items]="items"
   [rowExpand]="true"
   [rowExpansionTemplate]="rowExpansionTemplate"
-  [scrollHeight]="500"
+  [scrollHeight]="400"
+  [exportTypes]="['pdf', 'csv', 'excel']"
 >
   <!--  <ng-container ngProjectAs="caption">Nice</ng-container>-->
   <ng-container ngProjectAs="summary">

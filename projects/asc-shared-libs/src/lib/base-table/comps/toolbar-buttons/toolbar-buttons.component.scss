@@ -1,0 +1,55 @@
+@import "../../../common/scss/variables";
+
+:host {
+  & .export-buttons-wrapper {
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding-top: 3px;
+
+    & .button-wrapper {
+      display: flex;
+    }
+
+    & .smart-button-wrapper {
+      min-height: 3rem;
+      position: relative;
+      padding: 3px 3rem 3px 0.5rem;
+      border: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &::ng-deep {
+      & .p-speeddial {
+        right: 0;
+        top: 4px;
+        align-items: center;
+        & .p-speeddial-action {
+          background-color: #f8f9fa;
+          box-shadow: $box-shadow;
+          &:hover {
+            & .p-speeddial-action-icon {
+              transition: all 0.2s ease-in-out;
+              transform: scale(1.3);
+            }
+          }
+          &-icon {
+            &.pi-file {
+              color: $primary-color;
+            }
+            &.pi-file-excel {
+              color: $success-color;
+            }
+            &.pi-file-pdf {
+              color: $danger-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

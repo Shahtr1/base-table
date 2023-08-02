@@ -45,34 +45,34 @@
             }"
           >
             Products
-            <div class="caption-default-right">
-              <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                  pInputText
-                  type="text"
-                  (input)="
-                    table.filterGlobal($event.target!['value'], 'contains')
-                  "
-                  placeholder="Search keyword"
-                />
-              </span>
-              <lib-export-buttons
-                [items]="items"
-                [exportColumns]="exportColumns"
-                [table]="table"
-              ></lib-export-buttons>
-            </div>
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="
+                  table.filterGlobal($event.target!['value'], 'contains')
+                "
+                placeholder="Search keyword"
+              />
+            </span>
+            <lib-toolbar-buttons
+              [items]="items"
+              [exportColumns]="exportColumns"
+              [table]="table"
+              [exportTypes]="exportTypes"
+              [selectedItems]="selectedItems"
+            ></lib-toolbar-buttons>
           </div>
         </ng-container>
       </ng-template>
     </ng-container>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 4rem">
+        <th style="width: 4rem" *ngIf="selectionMode !== undefined">
           <p-tableHeaderCheckbox
-            (click)="selectAll($event)"
             *ngIf="selectionMode === 'multiple'"
+            (click)="selectAll($event)"
             [disabled]="!isRowSelectable()"
           ></p-tableHeaderCheckbox>
         </th>
@@ -86,7 +86,7 @@
         </th>
       </tr>
       <tr>
-        <th></th>
+        <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
         <th>
           <p-columnFilter type="text" field="code"></p-columnFilter>
@@ -98,7 +98,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-expanded="expanded">
       <tr>
-        <td>
+        <td *ngIf="selectionMode !== undefined">
           <p-tableCheckbox
             [value]="item"
             *ngIf="selectionMode === 'multiple'"

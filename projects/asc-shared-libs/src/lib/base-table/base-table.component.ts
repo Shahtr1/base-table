@@ -10,6 +10,7 @@ import { Size } from '../model/base-table.model';
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { TableRowSelectEvent } from 'primeng/table';
 import { Column, ExportColumn } from './model/base-table.model';
+import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 
 @Component({
   selector: 'lib-base-table',
@@ -103,6 +104,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() rowExpansionTemplate!: TemplateRef<any>;
 
+  @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
+
   constructor(private primengConfig: PrimeNGConfig) {}
 
   ngOnInit(): void {
@@ -143,7 +146,5 @@ export class BaseTableComponent<TData> implements OnInit {
     this.selectedItemsChange.emit(this.selectedItems);
   }
 
-  deleteSelectedItems() {}
-
-  openNew() {}
+  protected readonly undefined = undefined;
 }
