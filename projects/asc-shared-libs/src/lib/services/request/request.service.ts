@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { IRequestService } from './irequest.service';
+import { HttpVerbs } from '../../model/lib.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class RequestService implements IRequestService {
 
   request(
     apiEndpoint: string,
-    method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH',
+    method: HttpVerbs,
     route: string,
     data?: any,
     options: any = { rawBody: false }

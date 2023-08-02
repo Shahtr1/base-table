@@ -1,10 +1,12 @@
-export interface Column {
+export type Column = {
   field: string;
   header: string;
   customExportHeader?: string;
-}
+};
 
-export interface ExportColumn {
+export type ExportColumn = {
   title: string;
   dataKey: string;
-}
+};
+
+export type Size = 'small' | 'normal' | 'large';

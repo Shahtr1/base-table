@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IRequestService } from './irequest.service';
 import { Observable } from 'rxjs';
+import { HttpVerbs } from '../../model/lib.model';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +58,7 @@ export class FakeRequestService implements IRequestService {
 
   request(
     apiEndpoint: string,
-    method: 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH',
+    method: HttpVerbs,
     route: string,
     data?: any,
     options?: any

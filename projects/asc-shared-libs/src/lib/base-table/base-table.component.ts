@@ -7,10 +7,9 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { Size } from '../model/base-table.model';
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { Table, TableRowSelectEvent } from 'primeng/table';
-import { Column, ExportColumn } from './model/base-table.model';
+import { Column, ExportColumn, Size } from './model/base-table.model';
 import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 import { TableConfigService } from '../services/table-config.service';
 import { RequestService } from '../services/request/request.service';
