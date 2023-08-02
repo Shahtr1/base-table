@@ -2,7 +2,7 @@ export type HttpVerbs = 'GET' | 'DELETE' | 'POST' | 'PUT' | 'PATCH';
 
 export type TableConfig = {
   url: string;
-  export: boolean;
+  export?: boolean | undefined;
 };
 
 export type TableCol = {

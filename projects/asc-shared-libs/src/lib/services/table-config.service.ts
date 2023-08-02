@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { RequestService } from './request/request.service';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FakeRequestService } from './request/fake-request.service';
 import { z } from 'zod';
+import { TableConfigSchema } from '../model/lib.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class TableConfigService {
   private tableConfigSchema = z.object({
     tableConfig: z.object({
       url: z.string(),
-      export: z.boolean(),
+      export: z.boolean().optional(),
     }),
     tableCols: z.array(
       z.object({
@@ -31,7 +32,7 @@ export class TableConfigService {
     return this.env.isMockEnabled ? this.fakeRequestService : this.restApi;
   }
 
-  load(tableId: string) {
+  load(tableId: string): Observable<TableConfigSchema> | never {
     console.log('Environment variables:', this.env);
     return this.requestService
       .request(this.env.apiUrl, 'GET', '/api/v5/app-table-designs', {
@@ -39,14 +40,13 @@ export class TableConfigService {
       })
       .pipe(
         map((res: any) => {
-          if (!res.body) return;
-
           try {
             const parsedData = JSON.parse(res.body[0]['tableDefinition']);
-            return this.tableConfigSchema.parse(parsedData);
+            return this.tableConfigSchema.parse(
+              parsedData
+            ) as TableConfigSchema;
           } catch (error) {
-            console.error('Data validation error:', error);
-            return null;
+            throw new Error(`Data validation error: ${error}`);
           }
         })
       );
