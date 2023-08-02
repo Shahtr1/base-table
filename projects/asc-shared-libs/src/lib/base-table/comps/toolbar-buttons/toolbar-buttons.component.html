@@ -1,6 +1,15 @@
 <div class="export-buttons-wrapper">
   <div class="button-wrapper">
     <button
+      *ngIf="showAddButton"
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      class="p-button-success mr-2"
+      (click)="addNew()"
+    ></button>
+    <button
       type="button"
       pButton
       pRipple
@@ -11,6 +20,7 @@
       pTooltip="Delete selected rows"
       tooltipPosition="bottom"
     ></button>
+
     <div class="smart-button-wrapper">
       <div class="title">Export</div>
       <div class="icon-wrapper">

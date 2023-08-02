@@ -22,6 +22,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   exportColumns!: ExportColumn[];
 
+  @Input() showAddButton = true;
+
   @Input() scrollHeight: number | 'auto' = 'auto';
 
   @Input() emptyMessage = 'No records found';

@@ -49,6 +49,8 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
     },
   ];
 
+  @Input() showAddButton = true;
+
   @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
 
   @Input({ required: true }) items: TData[] = [];
@@ -116,4 +118,6 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
   }
 
   deleteSelectedRows() {}
+
+  addNew() {}
 }
