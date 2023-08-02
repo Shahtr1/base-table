@@ -131,7 +131,7 @@ export class BaseTableComponent<TData> implements OnInit {
   private loadTableConfig() {
     this.tableConfigService.load(this.tableId).subscribe((tableConfigResp) => {
       if (tableConfigResp) {
-        console.log('tableConfigResp', tableConfigResp);
+        console.log('Table configuration:', tableConfigResp);
         // const tableConfig =
         //   this.modifyConfigFn && tableConfigResp.tableConfig.modifyConfig
         //     ? this.modifyConfigFn(tableConfigResp)

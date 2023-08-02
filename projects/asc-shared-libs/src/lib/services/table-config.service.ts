@@ -19,7 +19,7 @@ export class TableConfigService {
   }
 
   load(tableId: string) {
-    console.log('Environment variables', this.env);
+    console.log('Environment variables:', this.env);
     return this.requestService
       .request(this.env.apiUrl, 'GET', '/api/v5/app-table-designs', {
         'name.equals': tableId,
