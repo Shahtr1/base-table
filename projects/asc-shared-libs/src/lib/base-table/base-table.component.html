@@ -46,12 +46,7 @@
           >
             Products
             <div class="caption-default-right">
-              <lib-export-buttons
-                [items]="items"
-                [exportColumns]="exportColumns"
-                [table]="table"
-              ></lib-export-buttons>
-              <span class="p-input-icon-left ml-auto">
+              <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input
                   pInputText
@@ -62,6 +57,11 @@
                   placeholder="Search keyword"
                 />
               </span>
+              <lib-export-buttons
+                [items]="items"
+                [exportColumns]="exportColumns"
+                [table]="table"
+              ></lib-export-buttons>
             </div>
           </div>
         </ng-container>
