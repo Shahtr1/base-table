@@ -18,7 +18,7 @@
     }
 
     & .smart-button-wrapper {
-      min-height: 3rem;
+      min-height: 2.5rem;
       position: relative;
       padding: 3px 3rem 3px 0.7rem;
       display: flex;
@@ -30,6 +30,10 @@
     }
 
     &::ng-deep {
+      & .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: white;
+      }
+
       & .p-speeddial-button {
         /* Remove button focus outline */
         &.p-button {
@@ -48,7 +52,7 @@
 
       & .p-speeddial {
         right: 0;
-        top: 4px;
+        top: 0;
         align-items: center;
         & .p-speeddial-action {
           background-color: #f8f9fa;

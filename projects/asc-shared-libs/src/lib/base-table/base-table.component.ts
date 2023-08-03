@@ -116,7 +116,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    readonly restApi: RequestService,
     private tableConfigService: TableConfigService
   ) {}
 

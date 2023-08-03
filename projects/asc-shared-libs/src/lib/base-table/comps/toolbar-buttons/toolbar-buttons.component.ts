@@ -21,7 +21,10 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
         tooltipLabel: 'CSV',
       },
       command: () => {
-        this.table.exportCSV({ selectionOnly: this.selectAll.getRawValue() });
+        this.table.exportCSV({
+          selectionOnly:
+            this.selectAll.getRawValue() && this.selectedItems.length > 0,
+        });
       },
     },
     {
@@ -83,7 +86,9 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
         const doc = new jsPDF.default('p', 'px', 'a4');
         (doc as any).autoTable(
           this.exportColumns,
-          this.selectAll.getRawValue() ? this.selectedItems : this.items
+          this.selectAll.getRawValue() && this.selectedItems.length > 0
+            ? this.selectedItems
+            : this.items
         );
         doc.save(`${this.exportFileName}.pdf`);
       });
@@ -93,7 +98,9 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
   exportExcel() {
     import('xlsx').then((xlsx) => {
       const worksheet = xlsx.utils.json_to_sheet(
-        this.selectAll.getRawValue() ? this.selectedItems : this.items
+        this.selectAll.getRawValue() && this.selectedItems.length > 0
+          ? this.selectedItems
+          : this.items
       );
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, {
