@@ -8,7 +8,7 @@ import { HttpVerbs } from '../../model/lib.model';
 })
 export class FakeRequestService implements IRequestService {
   private testData = {
-    tableConfig: {
+    settings: {
       url: '/api/v5/account-purposes',
       export: false,
       editButton: true,
@@ -19,13 +19,8 @@ export class FakeRequestService implements IRequestService {
       editCallBack: true,
       newCallBack: true,
       softDelete: true,
-      permissions: {
-        add: ['Maker', 'ROLE_ADMIN'],
-        edit: ['Maker', 'ROLE_ADMIN'],
-        delete: ['ROLE_ADMIN'],
-      },
     },
-    tableCols: [
+    columns: [
       { field: 'uuid', labelId: 'L_REF_ID', sort: true, filter: 'search' },
       {
         field: 'shortName',

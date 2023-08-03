@@ -12,7 +12,6 @@ import { Table, TableRowSelectEvent } from 'primeng/table';
 import { Column, ExportColumn, Size } from './model/base-table.model';
 import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 import { TableConfigService } from '../services/table-config.service';
-import { RequestService } from '../services/request/request.service';
 
 @Component({
   selector: 'lib-base-table',
@@ -145,7 +144,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private setColumnsForExport() {
     this.cols = [
-      { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
+      { field: 'code', header: 'Code' },
       { field: 'category', header: 'Category' },
     ];
 

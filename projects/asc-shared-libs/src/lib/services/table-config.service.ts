@@ -2,26 +2,13 @@ import { Inject, Injectable } from '@angular/core';
 import { RequestService } from './request/request.service';
 import { map, Observable } from 'rxjs';
 import { FakeRequestService } from './request/fake-request.service';
-import { z } from 'zod';
-import { TableConfigSchema } from '../model/lib.model';
+import { TableViewConfig } from '../model/table-config.model';
+import { tableViewConfigSchema } from '../model/table-config.schema';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TableConfigService {
-  private tableConfigSchema = z.object({
-    tableConfig: z.object({
-      url: z.string(),
-      export: z.boolean().optional(),
-    }),
-    tableCols: z.array(
-      z.object({
-        field: z.string(),
-        labelId: z.string(),
-      })
-    ),
-  });
-
   constructor(
     private restApi: RequestService,
     private fakeRequestService: FakeRequestService,
@@ -32,7 +19,7 @@ export class TableConfigService {
     return this.env.isMockEnabled ? this.fakeRequestService : this.restApi;
   }
 
-  load(tableId: string): Observable<TableConfigSchema> | never {
+  load(tableId: string): Observable<TableViewConfig> | never {
     console.log('Environment variables:', this.env);
     return this.requestService
       .request(this.env.apiUrl, 'GET', '/api/v5/app-table-designs', {
@@ -42,9 +29,7 @@ export class TableConfigService {
         map((res: any) => {
           try {
             const parsedData = JSON.parse(res.body[0]['tableDefinition']);
-            return this.tableConfigSchema.parse(
-              parsedData
-            ) as TableConfigSchema;
+            return tableViewConfigSchema.parse(parsedData) as TableViewConfig;
           } catch (error) {
             throw new Error(`Data validation error: ${error}`);
           }
