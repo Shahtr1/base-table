@@ -105,8 +105,8 @@ export class BaseTableComponent<TData> implements OnInit {
     { name: 'large', class: 'p-datatable-lg' },
   ];
 
-  // set default size to normal
-  private _selectedSize: { name: Size; class: string } = this.sizes[1];
+  // set default size to small
+  private _selectedSize: { name: Size; class: string } = this.sizes[0];
 
   get selectedSize(): { name: Size; class: string } {
     return this._selectedSize;
