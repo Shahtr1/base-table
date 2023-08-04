@@ -50,6 +50,22 @@
         }
       }
 
+      & .p-speeddial-button {
+        /* Remove button focus outline */
+        &.p-button {
+          border: none;
+          &:focus,
+          &:active {
+            box-shadow: none;
+            outline: none;
+          }
+
+          &:hover {
+            outline: none;
+          }
+        }
+      }
+
       & .p-speeddial {
         right: 0;
         top: 0;
