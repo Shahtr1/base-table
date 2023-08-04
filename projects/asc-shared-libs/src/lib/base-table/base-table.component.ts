@@ -31,7 +31,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() emptyMessage = 'No records found';
 
-  @Input() selectionPageOnly = true;
+  @Input() selectionPageOnly = false;
 
   @Input() rowHover = true;
 
@@ -120,6 +120,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+
     this.setColumnWidth();
     this.setColumnsForExport();
 

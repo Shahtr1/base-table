@@ -28,7 +28,7 @@ export class TableConfigService {
       .pipe(
         map((res: any) => {
           try {
-            const parsedData = JSON.parse(res.body[0]['tableDefinition']);
+            const parsedData = JSON.parse(res.body[0]['definition']);
             return tableViewConfigSchema.parse(parsedData) as TableViewConfig;
           } catch (error) {
             throw new Error(`Data validation error: ${error}`);

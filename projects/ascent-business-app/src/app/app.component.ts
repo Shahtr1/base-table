@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
       });
     }
 
-    this.selectedItems.push(this.items.find((item) => item.code === '3')!);
+    // this.selectedItems.push(this.items.find((item) => item.code === '3')!);
   }
 
   customSortFn: (event: SortEvent) => number = (event: SortEvent) => {

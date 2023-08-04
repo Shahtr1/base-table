@@ -13,7 +13,7 @@ export class FakeRequestService implements IRequestService {
       export: false,
       editButton: true,
       deleteButton: true,
-      newRecordButton: true,
+      addButton: true,
       title: 'L_ACCOUNT_PURPOSE',
       transformData: true,
       editCallBack: true,
@@ -61,7 +61,7 @@ export class FakeRequestService implements IRequestService {
     console.log('FakeRequestService.request()');
     return new Observable((observer) => {
       observer.next({
-        body: [{ tableDefinition: JSON.stringify(this.testData) }],
+        body: [{ definition: JSON.stringify(this.testData) }],
       });
       observer.complete();
     });
