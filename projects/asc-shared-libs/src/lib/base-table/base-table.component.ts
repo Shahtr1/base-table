@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { Table, TableRowSelectEvent } from 'primeng/table';
-import { Column, ExportColumn, Size } from './model/base-table.model';
+import { ExportColumn, Size } from './model/base-table.model';
 import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 import { TableConfigService } from '../services/table-config.service';
 import {
@@ -18,9 +18,8 @@ import {
   TableSettings,
   TableViewConfig,
 } from '../model/table-config.model';
-import { TextService } from '../services/text/text.service';
+import { TextService } from '../services/text.service';
 import { GeneralText } from '../model/lib.model';
-import { FakeTextService } from '../services/text/fake-text.service';
 
 @Component({
   selector: 'lib-base-table',
@@ -137,21 +136,13 @@ export class BaseTableComponent<TData> implements OnInit {
   constructor(
     private primengConfig: PrimeNGConfig,
     private tableConfigService: TableConfigService,
-    private fakeTextService: FakeTextService,
-    private realTextService: TextService,
-    @Inject('environment') private environment: any
+    private textService: TextService
   ) {}
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
 
     this.loadTableConfig();
-  }
-
-  get textService(): TextService | FakeTextService {
-    return this.environment.isMockEnabled
-      ? this.fakeTextService
-      : this.realTextService;
   }
 
   private loadTableConfig() {

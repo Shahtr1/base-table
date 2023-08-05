@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ItextService } from './itext.service';
 import { Observable, of } from 'rxjs';
-import { GeneralText } from '../../model/lib.model';
+import { GeneralText } from '../model/lib.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TextService implements ItextService {
+export class TextService {
   convert(data: GeneralText[]): Observable<GeneralText[]> {
     // return this.store.pipe(select(fromLocale.getLocaleLabels)).pipe(
     //   map((labels) => {

@@ -13,8 +13,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToolbarButtonsComponent } from './base-table/comps/toolbar-buttons/toolbar-buttons.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { CheckboxModule } from 'primeng/checkbox';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     TooltipModule,
     SpeedDialModule,
     CheckboxModule,
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ maxAge: 40 }),
+    NgxsModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })
-export class AscSharedLibsModule {}
+export class AscSharedLibsModule {
+  constructor() {
+    console.log('calling AscSharedLibsModule constructor...');
+  }
+}

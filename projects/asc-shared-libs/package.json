@@ -14,8 +14,9 @@
     "jspdf-autotable": "^3.5.31",
     "@types/file-saver": "^2.0.5",
     "file-saver": "^2.0.5",
-    "@ngrx/store": "^16.1.0",
-    "@ngrx/store-devtools": "^16.1.0",
+    "@ngxs/store": "^3.8.1",
+    "@ngxs/logger-plugin": "^3.8.1",
+    "@ngxs/devtools-plugin": "^3.8.1",
     "zod": "^3.21.4",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.19.3/xlsx-0.19.3.tgz",
     "ts-to-zod": "^3.1.3"
