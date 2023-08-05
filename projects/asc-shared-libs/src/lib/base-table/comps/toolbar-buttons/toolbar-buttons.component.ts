@@ -75,6 +75,7 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
     newToolTip: { labelId: 'L_NEW_TOOLTIP' },
     deleteAllSelected: { labelId: 'L_DELETE_ALL_SELECTED' },
     export: { labelId: 'L_EXPORT' },
+    selectedOnly: { labelId: 'L_SELECTED_ONLY' },
   };
 
   constructor(textService: TextService) {

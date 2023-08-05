@@ -21,6 +21,7 @@ export class FakeLabelService implements ILabelService {
       L_TRXN_STATUS: 'Transaction Status',
       L_GLOBAL_SEARCH: 'Search keyword',
       L_DEFAULT_EMPTY_MESSAGE: 'No data found',
+      L_SELECTED_ONLY: 'Selected only',
     });
   }
 }

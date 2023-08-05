@@ -28,7 +28,7 @@
       <div class="icon-wrapper">
         <p-checkbox
           *ngIf="selectedItems.length > 0"
-          label="Selected only"
+          [label]="generalTexts!.selectedOnly!.label!"
           [formControl]="selectAll"
           [binary]="true"
         ></p-checkbox>
