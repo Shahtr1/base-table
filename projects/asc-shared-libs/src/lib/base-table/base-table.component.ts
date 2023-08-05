@@ -59,8 +59,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() globalFilterFields: string[] = [];
 
-  @Input() sort = true;
-
   @Input() customSort = false;
 
   @Input() rowsSelectionDisabled = false;
@@ -174,10 +172,13 @@ export class BaseTableComponent<TData> implements OnInit {
   private setColumnsForExport() {
     this.pushTableColumnsHeaderIdToGeneralTexts(() => {
       this.tableColumns.map((col) => {
+        console.log('col', col);
+        console.log('this.generalTexts', this.generalTexts);
         col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
       });
     });
 
+    console.log('this.tableColumns', this.tableColumns);
 
     this.exportColumns = this.tableColumns.map((col) => ({
       title: col.header!,

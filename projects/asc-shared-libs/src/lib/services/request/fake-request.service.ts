@@ -27,13 +27,12 @@ export class FakeRequestService implements IRequestService {
       {
         field: 'shortName',
         headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
-        sort: true,
+        sort: false,
         filter: 'search',
       },
       {
         field: 'fullName',
         headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
-        sort: true,
         filter: 'search',
       },
       {

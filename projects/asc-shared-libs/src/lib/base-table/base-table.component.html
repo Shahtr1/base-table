@@ -84,7 +84,7 @@
           [width]="columnWidth + '%'"
         >
           {{ col.header }}
-          <p-sortIcon [field]="col.headerId" *ngIf="sort"></p-sortIcon>
+          <p-sortIcon [field]="col.headerId" *ngIf="col.sort"></p-sortIcon>
         </th>
       </tr>
       <tr>
