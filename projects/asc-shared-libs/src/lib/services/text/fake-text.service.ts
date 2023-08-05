@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ItextService } from './itext.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { GeneralText } from '../../model/lib.model';
 
 @Injectable({
@@ -9,5 +9,10 @@ import { GeneralText } from '../../model/lib.model';
 export class FakeTextService implements ItextService {
   constructor() {}
 
-  convert(data: GeneralText[]): Observable<GeneralText[]> {}
+  convert(data: GeneralText[]): Observable<GeneralText[]> {
+    return of([
+      { label: 'Code', labelId: 'CODE' },
+      { label: 'Category', labelId: 'CATEGORY' },
+    ]);
+  }
 }
