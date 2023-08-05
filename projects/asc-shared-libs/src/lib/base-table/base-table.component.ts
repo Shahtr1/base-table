@@ -172,13 +172,11 @@ export class BaseTableComponent<TData> implements OnInit {
   private setColumnsForExport() {
     this.pushTableColumnsHeaderIdToGeneralTexts(() => {
       this.tableColumns.map((col) => {
-        console.log('col', col);
-        console.log('this.generalTexts', this.generalTexts);
         col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
       });
-    });
 
-    console.log('this.tableColumns', this.tableColumns);
+      this.setColumnWidth();
+    });
 
     this.exportColumns = this.tableColumns.map((col) => ({
       title: col.header!,
@@ -210,7 +208,7 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private setColumnWidth() {
-    this.columnWidth = 100 / 2;
+    this.columnWidth = 100 / this.tableColumns.length;
   }
 
   isRowSelectable() {
