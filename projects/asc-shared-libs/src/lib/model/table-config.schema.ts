@@ -14,7 +14,7 @@ export const tableFilterSchema = z.union([
 export const tableSettingsSchema = z.object({
   url: z.string(),
   title: z.string().optional(),
-  size: z.number().optional(),
+  rowsPerPage: z.number().optional(),
   export: z.boolean().optional(),
   paging: z.boolean().optional(),
   globalSearch: z.boolean().optional(),

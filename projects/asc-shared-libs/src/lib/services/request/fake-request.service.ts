@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { IRequestService } from './irequest.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpVerbs } from '../../model/lib.model';
 import { TableViewConfig } from '../../model/table-config.model';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FakeRequestService implements IRequestService {
-  private testData: TableViewConfig = {
+  private testBaseTableData: TableViewConfig = {
     settings: {
       url: '/api/v5/account-purposes',
       export: false,
@@ -50,7 +51,22 @@ export class FakeRequestService implements IRequestService {
     ],
   };
 
-  constructor() {}
+  private testAccountPurposeData: any[] = [];
+
+  constructor() {
+    this.createAccountPurposeData();
+  }
+
+  private createAccountPurposeData() {
+    for (let i = 0; i < 100; i++) {
+      this.testAccountPurposeData.push({
+        uuid: 'uuid' + i,
+        shortName: 'shortName' + i,
+        fullName: 'fullName' + i,
+        trxStatus: _.random(0, 1) === 1 ? 'ACTIVE' : 'INACTIVE',
+      });
+    }
+  }
 
   request(
     apiEndpoint: string,
@@ -59,12 +75,41 @@ export class FakeRequestService implements IRequestService {
     data?: any,
     options?: any
   ): Observable<any> {
-    console.log('FakeRequestService.request()');
+    this.logData(apiEndpoint, method, route, data, options);
+    let respData: any;
+    if (route.includes('app-table-designs')) {
+      respData = [{ definition: JSON.stringify(this.testBaseTableData) }];
+    } else if (route.includes('account-purpose')) {
+      respData = this.testAccountPurposeData;
+    }
+
     return new Observable((observer) => {
       observer.next({
-        body: [{ definition: JSON.stringify(this.testData) }],
+        body: respData,
+        headers: new Map<string, number>([['x-total-count', 100]]),
       });
       observer.complete();
     });
+  }
+
+  private logData(
+    apiEndpoint: string,
+    method: HttpVerbs,
+    route: string,
+    data: any,
+    options: any
+  ) {
+    console.log(
+      'FakeRequestService: apiEndpoint: ',
+      apiEndpoint,
+      ' method: ',
+      method,
+      ' route: ',
+      route,
+      ' data: ',
+      data,
+      ' options: ',
+      options
+    );
   }
 }

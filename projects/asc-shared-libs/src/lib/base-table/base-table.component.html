@@ -9,6 +9,7 @@
     [breakpoint]="responsiveLayoutBreakpoint + 'px'"
     [paginator]="paginator"
     [rows]="rowsPerPage"
+    [totalRecords]="totalRows"
     [showCurrentPageReport]="true"
     [currentPageReportTemplate]="getReportTemplateString()"
     [rowsPerPageOptions]="rowsPerPageOptions"
@@ -119,10 +120,10 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
           ></button>
         </td>
+        <td>{{ item.refId }}</td>
+        <td>{{ item.shortName }}</td>
+        <td>{{ item.fullName }}</td>
         <td>{{ item.code }}</td>
-        <td>{{ item.category }}</td>
-        <td>{{ item.code }}</td>
-        <td>{{ item.category }}</td>
       </tr>
     </ng-template>
     <ng-container *ngIf="showSummary">

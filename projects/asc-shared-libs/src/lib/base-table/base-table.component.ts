@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -20,6 +21,8 @@ import {
 import { TextService } from '../services/text.service';
 import { GeneralText } from '../model/lib.model';
 import { toCamelCase } from '../common/utils';
+import { FakeRequestService } from '../services/request/fake-request.service';
+import { RequestService } from '../services/request/request.service';
 
 @Component({
   selector: 'lib-base-table',
@@ -108,6 +111,7 @@ export class BaseTableComponent<TData> implements OnInit {
   @Input() customSortFn?: (event: SortEvent) => number;
 
   @Input() modifyConfigFn?: (config: TableViewConfig) => TableViewConfig;
+  @Input() transformDataFn?: (data: any[]) => any[];
 
   private sizes: { name: Size; class: string }[] = [
     { name: 'small', class: 'p-datatable-sm' },
@@ -130,6 +134,9 @@ export class BaseTableComponent<TData> implements OnInit {
   tableColumns: TableColumn[] = [];
   exportColumns!: ExportColumn[];
 
+  pageNumber = 0;
+  totalRows = 0;
+
   generalTexts: GeneralText = {
     globalSearch: { labelId: 'L_GLOBAL_SEARCH' },
     defaultEmptyMessage: { labelId: 'L_DEFAULT_EMPTY_MESSAGE' },
@@ -139,13 +146,22 @@ export class BaseTableComponent<TData> implements OnInit {
   constructor(
     private primengConfig: PrimeNGConfig,
     private tableConfigService: TableConfigService,
-    private textService: TextService
+    private textService: TextService,
+    @Inject('environment') private environment: any,
+    private fakeRestService: FakeRequestService,
+    private realRequestService: RequestService
   ) {}
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
 
     this.loadTableConfig();
+  }
+
+  get requestService(): RequestService | FakeRequestService {
+    return this.environment.isMockEnabled
+      ? this.fakeRestService
+      : this.realRequestService;
   }
 
   private loadTableConfig() {
@@ -168,7 +184,61 @@ export class BaseTableComponent<TData> implements OnInit {
         labelId: this.tableSettings.title,
       };
     }
+
+    if (!this.rowsPerPage && this.tableSettings.rowsPerPage) {
+      this.rowsPerPage = this.tableSettings.rowsPerPage;
+    }
+
     this.setColumnsForExport();
+    this.fetchTableRows();
+  }
+
+  private fetchTableRows() {
+    if (!this.tableSettings.url) {
+      console.warn('Table url is not defined');
+      return;
+    }
+
+    if (this.items.length > 0) {
+      console.warn('Rows already have data acquired from input!');
+      return;
+    }
+
+    const { url, query } = this.tableSettings;
+
+    const options = Object.assign(
+      {
+        page: this.pageNumber,
+        size: this.rowsPerPage,
+      },
+      query
+    );
+
+    if (this.tableSettings.softDelete) {
+      options['isEnabled.equals'] = true;
+    }
+
+    this.requestService
+      .request(this.environment.apiUrl, 'GET', url, options)
+      .subscribe((response) => {
+        console.log('response', response);
+        let data = [];
+        let total = 0;
+        if (response && response.body) {
+          data = response.body;
+          total = response.headers.get('x-total-count') || 0;
+        }
+        this.setData(data, total);
+      });
+  }
+
+  private setData(data: any[], total: number) {
+    this.totalRows = total;
+
+    this.items =
+      this.tableSettings.transformData && this.transformDataFn
+        ? this.transformDataFn(data)
+        : data;
   }
 
   private getTableConfig(tableConfigResp: TableViewConfig) {
@@ -230,7 +300,6 @@ export class BaseTableComponent<TData> implements OnInit {
   private translateGeneralTexts(success: () => void) {
     this.textService.convert(this.generalTexts).subscribe((res) => {
       this.generalTexts = { ...res };
-      console.log('this.generalTexts', this.generalTexts);
       if (!this.emptyMessage) {
         this.emptyMessage = this.generalTexts['defaultEmptyMessage'].label!;
       }

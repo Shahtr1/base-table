@@ -5,7 +5,7 @@ export type TableFilter = 'search' | 'select';
 export type TableSettings = {
   url: string;
   title?: string;
-  size?: number;
+  rowsPerPage?: number;
   export?: boolean;
   paging?: boolean;
   globalSearch?: boolean;

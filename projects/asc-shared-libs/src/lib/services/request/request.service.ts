@@ -25,8 +25,6 @@ export class RequestService implements IRequestService {
     data?: any,
     options: any = { rawBody: false }
   ): Observable<any> {
-    console.log('this.apiEndpoint', apiEndpoint);
-
     if (method === 'GET') {
       return this.get(apiEndpoint, route, data, options);
     }
