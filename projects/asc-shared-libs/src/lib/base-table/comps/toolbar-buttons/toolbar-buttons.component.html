@@ -4,10 +4,10 @@
       *ngIf="showAddButton"
       pButton
       pRipple
-      label="New"
+      [label]="generalTexts!.new!.label!"
       icon="pi pi-plus"
       class="p-button-success mr-2"
-      pTooltip="Add new row"
+      [pTooltip]="generalTexts!.newToolTip!.label!"
       tooltipPosition="bottom"
       (click)="addNew()"
     ></button>
@@ -19,12 +19,12 @@
       *ngIf="selectedItems.length > 0"
       (click)="deleteSelectedRows()"
       class="p-button-danger mr-2"
-      pTooltip="Delete selected rows"
+      [pTooltip]="generalTexts!.deleteAllSelected!.label!"
       tooltipPosition="bottom"
     ></button>
 
     <div class="smart-button-wrapper">
-      <div class="title">Export</div>
+      <div class="title">{{ generalTexts.export.label }}</div>
       <div class="icon-wrapper">
         <p-checkbox
           *ngIf="selectedItems.length > 0"

@@ -1,7 +1,6 @@
 import {
   Component,
   EventEmitter,
-  Inject,
   Input,
   OnInit,
   Output,
@@ -20,6 +19,7 @@ import {
 } from '../model/table-config.model';
 import { TextService } from '../services/text.service';
 import { GeneralText } from '../model/lib.model';
+import { toCamelCase } from '../common/utils';
 
 @Component({
   selector: 'lib-base-table',
@@ -33,7 +33,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() scrollHeight: number | 'auto' = 'auto';
 
-  @Input() emptyMessage = 'No records found';
+  @Input() emptyMessage!: string;
 
   @Input() selectionPageOnly = false;
 
@@ -84,8 +84,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() responsiveLayoutBreakpoint: number = 768;
 
-  @Input() currentPageReportTemplate =
-    'Showing {first} to {last} of {totalRecords} entries';
+  @Input() currentPageReportTemplate!: string;
 
   @Input() rowsPerPageOptions = [10, 20, 50];
 
@@ -129,9 +128,11 @@ export class BaseTableComponent<TData> implements OnInit {
   tableColumns: TableColumn[] = [];
   exportColumns!: ExportColumn[];
 
-  generalTexts: GeneralText[] = [{ labelId: 'GLOBAL_SEARCH' }];
-
-  searchPlaceholder!: string;
+  generalTexts: GeneralText = {
+    globalSearch: { labelId: 'L_GLOBAL_SEARCH' },
+    defaultEmptyMessage: { labelId: 'L_DEFAULT_EMPTY_MESSAGE' },
+    currentPageReportTemplate: { labelId: 'L_CURRENT_PAGE_REPORT_TEMPLATE' },
+  };
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -186,7 +187,8 @@ export class BaseTableComponent<TData> implements OnInit {
   ) {
     this.tableColumns.forEach((col) => {
       if (col.headerId) {
-        this.generalTexts.push({ labelId: col.headerId });
+        const key = toCamelCase(col.headerId);
+        this.generalTexts[key] = { labelId: col.headerId };
       }
     });
 
@@ -195,7 +197,11 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private convertLocales(success: () => void) {
     this.textService.convert(this.generalTexts).subscribe((res) => {
-      success();
+      this.generalTexts = { ...res };
+      if (!this.emptyMessage) {
+        this.emptyMessage = this.generalTexts['defaultEmptyMessage'].label!;
+      }
+      // success();
     });
   }
 
@@ -227,5 +233,12 @@ export class BaseTableComponent<TData> implements OnInit {
 
   getElement($event: Event): HTMLInputElement {
     return $event.target as HTMLInputElement;
+  }
+
+  getReportTemplateString(): string {
+    return (
+      this.currentPageReportTemplate ||
+      this.generalTexts['currentPageReportTemplate'].label!
+    );
   }
 }

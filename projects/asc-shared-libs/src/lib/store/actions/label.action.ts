@@ -1,4 +1,4 @@
-export class GetLabel {
+export class GetLabels {
   static readonly type = '[Label] Get';
 }
 

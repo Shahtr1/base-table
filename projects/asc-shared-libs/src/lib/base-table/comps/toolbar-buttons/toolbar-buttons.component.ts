@@ -5,6 +5,8 @@ import { Table } from 'primeng/table';
 import { MenuItem } from 'primeng/api';
 import { FormControl } from '@angular/forms';
 import { exportType } from './model/toolbar-button.model';
+import { TextService } from '../../../services/text.service';
+import { GeneralText } from '../../../model/lib.model';
 
 @Component({
   selector: 'lib-toolbar-buttons',
@@ -68,7 +70,18 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
 
   selectAll = new FormControl<boolean>(false);
 
-  constructor() {}
+  generalTexts: GeneralText = {
+    new: { labelId: 'L_NEW' },
+    newToolTip: { labelId: 'L_NEW_TOOLTIP' },
+    deleteAllSelected: { labelId: 'L_DELETE_ALL_SELECTED' },
+    export: { labelId: 'L_EXPORT' },
+  };
+
+  constructor(textService: TextService) {
+    textService.convert(this.generalTexts).subscribe((texts) => {
+      this.generalTexts = { ...texts };
+    });
+  }
 
   ngOnInit(): void {
     this.filterMenuItems();

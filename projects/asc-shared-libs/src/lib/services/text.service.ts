@@ -1,24 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { GeneralText } from '../model/lib.model';
+import { Store } from '@ngxs/store';
+import { LabelConfig } from '../model/label-config.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TextService {
-  convert(data: GeneralText[]): Observable<GeneralText[]> {
-    // return this.store.pipe(select(fromLocale.getLocaleLabels)).pipe(
-    //   map((labels) => {
-    //     this.labels = labels;
-    //     return this.applyLabel(
-    //       data,
-    //       Object.assign({}, DEFAULT_TRANSFORMATION_CONFIG, config)
-    //     );
-    //   })
-    // );
-    return of([
-      { label: 'Code', labelId: 'CODE' },
-      { label: 'Category', labelId: 'CATEGORY' },
-    ]);
+  constructor(private store: Store) {}
+
+  // TODO: Why isn't this working?
+  // Switched to this.store.select() in convert() below, till we get the answer (Best of Luck!)
+  // @Select(LabelState.getLabels) labels$!: Observable<LabelConfig>;
+
+  convert(data: GeneralText): Observable<GeneralText> {
+    const labels$ = this.getLabelsFromState();
+
+    return labels$.pipe(
+      map((labels) => {
+        return this.applyLabel(data, labels);
+      })
+    );
+  }
+
+  private getLabelsFromState() {
+    return this.store.select(
+      (state) => state.labels.labels
+    ) as Observable<LabelConfig>;
+  }
+
+  private applyLabel(data: GeneralText, labels: LabelConfig) {
+    const updatedData: GeneralText = {};
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const labelId = data[key].labelId;
+        const labelValue = labels[labelId] || labelId;
+
+        updatedData[key] = {
+          ...data[key],
+          label: labelValue,
+        };
+      }
+    }
+
+    return updatedData;
   }
 }

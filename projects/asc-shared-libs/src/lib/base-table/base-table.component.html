@@ -10,7 +10,7 @@
     [paginator]="paginator"
     [rows]="rowsPerPage"
     [showCurrentPageReport]="true"
-    [currentPageReportTemplate]="currentPageReportTemplate"
+    [currentPageReportTemplate]="getReportTemplateString()"
     [rowsPerPageOptions]="rowsPerPageOptions"
     (sortFunction)="getCustomSortFn($event)"
     [customSort]="customSort"
@@ -52,7 +52,7 @@
                 (input)="
                   table.filterGlobal(getElement($event).value, 'contains')
                 "
-                [placeholder]="searchPlaceholder"
+                [placeholder]="generalTexts.globalSearch.label"
               />
             </span>
             <lib-toolbar-buttons
