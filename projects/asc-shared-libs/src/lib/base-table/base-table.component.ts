@@ -173,8 +173,11 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private setColumnsForExport() {
     this.pushTableColumnsHeaderIdToGeneralTexts(() => {
-      //   TODO: add success function here
+      this.tableColumns.map((col) => {
+        col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
+      });
     });
+
 
     this.exportColumns = this.tableColumns.map((col) => ({
       title: col.header!,
@@ -201,7 +204,7 @@ export class BaseTableComponent<TData> implements OnInit {
       if (!this.emptyMessage) {
         this.emptyMessage = this.generalTexts['defaultEmptyMessage'].label!;
       }
-      // success();
+      success();
     });
   }
 

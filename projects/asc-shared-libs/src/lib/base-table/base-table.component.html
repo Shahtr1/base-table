@@ -78,22 +78,20 @@
           ></p-tableHeaderCheckbox>
         </th>
         <th style="width: 5rem" *ngIf="rowExpand"></th>
-        <th pSortableColumn="code" [width]="columnWidth + '%'">
-          Code <p-sortIcon field="code" *ngIf="sort"></p-sortIcon>
-        </th>
-        <th pSortableColumn="category" [width]="columnWidth + '%'">
-          Category
-          <p-sortIcon field="category" *ngIf="sort"></p-sortIcon>
+        <th
+          *ngFor="let col of tableColumns"
+          [pSortableColumn]="col.headerId"
+          [width]="columnWidth + '%'"
+        >
+          {{ col.header }}
+          <p-sortIcon [field]="col.headerId" *ngIf="sort"></p-sortIcon>
         </th>
       </tr>
       <tr>
         <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
-        <th>
-          <p-columnFilter type="text" field="code"></p-columnFilter>
-        </th>
-        <th>
-          <p-columnFilter type="text" field="category"></p-columnFilter>
+        <th *ngFor="let col of tableColumns">
+          <p-columnFilter type="text" [field]="col.headerId"></p-columnFilter>
         </th>
       </tr>
     </ng-template>
@@ -121,6 +119,8 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
           ></button>
         </td>
+        <td>{{ item.code }}</td>
+        <td>{{ item.category }}</td>
         <td>{{ item.code }}</td>
         <td>{{ item.category }}</td>
       </tr>
