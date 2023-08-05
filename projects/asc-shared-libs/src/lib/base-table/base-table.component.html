@@ -43,7 +43,7 @@
               padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
             }"
           >
-            Products
+            <span *ngIf="title">{{ title }}</span>
             <span class="p-input-icon-left">
               <i class="pi pi-search"></i>
               <input

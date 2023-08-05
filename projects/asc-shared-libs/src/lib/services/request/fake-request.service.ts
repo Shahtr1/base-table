@@ -28,6 +28,7 @@ export class FakeRequestService implements IRequestService {
         field: 'shortName',
         headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
         sort: false,
+        globalSearch: true,
         filter: 'search',
       },
       {
@@ -38,11 +39,10 @@ export class FakeRequestService implements IRequestService {
       {
         field: 'workFlowStates',
         headerId: 'L_TRXN_STATUS',
+        globalSearch: true,
         sourceUrl: '/api/v5/work-flow-states?size=20',
         optionLabel: 'desc',
         filter: 'select',
-        filterDataKey: 'id',
-        filterKey: 'workFlowStatesId',
         sort: true,
         type: 'select',
         translate: true,

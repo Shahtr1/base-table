@@ -32,11 +32,11 @@ export type TableColumn = {
   headerId: string;
   header?: string;
   sort?: boolean;
+  globalSearch?: boolean;
+
   filter?: TableFilter;
   sourceUrl?: string;
   optionLabel?: string;
-  filterDataKey?: string;
-  filterKey?: string;
   type?: string;
   translate?: boolean;
 };

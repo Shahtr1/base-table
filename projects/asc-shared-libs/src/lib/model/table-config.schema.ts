@@ -41,11 +41,10 @@ export const tableColumnSchema = z.object({
   headerId: z.string(),
   header: z.string().optional(),
   sort: z.boolean().optional(),
+  globalSearch: z.boolean().optional(),
   filter: tableFilterSchema.optional(),
   sourceUrl: z.string().optional(),
   optionLabel: z.string().optional(),
-  filterDataKey: z.string().optional(),
-  filterKey: z.string().optional(),
   type: z.string().optional(),
   translate: z.boolean().optional(),
 });

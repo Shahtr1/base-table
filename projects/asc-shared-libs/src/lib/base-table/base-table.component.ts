@@ -31,6 +31,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input({ required: true }) tableId!: string;
 
+  @Input() title?: string;
+
   @Input() showAddButton = true;
 
   @Input() scrollHeight: number | 'auto' = 'auto';
@@ -161,6 +163,11 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
+    if (!this.title && this.tableSettings.title) {
+      this.generalTexts[toCamelCase(this.tableSettings.title)] = {
+        labelId: this.tableSettings.title,
+      };
+    }
     this.setColumnsForExport();
   }
 
@@ -172,13 +179,9 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private setColumnsForExport() {
-    this.pushTableColumnsHeaderIdToGeneralTexts(() => {
-      this.tableColumns.map((col) => {
-        col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
-      });
-
-      this.setColumnWidth();
-    });
+    this.pushTableColumnsHeaderIdToGeneralTexts(
+      this.getHandleAfterTranslationSuccess()
+    );
 
     this.exportColumns = this.tableColumns.map((col) => ({
       title: col.header!,
@@ -186,8 +189,33 @@ export class BaseTableComponent<TData> implements OnInit {
     }));
   }
 
+  private getHandleAfterTranslationSuccess() {
+    return () => {
+      if (!this.title && this.tableSettings.title) {
+        this.title = this.generalTexts[
+          toCamelCase(this.tableSettings.title)
+        ].label;
+      }
+
+      this.tableColumns.map((col) => {
+        col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
+        if (col.globalSearch) {
+          this.addFieldToGlobalFilterFields(col);
+        }
+      });
+
+      this.setColumnWidth();
+    };
+  }
+
+  private addFieldToGlobalFilterFields(col: TableColumn) {
+    if (!this.globalFilterFields.find((field) => field === col.field)) {
+      this.globalFilterFields.push(col.field);
+    }
+  }
+
   private pushTableColumnsHeaderIdToGeneralTexts(
-    addHeaderToTableColumns: () => void
+    handleAfterTranslationSuccess: () => void
   ) {
     this.tableColumns.forEach((col) => {
       if (col.headerId) {
@@ -196,12 +224,13 @@ export class BaseTableComponent<TData> implements OnInit {
       }
     });
 
-    this.convertLocales(addHeaderToTableColumns);
+    this.translateGeneralTexts(handleAfterTranslationSuccess);
   }
 
-  private convertLocales(success: () => void) {
+  private translateGeneralTexts(success: () => void) {
     this.textService.convert(this.generalTexts).subscribe((res) => {
       this.generalTexts = { ...res };
+      console.log('this.generalTexts', this.generalTexts);
       if (!this.emptyMessage) {
         this.emptyMessage = this.generalTexts['defaultEmptyMessage'].label!;
       }
