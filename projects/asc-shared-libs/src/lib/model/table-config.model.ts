@@ -21,7 +21,7 @@ export type TableSettings = {
   addCallBack?: boolean;
   transformModel?: boolean;
   transformData?: boolean;
-  modifyConfig?: false;
+  modifyConfig?: boolean;
   query?: { [key: string]: any };
   pagingType?: PagingType;
   lazy?: boolean;
@@ -29,7 +29,8 @@ export type TableSettings = {
 
 export type TableColumn = {
   field: string;
-  labelId: string;
+  headerId: string;
+  header?: string;
   sort?: boolean;
   filter?: TableFilter;
   sourceUrl?: string;

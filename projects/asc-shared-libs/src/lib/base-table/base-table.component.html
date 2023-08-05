@@ -1,8 +1,7 @@
 <div class="card">
   <p-table
     #table
-    [columns]="cols"
-    [exportHeader]="'customExportHeader'"
+    [columns]="tableColumns"
     [dataKey]="dataKey"
     [value]="items"
     [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
@@ -53,7 +52,7 @@
                 (input)="
                   table.filterGlobal(getElement($event).value, 'contains')
                 "
-                placeholder="Search keyword"
+                [placeholder]="searchPlaceholder"
               />
             </span>
             <lib-toolbar-buttons
@@ -63,6 +62,7 @@
               [table]="table"
               [exportTypes]="exportTypes"
               [selectedItems]="selectedItems"
+              [exportFileName]="exportFileName"
             ></lib-toolbar-buttons>
           </div>
         </ng-container>

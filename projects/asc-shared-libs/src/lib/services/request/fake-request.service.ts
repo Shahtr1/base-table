@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { IRequestService } from './irequest.service';
 import { Observable } from 'rxjs';
 import { HttpVerbs } from '../../model/lib.model';
+import { TableViewConfig } from '../../model/table-config.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FakeRequestService implements IRequestService {
-  private testData = {
+  private testData: TableViewConfig = {
     settings: {
       url: '/api/v5/account-purposes',
       export: false,
@@ -17,26 +18,27 @@ export class FakeRequestService implements IRequestService {
       title: 'L_ACCOUNT_PURPOSE',
       transformData: true,
       editCallBack: true,
-      newCallBack: true,
+      addCallBack: true,
       softDelete: true,
+      modifyConfig: true,
     },
     columns: [
-      { field: 'uuid', labelId: 'L_REF_ID', sort: true, filter: 'search' },
+      { field: 'uuid', headerId: 'L_REF_ID', sort: true, filter: 'search' },
       {
         field: 'shortName',
-        labelId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
+        headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
         sort: true,
         filter: 'search',
       },
       {
         field: 'fullName',
-        labelId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
+        headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
         sort: true,
         filter: 'search',
       },
       {
         field: 'workFlowStates',
-        labelId: 'L_TRXN_STATUS',
+        headerId: 'L_TRXN_STATUS',
         sourceUrl: '/api/v5/work-flow-states?size=20',
         optionLabel: 'desc',
         filter: 'select',

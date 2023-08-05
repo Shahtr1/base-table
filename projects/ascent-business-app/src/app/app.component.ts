@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
+import { TableViewConfig } from '../../../asc-shared-libs/src/lib/model/table-config.model';
 
 type SubProduct = {
   code: string;
@@ -26,6 +27,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.addDummyProducts();
+  }
+
+  modifyConfigFn(config: TableViewConfig): TableViewConfig {
+    console.log('config', config);
+    // TODO: modify it if you want
+    return config;
   }
 
   private addDummyProducts() {

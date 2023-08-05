@@ -30,7 +30,7 @@ export const tableSettingsSchema = z.object({
   addCallBack: z.boolean().optional(),
   transformModel: z.boolean().optional(),
   transformData: z.boolean().optional(),
-  modifyConfig: z.literal(false).optional(),
+  modifyConfig: z.boolean().optional(),
   query: z.record(z.any()).optional(),
   pagingType: pagingTypeSchema.optional(),
   lazy: z.boolean().optional(),
@@ -38,7 +38,8 @@ export const tableSettingsSchema = z.object({
 
 export const tableColumnSchema = z.object({
   field: z.string(),
-  labelId: z.string(),
+  headerId: z.string(),
+  header: z.string().optional(),
   sort: z.boolean().optional(),
   filter: tableFilterSchema.optional(),
   sourceUrl: z.string().optional(),

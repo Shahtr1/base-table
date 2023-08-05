@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnInit,
   Output,
@@ -12,6 +13,14 @@ import { Table, TableRowSelectEvent } from 'primeng/table';
 import { Column, ExportColumn, Size } from './model/base-table.model';
 import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 import { TableConfigService } from '../services/table-config.service';
+import {
+  TableColumn,
+  TableSettings,
+  TableViewConfig,
+} from '../model/table-config.model';
+import { TextService } from '../services/text/text.service';
+import { GeneralText } from '../model/lib.model';
+import { FakeTextService } from '../services/text/fake-text.service';
 
 @Component({
   selector: 'lib-base-table',
@@ -19,10 +28,6 @@ import { TableConfigService } from '../services/table-config.service';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
-  cols!: Column[];
-
-  exportColumns!: ExportColumn[];
-
   @Input({ required: true }) tableId!: string;
 
   @Input() showAddButton = true;
@@ -58,8 +63,6 @@ export class BaseTableComponent<TData> implements OnInit {
   @Input() sort = true;
 
   @Input() customSort = false;
-
-  @Input() customSortFn?: (event: SortEvent) => number;
 
   @Input() rowsSelectionDisabled = false;
 
@@ -98,6 +101,14 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
 
+  @Input() exportFileName!: string;
+
+  // callback functions
+
+  @Input() customSortFn?: (event: SortEvent) => number;
+
+  @Input() modifyConfigFn?: (config: TableViewConfig) => TableViewConfig;
+
   private sizes: { name: Size; class: string }[] = [
     { name: 'small', class: 'p-datatable-sm' },
     { name: 'normal', class: '' },
@@ -113,46 +124,88 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @ViewChild('table') table?: Table;
 
+  private tableViewConfig!: TableViewConfig;
+  private tableSettings!: TableSettings;
+
+  tableColumns: TableColumn[] = [];
+  exportColumns!: ExportColumn[];
+
+  generalTexts: GeneralText[] = [{ labelId: 'GLOBAL_SEARCH' }];
+
+  searchPlaceholder!: string;
+
   constructor(
     private primengConfig: PrimeNGConfig,
-    private tableConfigService: TableConfigService
+    private tableConfigService: TableConfigService,
+    private fakeTextService: FakeTextService,
+    private realTextService: TextService,
+    @Inject('environment') private environment: any
   ) {}
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
 
-    this.setColumnWidth();
-    this.setColumnsForExport();
-
     this.loadTableConfig();
+  }
+
+  get textService(): TextService | FakeTextService {
+    return this.environment.isMockEnabled
+      ? this.fakeTextService
+      : this.realTextService;
   }
 
   private loadTableConfig() {
     this.tableConfigService.load(this.tableId).subscribe((tableConfigResp) => {
       if (tableConfigResp) {
-        console.log('Table configuration:', tableConfigResp);
-        // const tableConfig =
-        //   this.modifyConfigFn && tableConfigResp.tableConfig.modifyConfig
-        //     ? this.modifyConfigFn(tableConfigResp)
-        //     : tableConfigResp;
-        // this.cols = tableConfig.tableCols;
-        // this.tableConfig = tableConfig.tableConfig;
-        //
-        // this.tableInit();
+        this.tableViewConfig = this.getTableConfig(tableConfigResp);
+        this.tableSettings = this.tableViewConfig.settings;
+        this.tableColumns = this.tableViewConfig.columns;
+
+        console.log('Table configuration:', this.tableViewConfig);
+
+        this.tableInit();
       }
     });
   }
 
-  private setColumnsForExport() {
-    this.cols = [
-      { field: 'code', header: 'Code' },
-      { field: 'category', header: 'Category' },
-    ];
+  private tableInit() {
+    this.setColumnsForExport();
+  }
 
-    this.exportColumns = this.cols.map((col) => ({
-      title: col.header,
+  private getTableConfig(tableConfigResp: TableViewConfig) {
+    if (tableConfigResp.settings.modifyConfig && this.modifyConfigFn) {
+      tableConfigResp = this.modifyConfigFn(tableConfigResp);
+    }
+    return tableConfigResp;
+  }
+
+  private setColumnsForExport() {
+    this.pushTableColumnsHeaderIdToGeneralTexts(() => {
+      //   TODO: add success function here
+    });
+
+    this.exportColumns = this.tableColumns.map((col) => ({
+      title: col.header!,
       dataKey: col.field,
     }));
+  }
+
+  private pushTableColumnsHeaderIdToGeneralTexts(
+    addHeaderToTableColumns: () => void
+  ) {
+    this.tableColumns.forEach((col) => {
+      if (col.headerId) {
+        this.generalTexts.push({ labelId: col.headerId });
+      }
+    });
+
+    this.convertLocales(addHeaderToTableColumns);
+  }
+
+  private convertLocales(success: () => void) {
+    this.textService.convert(this.generalTexts).subscribe((res) => {
+      success();
+    });
   }
 
   private setColumnWidth() {
