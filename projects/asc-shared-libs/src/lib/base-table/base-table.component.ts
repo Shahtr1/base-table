@@ -27,6 +27,8 @@ import { toCamelCase } from '../common/utils';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
+  @Input() inferType?: TData;
+
   @Input({ required: true }) tableId!: string;
 
   @Input() showAddButton = true;
