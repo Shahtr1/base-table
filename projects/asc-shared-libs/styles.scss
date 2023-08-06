@@ -12,6 +12,7 @@ body {
 body,
 .p-datatable-wrapper,
 .p-dropdown-items-wrapper,
+.p-multiselect-items-wrapper,
 .scrollbar-wrapper {
   overflow-y: auto;
   scrollbar-width: none; /* Firefox */
@@ -22,6 +23,7 @@ body,
 body::-webkit-scrollbar,
 .scrollbar-wrapper::-webkit-scrollbar,
 .p-dropdown-items-wrapper::-webkit-scrollbar,
+.p-multiselect-items-wrapper::-webkit-scrollbar,
 .p-datatable-wrapper::-webkit-scrollbar {
   width: 12px;
 }
@@ -29,6 +31,7 @@ body::-webkit-scrollbar,
 body::-webkit-scrollbar-track,
 .scrollbar-wrapper::-webkit-scrollbar-track,
 .p-dropdown-items-wrapper::-webkit-scrollbar-track,
+.p-multiselect-items-wrapper::-webkit-scrollbar-track,
 .p-datatable-wrapper::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
@@ -36,6 +39,7 @@ body::-webkit-scrollbar-track,
 body::-webkit-scrollbar-thumb,
 .scrollbar-wrapper::-webkit-scrollbar-thumb,
 .p-dropdown-items-wrapper::-webkit-scrollbar-thumb,
+.p-multiselect-items-wrapper::-webkit-scrollbar-thumb,
 .p-datatable-wrapper::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 6px;
@@ -46,6 +50,7 @@ body::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb:hover,
 .scrollbar-wrapper::-webkit-scrollbar-thumb:hover,
 .p-dropdown-items-wrapper::-webkit-scrollbar-thumb:hover,
+.p-multiselect-items-wrapper::-webkit-scrollbar-thumb:hover,
 .p-datatable-wrapper::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
