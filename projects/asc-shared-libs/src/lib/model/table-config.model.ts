@@ -1,6 +1,6 @@
 export type PagingType = 'client-side' | 'server-side';
 
-export type TableFilter = 'search' | 'select';
+export type TableFilter = 'text' | 'select' | 'multiselect' | 'checkbox';
 
 export type TableSettings = {
   url: string;
@@ -33,8 +33,8 @@ export type TableColumn = {
   header?: string;
   sort?: boolean;
   globalSearch?: boolean;
-
   filter?: TableFilter;
+
   sourceUrl?: string;
   optionLabel?: string;
   type?: string;

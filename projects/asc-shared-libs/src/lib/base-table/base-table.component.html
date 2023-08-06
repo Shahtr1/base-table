@@ -92,7 +92,24 @@
         <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
         <th *ngFor="let col of tableColumns">
-          <p-columnFilter type="text" [field]="col.field"></p-columnFilter>
+          <p-columnFilter
+            type="text"
+            [field]="col.field"
+            *ngIf="col.filter"
+            matchMode="contains"
+          ></p-columnFilter>
+          <!--          <p-columnFilter field="representative" matchMode="in" [showMenu]="false">-->
+          <!--            <ng-template pTemplate="filter" let-value let-filter="filterCallback">-->
+          <!--              <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">-->
+          <!--                <ng-template let-option pTemplate="item">-->
+          <!--                  <div class="inline-block vertical-align-middle">-->
+          <!--                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />-->
+          <!--                    <span class="ml-1 mt-1">{{ option.name }}</span>-->
+          <!--                  </div>-->
+          <!--                </ng-template>-->
+          <!--              </p-multiSelect>-->
+          <!--            </ng-template>-->
+          <!--          </p-columnFilter>-->
         </th>
       </tr>
     </ng-template>

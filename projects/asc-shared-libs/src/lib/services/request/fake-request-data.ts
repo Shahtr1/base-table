@@ -16,29 +16,32 @@ export const testBaseTableData: TableViewConfig = {
     modifyConfig: true,
   },
   columns: [
-    { field: 'uuid', headerId: 'L_REF_ID', sort: true, filter: 'search' },
+    { field: 'uuid', headerId: 'L_REF_ID', sort: true, filter: 'text' },
     {
       field: 'shortName',
       headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
       sort: true,
       globalSearch: true,
-      filter: 'search',
+      filter: 'select',
+    },
+    {
+      field: 'middleName',
+      headerId: 'L_ACCOUNT_PURPOSE_MIDDLE_NAME',
+      sort: true,
     },
     {
       field: 'fullName',
       headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
-      filter: 'search',
+      filter: 'multiselect',
+      sourceUrl: '/api/v5/work-flow-states?size=20',
+      optionLabel: 'desc',
     },
     {
       field: 'trxnStatus',
       headerId: 'L_TRXN_STATUS',
       globalSearch: true,
-      sourceUrl: '/api/v5/work-flow-states?size=20',
-      optionLabel: 'desc',
-      filter: 'select',
       sort: true,
-      type: 'select',
-      translate: true,
+      filter: 'checkbox',
     },
   ],
 };
@@ -49,6 +52,7 @@ export function getAccountPurposeData() {
     testAccountPurposeData.push({
       uuid: 'uuid' + i,
       shortName: 'shortName' + i,
+      middleName: 'middleName' + i,
       fullName: 'fullName' + i,
       trxnStatus: _.random(0, 1) === 1 ? 'ACTIVE' : 'INACTIVE',
     });

@@ -18,6 +18,7 @@ export class FakeLabelService implements ILabelService {
         'Showing {first} to {last} of {totalRecords} entries',
       L_REF_ID: 'Ref Id',
       L_ACCOUNT_PURPOSE_SHORT_NAME: 'Short Name',
+      L_ACCOUNT_PURPOSE_MIDDLE_NAME: 'Middle Name',
       L_ACCOUNT_PURPOSE_FULL_NAME: 'Full Name',
       L_TRXN_STATUS: 'Transaction Status',
       L_GLOBAL_SEARCH: 'Search keyword',

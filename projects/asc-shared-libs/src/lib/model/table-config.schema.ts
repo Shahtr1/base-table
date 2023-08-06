@@ -7,8 +7,10 @@ export const pagingTypeSchema = z.union([
 ]);
 
 export const tableFilterSchema = z.union([
-  z.literal("search"),
+  z.literal("text"),
   z.literal("select"),
+  z.literal("multiselect"),
+  z.literal("checkbox"),
 ]);
 
 export const tableSettingsSchema = z.object({
