@@ -81,18 +81,18 @@
         <th style="width: 5rem" *ngIf="rowExpand"></th>
         <th
           *ngFor="let col of tableColumns"
-          [pSortableColumn]="col.headerId"
+          [pSortableColumn]="col.sort ? col.field : undefined"
           [width]="columnWidth + '%'"
         >
           {{ col.header }}
-          <p-sortIcon [field]="col.headerId" *ngIf="col.sort"></p-sortIcon>
+          <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
         </th>
       </tr>
       <tr>
         <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
         <th *ngFor="let col of tableColumns">
-          <p-columnFilter type="text" [field]="col.headerId"></p-columnFilter>
+          <p-columnFilter type="text" [field]="col.field"></p-columnFilter>
         </th>
       </tr>
     </ng-template>
@@ -120,10 +120,10 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
           ></button>
         </td>
-        <td>{{ item.refId }}</td>
+        <td>{{ item.uuid }}</td>
         <td>{{ item.shortName }}</td>
         <td>{{ item.fullName }}</td>
-        <td>{{ item.code }}</td>
+        <td>{{ item.trxnStatus }}</td>
       </tr>
     </ng-template>
     <ng-container *ngIf="showSummary">

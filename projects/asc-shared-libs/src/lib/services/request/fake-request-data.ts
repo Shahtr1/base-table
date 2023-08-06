@@ -20,7 +20,7 @@ export const testBaseTableData: TableViewConfig = {
     {
       field: 'shortName',
       headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
-      sort: false,
+      sort: true,
       globalSearch: true,
       filter: 'search',
     },
@@ -30,7 +30,7 @@ export const testBaseTableData: TableViewConfig = {
       filter: 'search',
     },
     {
-      field: 'workFlowStates',
+      field: 'trxnStatus',
       headerId: 'L_TRXN_STATUS',
       globalSearch: true,
       sourceUrl: '/api/v5/work-flow-states?size=20',
@@ -50,7 +50,7 @@ export function getAccountPurposeData() {
       uuid: 'uuid' + i,
       shortName: 'shortName' + i,
       fullName: 'fullName' + i,
-      trxStatus: _.random(0, 1) === 1 ? 'ACTIVE' : 'INACTIVE',
+      trxnStatus: _.random(0, 1) === 1 ? 'ACTIVE' : 'INACTIVE',
     });
   }
 
