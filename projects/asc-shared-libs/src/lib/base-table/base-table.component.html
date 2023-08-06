@@ -92,6 +92,7 @@
         <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
         <th *ngFor="let col of tableColumns">
+          <!--  text column filter-->
           <p-columnFilter
             type="text"
             [field]="col.field"
@@ -100,6 +101,7 @@
             [placeholder]="generalTexts.search.label"
           ></p-columnFilter>
 
+          <!--  select column filter-->
           <p-columnFilter
             *ngIf="col.filter === 'select'"
             [field]="col.field"
@@ -120,6 +122,31 @@
                 appendTo="body"
               >
               </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+
+          <!--  multiselect column filter-->
+          <p-columnFilter
+            *ngIf="col.filter === 'multiselect'"
+            [field]="col.field"
+            matchMode="in"
+            [showMenu]="false"
+            id="multiselect-column-filter"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-multiSelect
+                [ngModel]="value"
+                [options]="getDropdownOptions(col.field)"
+                placeholder="Any"
+                (onChange)="filter($event.value)"
+                appendTo="body"
+                selectedItemsLabel="ellipsis"
+              >
+              </p-multiSelect>
             </ng-template>
           </p-columnFilter>
         </th>

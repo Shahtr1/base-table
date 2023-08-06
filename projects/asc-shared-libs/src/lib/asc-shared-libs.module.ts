@@ -21,6 +21,7 @@ import { GetLabels } from './store/actions/label.action';
 import { TextService } from './services/text.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TagModule } from 'primeng/tag';
     DropdownModule,
     FormsModule,
     TagModule,
+    MultiSelectModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })
