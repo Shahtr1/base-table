@@ -27,6 +27,7 @@ export class FakeLabelService implements ILabelService {
       L_SELECT_MULTIPLE: 'Select multiple',
       L_DEFAULT_EMPTY_MESSAGE: 'No data found',
       L_SELECTED_ONLY: 'Selected only',
+      L_IS_ACTIVE: 'Is Active',
     });
   }
 }

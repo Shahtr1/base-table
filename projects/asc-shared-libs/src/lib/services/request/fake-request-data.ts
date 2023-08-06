@@ -40,8 +40,12 @@ export const testBaseTableData: TableViewConfig = {
       field: 'trxnStatus',
       headerId: 'L_TRXN_STATUS',
       globalSearch: true,
-      sort: true,
-      filter: 'checkbox',
+      filter: 'select',
+    },
+    {
+      field: 'isActive',
+      headerId: 'L_IS_ACTIVE',
+      filter: 'boolean',
     },
   ],
 };
@@ -54,7 +58,8 @@ export function getAccountPurposeData() {
       shortName: 'shortName' + i,
       middleName: 'middleName' + i,
       fullName: 'fullName' + i,
-      trxnStatus: _.random(0, 1) === 1 ? 'ACTIVE' : 'INACTIVE',
+      trxnStatus: _.random(0, 1) === 1 ? 'Completed' : 'Failed',
+      isActive: _.random(0, 1) === 1,
     });
   }
 

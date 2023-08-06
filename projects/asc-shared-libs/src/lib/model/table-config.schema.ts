@@ -10,7 +10,7 @@ export const tableFilterSchema = z.union([
   z.literal("text"),
   z.literal("select"),
   z.literal("multiselect"),
-  z.literal("checkbox"),
+  z.literal("boolean"),
 ]);
 
 export const tableSettingsSchema = z.object({

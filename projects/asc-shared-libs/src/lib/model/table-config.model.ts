@@ -1,6 +1,6 @@
 export type PagingType = 'client-side' | 'server-side';
 
-export type TableFilter = 'text' | 'select' | 'multiselect' | 'checkbox';
+export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 
 export type TableSettings = {
   url: string;

@@ -149,6 +149,14 @@
               </p-multiSelect>
             </ng-template>
           </p-columnFilter>
+
+          <!--  boolean column filter-->
+          <p-columnFilter
+            type="boolean"
+            *ngIf="col.filter === 'boolean'"
+            [field]="col.field"
+            matchMode="equals"
+          ></p-columnFilter>
         </th>
       </tr>
     </ng-template>
