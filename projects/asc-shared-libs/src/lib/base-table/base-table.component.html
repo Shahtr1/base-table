@@ -141,7 +141,7 @@
               <p-multiSelect
                 [ngModel]="value"
                 [options]="getDropdownOptions(col.field)"
-                placeholder="Any"
+                [placeholder]="generalTexts.multiselect.label"
                 (onChange)="filter($event.value)"
                 appendTo="body"
                 selectedItemsLabel="ellipsis"
