@@ -27,12 +27,12 @@ export const testBaseTableData: TableViewConfig = {
     {
       field: 'middleName',
       headerId: 'L_ACCOUNT_PURPOSE_MIDDLE_NAME',
+      filter: 'multiselect',
       sort: true,
     },
     {
       field: 'fullName',
       headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
-      filter: 'multiselect',
       sourceUrl: '/api/v5/work-flow-states?size=20',
       optionLabel: 'desc',
     },
