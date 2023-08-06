@@ -22,6 +22,9 @@ export class FakeLabelService implements ILabelService {
       L_ACCOUNT_PURPOSE_FULL_NAME: 'Full Name',
       L_TRXN_STATUS: 'Transaction Status',
       L_GLOBAL_SEARCH: 'Search keyword',
+      L_SEARCH: 'Search',
+      L_SELECT: 'Select',
+      L_SELECT_MULTIPLE: 'Select multiple',
       L_DEFAULT_EMPTY_MESSAGE: 'No data found',
       L_SELECTED_ONLY: 'Selected only',
     });

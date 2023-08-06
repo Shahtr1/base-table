@@ -139,6 +139,9 @@ export class BaseTableComponent<TData> implements OnInit {
 
   generalTexts: GeneralText = {
     globalSearch: { labelId: 'L_GLOBAL_SEARCH' },
+    search: { labelId: 'L_SEARCH' },
+    select: { labelId: 'L_SELECT' },
+    selectMultiple: { labelId: 'L_SELECT_MULTIPLE' },
     defaultEmptyMessage: { labelId: 'L_DEFAULT_EMPTY_MESSAGE' },
     currentPageReportTemplate: { labelId: 'L_CURRENT_PAGE_REPORT_TEMPLATE' },
   };
@@ -344,7 +347,7 @@ export class BaseTableComponent<TData> implements OnInit {
     );
   }
 
-  getShortNames(): any[] {
-    return [...new Set(this.items.map((item) => (item as any)['shortName']))];
+  getDropdownOptions(field: string): any[] {
+    return [...new Set(this.items.map((item) => (item as any)[field]))];
   }
 }

@@ -97,6 +97,7 @@
             [field]="col.field"
             *ngIf="col.filter === 'text'"
             matchMode="contains"
+            [placeholder]="generalTexts.search.label"
           ></p-columnFilter>
 
           <p-columnFilter
@@ -112,9 +113,9 @@
             >
               <p-dropdown
                 [ngModel]="value"
-                [options]="getShortNames()"
+                [options]="getDropdownOptions(col.field)"
                 (onChange)="filter($event.value)"
-                placeholder="Any"
+                [placeholder]="generalTexts.select.label"
                 [showClear]="true"
                 appendTo="body"
               >
