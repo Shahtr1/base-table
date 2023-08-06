@@ -224,7 +224,6 @@ export class BaseTableComponent<TData> implements OnInit {
     this.requestService
       .request(this.environment.apiUrl, 'GET', url, options)
       .subscribe((response) => {
-        console.log('response', response);
         let data = [];
         let total = 0;
         if (response && response.body) {

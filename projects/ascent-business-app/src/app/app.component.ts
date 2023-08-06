@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
   }
 
   modifyConfigFn(config: TableViewConfig): TableViewConfig {
-    console.log('config', config);
     // TODO: modify it if you want
     return config;
   }
@@ -57,7 +56,6 @@ export class AppComponent implements OnInit {
   }
 
   customSortFn: (event: SortEvent) => number = (event: SortEvent) => {
-    console.log('event', event);
     return 1;
   };
 
