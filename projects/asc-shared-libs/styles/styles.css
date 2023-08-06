@@ -49,6 +49,7 @@ body::-webkit-scrollbar-thumb:hover,
   background-color: #555;
 }
 
+/* To avoid multiselect go to whole page width and beyond if all options are selected, we set width of parent to 0 */
 #multiselect-column-filter .p-column-filter-row p-columnfilterformelement {
   width: 0;
 }

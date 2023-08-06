@@ -141,7 +141,7 @@ export class BaseTableComponent<TData> implements OnInit {
     globalSearch: { labelId: 'L_GLOBAL_SEARCH' },
     search: { labelId: 'L_SEARCH' },
     select: { labelId: 'L_SELECT' },
-    selectMultiple: { labelId: 'L_SELECT_MULTIPLE' },
+    multiselect: { labelId: 'L_SELECT_MULTIPLE' },
     defaultEmptyMessage: { labelId: 'L_DEFAULT_EMPTY_MESSAGE' },
     currentPageReportTemplate: { labelId: 'L_CURRENT_PAGE_REPORT_TEMPLATE' },
   };
