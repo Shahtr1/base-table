@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AscSharedLibsComponent } from './asc-shared-libs.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseTableComponent } from './base-table/base-table.component';
 import { TableModule } from 'primeng/table';
@@ -19,6 +19,8 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { LabelState } from './store/state/label.state';
 import { GetLabels } from './store/actions/label.action';
 import { TextService } from './services/text.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,9 @@ import { TextService } from './services/text.service';
     NgxsModule.forRoot([LabelState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+    DropdownModule,
+    FormsModule,
+    TagModule,
   ],
   exports: [AscSharedLibsComponent, BaseTableComponent],
 })

@@ -343,4 +343,8 @@ export class BaseTableComponent<TData> implements OnInit {
       this.generalTexts['currentPageReportTemplate'].label!
     );
   }
+
+  getShortNames(): any[] {
+    return [...new Set(this.items.map((item) => (item as any)['shortName']))];
+  }
 }

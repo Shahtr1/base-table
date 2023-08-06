@@ -98,6 +98,29 @@
             *ngIf="col.filter === 'text'"
             matchMode="contains"
           ></p-columnFilter>
+
+          <p-columnFilter
+            *ngIf="col.filter === 'select'"
+            [field]="col.field"
+            matchMode="equals"
+            [showMenu]="false"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                [ngModel]="value"
+                [options]="getShortNames()"
+                (onChange)="filter($event.value)"
+                placeholder="Any"
+                [showClear]="true"
+                appendTo="body"
+              >
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
         </th>
       </tr>
     </ng-template>
