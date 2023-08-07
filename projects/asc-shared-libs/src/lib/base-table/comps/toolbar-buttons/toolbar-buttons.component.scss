@@ -70,6 +70,17 @@
         right: 0;
         top: 0;
         align-items: center;
+
+        & .p-speeddial-list {
+          display: none;
+        }
+
+        &.p-speeddial-opened {
+          & .p-speeddial-list {
+            display: flex;
+          }
+        }
+
         & .p-speeddial-action {
           background-color: #f8f9fa;
           box-shadow: $box-shadow;
