@@ -196,8 +196,6 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
-    console.log('this.export', this.export);
-    console.log('this.tableSettings.export', this.tableSettings.export);
     this.checkTableSettings();
 
     this.setColumnsForExport();
