@@ -4,7 +4,7 @@ import { TableViewConfig } from '../../../asc-shared-libs/src/lib/model/table-co
 import * as _ from 'lodash';
 
 type AccountPurpose = {
-  uuid: string;
+  refId: string;
   shortName: string;
   middleName: string;
   fullName: string;
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     let testAccountPurposeData = [];
     for (let i = 0; i < 100; i++) {
       testAccountPurposeData.push({
-        uuid: 'uuid' + i,
+        refId: 'refId' + i,
         shortName: 'shortName' + i,
         middleName: 'middleName' + i,
         fullName: 'fullName' + i,

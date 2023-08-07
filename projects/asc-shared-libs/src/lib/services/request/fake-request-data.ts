@@ -17,7 +17,7 @@ export const testBaseTableData: TableViewConfig = {
     export: false,
   },
   columns: [
-    { field: 'uuid', headerId: 'L_REF_ID', sort: true, filter: 'text' },
+    { field: 'refId', headerId: 'L_REF_ID', sort: true, filter: 'text' },
     {
       field: 'shortName',
       headerId: 'L_ACCOUNT_PURPOSE_SHORT_NAME',
@@ -50,7 +50,7 @@ export function getAccountPurposeData() {
   let testAccountPurposeData = [];
   for (let i = 0; i < 100; i++) {
     testAccountPurposeData.push({
-      uuid: 'uuid' + i,
+      refId: 'refId' + i,
       shortName: 'shortName' + i,
       middleName: 'middleName' + i,
       fullName: 'fullName' + i,

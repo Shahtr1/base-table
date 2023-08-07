@@ -384,6 +384,19 @@ export class BaseTableComponent<TData> implements OnInit {
     return [...new Set(this.items.map((item) => (item as any)[field]))];
   }
 
+  onRowEditInit(item: TData) {
+    console.log('edit item', item);
+  }
+
+  onRowEditSave(item: TData) {
+    console.log('save item', item);
+  }
+
+  onRowEditCancel(item: TData, index: number) {
+    console.log('cancel item', item);
+    console.log('index', index);
+  }
+
   calculateEmptyMessageColspan(): number {
     let colspan = 0;
 
