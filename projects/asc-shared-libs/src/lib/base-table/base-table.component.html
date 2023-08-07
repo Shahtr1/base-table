@@ -1,6 +1,7 @@
 <div class="card">
   <p-table
     #table
+    editMode="row"
     [columns]="tableColumns"
     [dataKey]="dataKey"
     [value]="items"
@@ -30,6 +31,7 @@
     [resizableColumns]="true"
     columnResizeMode="expand"
   >
+    <!--    caption-->
     <ng-container *ngIf="showCaption">
       <ng-template pTemplate="caption">
         <ng-container>
@@ -75,6 +77,8 @@
         </ng-container>
       </ng-template>
     </ng-container>
+
+    <!--header-->
     <ng-template pTemplate="header">
       <tr>
         <th *ngIf="selectionMode !== undefined">
@@ -165,6 +169,8 @@
         </th>
       </tr>
     </ng-template>
+
+    <!--    body-->
     <ng-template pTemplate="body" let-item let-expanded="expanded">
       <tr>
         <td *ngIf="selectionMode !== undefined">
@@ -194,17 +200,23 @@
         </td>
       </tr>
     </ng-template>
+
+    <!--    summary-->
     <ng-container *ngIf="showSummary">
       <ng-template pTemplate="summary">
         <ng-content select="summary"></ng-content>
       </ng-template>
     </ng-container>
+
+    <!--    row expansion template-->
     <ng-template pTemplate="rowexpansion" let-item>
       <ng-container
         *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
       >
       </ng-container>
     </ng-template>
+
+    <!--    empty message-->
     <ng-template pTemplate="emptymessage">
       <tr>
         <td
