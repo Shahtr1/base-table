@@ -92,16 +92,22 @@
         <th
           *ngFor="let col of tableColumns"
           [pSortableColumn]="col.sort ? col.field : undefined"
+          pFrozenColumn
+          [frozen]="col.frozen!"
         >
           {{ col.header }}
           <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
         </th>
-        <th></th>
+        <th alignFrozen="right" pFrozenColumn></th>
       </tr>
       <tr>
         <th *ngIf="selectionMode !== undefined"></th>
         <th *ngIf="rowExpand"></th>
-        <th *ngFor="let col of tableColumns">
+        <th
+          *ngFor="let col of tableColumns"
+          pFrozenColumn
+          [frozen]="col.frozen!"
+        >
           <!--  text column filter-->
           <p-columnFilter
             type="text"
@@ -168,7 +174,7 @@
             matchMode="equals"
           ></p-columnFilter>
         </th>
-        <th></th>
+        <th alignFrozen="right" pFrozenColumn></th>
       </tr>
     </ng-template>
 
@@ -203,7 +209,11 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
           ></button>
         </td>
-        <td *ngFor="let col of tableColumns">
+        <td
+          *ngFor="let col of tableColumns"
+          pFrozenColumn
+          [frozen]="col.frozen!"
+        >
           <p-cellEditor>
             <ng-template pTemplate="input">
               <input pInputText type="text" [(ngModel)]="item[col.field]" />
@@ -213,7 +223,7 @@
             </ng-template>
           </p-cellEditor>
         </td>
-        <td>
+        <td alignFrozen="right" pFrozenColumn>
           <div class="flex align-items-center justify-content-center gap-2">
             <button
               *ngIf="!editing"
