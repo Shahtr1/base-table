@@ -1,7 +1,6 @@
 <lib-base-table
   tableId="t-master-account-purpose"
   size="small"
-  [items]="accountPurposes"
   [rowsPerPage]="8"
   [customSort]="false"
   [customSortFn]="customSortFn"
@@ -18,6 +17,7 @@
   [modifyConfigFn]="modifyConfigFn"
   [transformDataFn]="transformDataFn"
   exportFileName="account-purposes"
+  [globalSearch]="true"
 >
   <!--  <ng-container ngProjectAs="caption">Nice Toolbar</ng-container>-->
   <ng-container ngProjectAs="summary">

@@ -32,13 +32,15 @@ import { RequestService } from '../services/request/request.service';
 export class BaseTableComponent<TData> implements OnInit {
   @Input() inferType?: TData;
 
-  @Input() export = true;
+  @Input() export?: boolean;
+
+  @Input() globalSearch?: boolean;
 
   @Input({ required: true }) tableId!: string;
 
   @Input() title?: string;
 
-  @Input() showAddButton = true;
+  @Input() showAddButton?: boolean;
 
   @Input() scrollHeight: number | 'auto' = 'auto';
 
@@ -73,8 +75,6 @@ export class BaseTableComponent<TData> implements OnInit {
   @Input() selectedItems: TData[] = [];
 
   @Input() rowExpand = false;
-
-  public columnWidth = 0;
 
   @Input() dataKey = 'id';
 
@@ -196,13 +196,13 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
-    this.checkTableSettings();
+    this.handleManualSettings();
 
     this.setColumnsForExport();
     this.fetchTableRows();
   }
 
-  private checkTableSettings() {
+  private handleManualSettings() {
     if (!this.title && this.tableSettings.title) {
       this.generalTexts[toCamelCase(this.tableSettings.title)] = {
         labelId: this.tableSettings.title,
@@ -217,9 +217,12 @@ export class BaseTableComponent<TData> implements OnInit {
       if (this.tableSettings.export === false) this.export = false;
     }
 
-    if (this.showAddButton) {
-      if (this.tableSettings.showAddButton === false)
-        this.showAddButton = false;
+    if (this.showAddButton === undefined) {
+      this.showAddButton = this.tableSettings.showAddButton;
+    }
+
+    if (this.globalSearch === undefined) {
+      this.globalSearch = this.tableSettings.globalSearch;
     }
   }
 
@@ -312,8 +315,6 @@ export class BaseTableComponent<TData> implements OnInit {
           this.addFieldToGlobalFilterFields(col);
         }
       });
-
-      this.setColumnWidth();
     };
   }
 
@@ -344,10 +345,6 @@ export class BaseTableComponent<TData> implements OnInit {
       }
       success();
     });
-  }
-
-  private setColumnWidth() {
-    this.columnWidth = 100 / this.tableColumns.length;
   }
 
   isRowSelectable() {

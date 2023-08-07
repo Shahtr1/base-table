@@ -63,6 +63,7 @@ export class AppComponent implements OnInit {
     config.settings.transformData = true;
     // config.settings.export = false;
     // config.settings.showAddButton = false;
+    config.settings.globalSearch = true;
 
     return config;
   }

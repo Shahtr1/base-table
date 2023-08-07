@@ -45,7 +45,10 @@
             }"
           >
             <span *ngIf="title">{{ title }}</span>
-            <span class="p-input-icon-left">
+            <span
+              class="p-input-icon-left"
+              *ngIf="globalSearch === undefined ? true : globalSearch!"
+            >
               <i class="pi pi-search"></i>
               <input
                 pInputText
@@ -57,7 +60,9 @@
               />
             </span>
             <lib-toolbar-buttons
-              [showAddButton]="showAddButton"
+              [showAddButton]="
+                showAddButton === undefined ? true : showAddButton!
+              "
               [items]="items"
               [exportColumns]="exportColumns"
               [table]="table"
