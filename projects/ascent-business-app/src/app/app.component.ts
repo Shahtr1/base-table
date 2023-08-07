@@ -66,7 +66,6 @@ export class AppComponent implements OnInit {
   }
 
   transformDataFn(data: AccountPurpose[]): AccountPurpose[] {
-    console.log('data', data);
     data.forEach((item) => {
       item.referenceName = item.shortName + ' ' + item.middleName;
     });

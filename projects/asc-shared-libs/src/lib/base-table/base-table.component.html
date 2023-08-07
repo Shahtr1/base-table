@@ -71,18 +71,17 @@
     </ng-container>
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 4rem" *ngIf="selectionMode !== undefined">
+        <th *ngIf="selectionMode !== undefined">
           <p-tableHeaderCheckbox
             *ngIf="selectionMode === 'multiple'"
             (click)="selectAll($event)"
             [disabled]="!isRowSelectable()"
           ></p-tableHeaderCheckbox>
         </th>
-        <th style="width: 5rem" *ngIf="rowExpand"></th>
+        <th *ngIf="rowExpand"></th>
         <th
           *ngFor="let col of tableColumns"
           [pSortableColumn]="col.sort ? col.field : undefined"
-          [width]="columnWidth + '%'"
         >
           {{ col.header }}
           <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
