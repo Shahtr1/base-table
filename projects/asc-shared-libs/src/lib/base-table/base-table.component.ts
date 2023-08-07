@@ -198,13 +198,13 @@ export class BaseTableComponent<TData> implements OnInit {
   private tableInit() {
     console.log('this.export', this.export);
     console.log('this.tableSettings.export', this.tableSettings.export);
-    this.checkInputsAndSettings();
+    this.checkTableSettings();
 
     this.setColumnsForExport();
     this.fetchTableRows();
   }
 
-  private checkInputsAndSettings() {
+  private checkTableSettings() {
     if (!this.title && this.tableSettings.title) {
       this.generalTexts[toCamelCase(this.tableSettings.title)] = {
         labelId: this.tableSettings.title,
