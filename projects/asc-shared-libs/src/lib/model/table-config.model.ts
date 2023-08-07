@@ -10,12 +10,12 @@ export type TableSettings = {
   softDelete?: boolean;
   transformData?: boolean;
   modifyConfig?: boolean;
-
   export?: boolean;
+  showAddButton?: boolean;
+
   paging?: boolean;
-  addButton?: boolean;
-  editButton?: boolean;
-  deleteButton?: boolean;
+  showEditButton?: boolean;
+  showDeleteButton?: boolean;
   editUrl?: string;
   addUrl?: string;
   deleteUrl?: boolean;

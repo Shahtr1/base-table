@@ -218,6 +218,11 @@ export class BaseTableComponent<TData> implements OnInit {
     if (this.export) {
       if (this.tableSettings.export === false) this.export = false;
     }
+
+    if (this.showAddButton) {
+      if (this.tableSettings.showAddButton === false)
+        this.showAddButton = false;
+    }
   }
 
   private fetchTableRows() {
