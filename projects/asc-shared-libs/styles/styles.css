@@ -2,9 +2,15 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 html,
 body {
   font-size: 14px;
+}
+
+body,
+.p-component {
+  font-family: "Work Sans", Arial, sans-serif;
 }
 
 /* Hide default scrollbar */

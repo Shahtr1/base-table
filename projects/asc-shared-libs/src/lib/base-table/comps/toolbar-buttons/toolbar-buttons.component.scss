@@ -27,6 +27,10 @@
       background-color: $primary-color;
       border-radius: $border-radius;
       color: white;
+
+      & .title {
+        font-weight: 400;
+      }
     }
 
     &::ng-deep {
