@@ -53,7 +53,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 })
 export class AscSharedLibsModule {
   constructor(private store: Store) {
-    console.log('dispatching label...');
+    console.info('Dispatching labels...');
     this.store.dispatch(new GetLabels());
   }
 }

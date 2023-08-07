@@ -46,7 +46,19 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() rowHover = true;
 
-  @Input() items: TData[] = [];
+  private setItemsEmpty = false;
+
+  private _items: TData[] = [];
+
+  @Input() set items(value: TData[]) {
+    this._items = value;
+    this.setItemsEmpty = value.length === 0;
+    this.selectedItems = [];
+    this.selectedItemsChange.emit(this.selectedItems);
+  }
+  get items(): TData[] {
+    return this._items;
+  }
 
   @Output() selectedItemsChange = new EventEmitter<TData[]>();
 
@@ -174,7 +186,7 @@ export class BaseTableComponent<TData> implements OnInit {
         this.tableSettings = this.tableViewConfig.settings;
         this.tableColumns = this.tableViewConfig.columns;
 
-        console.log('Table configuration:', this.tableViewConfig);
+        console.info('Table configuration:', this.tableViewConfig);
 
         this.tableInit();
       }
@@ -202,8 +214,18 @@ export class BaseTableComponent<TData> implements OnInit {
       return;
     }
 
+    if (this.setItemsEmpty) {
+      console.warn('Items manually set to empty!');
+      if (this.tableSettings.url)
+        console.warn(`Fetching from api ${this.tableSettings.url} cancelled!`);
+      return;
+    }
+
     if (this.items.length > 0) {
       console.warn('Rows already have data acquired from input!');
+      this.setData(this.items, this.items.length);
+      if (this.tableSettings.url)
+        console.warn(`Fetching from api ${this.tableSettings.url} cancelled!`);
       return;
     }
 
@@ -348,5 +370,20 @@ export class BaseTableComponent<TData> implements OnInit {
 
   getDropdownOptions(field: string): any[] {
     return [...new Set(this.items.map((item) => (item as any)[field]))];
+  }
+
+  calculateEmptyMessageColspan(): number {
+    let colspan = 0;
+
+    colspan = this.tableColumns.length;
+    if (this.rowExpand) {
+      colspan++;
+    }
+
+    if (this.selectionMode !== undefined) {
+      colspan++;
+    }
+
+    return colspan;
   }
 }

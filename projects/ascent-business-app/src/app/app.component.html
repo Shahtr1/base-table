@@ -1,6 +1,7 @@
 <lib-base-table
   tableId="t-master-account-purpose"
   size="small"
+  [items]="accountPurposes"
   [rowsPerPage]="8"
   [customSort]="false"
   [customSortFn]="customSortFn"
@@ -8,13 +9,14 @@
   [selectionMode]="'multiple'"
   (onTableRowSelect)="onRowSelect($event)"
   (onTableRowUnselect)="onRowUnselect($event)"
-  [(selectedItems)]="selectedItems"
+  [(selectedItems)]="selectedAccountPurposes"
   [rowExpand]="true"
   [rowExpansionTemplate]="rowExpansionTemplate"
   [scrollHeight]="370"
   [exportTypes]="['pdf', 'csv', 'excel']"
   [selectionPageOnly]="true"
   [modifyConfigFn]="modifyConfigFn"
+  [transformDataFn]="transformDataFn"
   exportFileName="account-purposes"
 >
   <!--  <ng-container ngProjectAs="caption">Nice Toolbar</ng-container>-->
@@ -27,13 +29,13 @@
 
 <ng-template #rowExpansionTemplate let-item>
   <tr>
-    <td colspan="7">
+    <td colspan="8">
       <div class="p-3">
         <p-table [value]="item.subProducts" dataKey="code">
           <ng-template pTemplate="header">
             <tr>
-              <th>Code</th>
-              <th>Sub category</th>
+              <th width="50%">Code</th>
+              <th width="50%">Sub category</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-subProduct>
@@ -44,7 +46,7 @@
           </ng-template>
           <ng-template pTemplate="emptymessage">
             <tr>
-              <td colspan="6" style="text-align: center">
+              <td colspan="2" style="text-align: center">
                 There are no sub-products.
               </td>
             </tr>
@@ -55,4 +57,4 @@
   </tr>
 </ng-template>
 
-{{ selectedItems | json }}
+{{ selectedAccountPurposes | json }}

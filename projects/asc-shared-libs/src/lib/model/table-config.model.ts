@@ -6,22 +6,22 @@ export type TableSettings = {
   url: string;
   title?: string;
   rowsPerPage?: number;
+  globalSearch?: boolean;
+  softDelete?: boolean;
+  transformData?: boolean;
+  modifyConfig?: boolean;
+
   export?: boolean;
   paging?: boolean;
-  globalSearch?: boolean;
   addButton?: boolean;
   editButton?: boolean;
   deleteButton?: boolean;
-  softDelete?: boolean;
   editUrl?: string;
   addUrl?: string;
   deleteUrl?: boolean;
   actionColumn?: boolean;
   editCallBack?: boolean;
   addCallBack?: boolean;
-  transformModel?: boolean;
-  transformData?: boolean;
-  modifyConfig?: boolean;
   query?: { [key: string]: any };
   pagingType?: PagingType;
   lazy?: boolean;

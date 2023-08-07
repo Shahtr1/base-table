@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { TableViewConfig } from '../../../asc-shared-libs/src/lib/model/table-config.model';
+import * as _ from 'lodash';
 
-type SubProduct = {
-  code: string;
-  category: string;
-};
-
-type Product = {
-  code: string;
-  category: string;
-  subProducts: SubProduct[];
+type AccountPurpose = {
+  uuid: string;
+  shortName: string;
+  middleName: string;
+  fullName: string;
+  trxnStatus: string;
+  isActive: boolean;
+  referenceName?: string;
 };
 
 @Component({
@@ -19,51 +19,69 @@ type Product = {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  items: Product[] = [];
-
-  selectedItems: Product[] = [];
-
   constructor() {}
 
+  accountPurposes: AccountPurpose[] = [];
+
+  selectedAccountPurposes: AccountPurpose[] = [];
+
   ngOnInit() {
-    this.addDummyProducts();
+    this.accountPurposes = this.getAccountPurposeData();
   }
 
-  modifyConfigFn(config: TableViewConfig): TableViewConfig {
-    // TODO: modify it if you want
-    return config;
-  }
-
-  private addDummyProducts() {
+  private getAccountPurposeData() {
+    let testAccountPurposeData = [];
     for (let i = 0; i < 100; i++) {
-      this.items.push({
-        code: i.toString(),
-        category: 'category ' + i,
-        subProducts: [
-          {
-            code: 'sub A ' + i,
-            category: 'sub category A ' + i,
-          },
-          {
-            code: 'sub B ' + i,
-            category: 'sub category B ' + i,
-          },
-        ],
+      testAccountPurposeData.push({
+        uuid: 'uuid' + i,
+        shortName: 'shortName' + i,
+        middleName: 'middleName' + i,
+        fullName: 'fullName' + i,
+        trxnStatus: _.random(0, 1) === 1 ? 'Completed' : 'Failed',
+        isActive: _.random(0, 1) === 1,
       });
     }
 
-    // this.selectedItems.push(this.items.find((item) => item.code === '3')!);
+    return testAccountPurposeData;
+  }
+
+  modifyConfigFn(config: TableViewConfig): TableViewConfig {
+    config.columns = [
+      ...config.columns,
+      {
+        field: 'referenceName',
+        headerId: 'L_REFERENCE_NAME',
+        filter: 'text',
+      },
+      {
+        field: 'isActive',
+        headerId: 'L_IS_ACTIVE',
+        filter: 'boolean',
+      },
+    ];
+
+    config.settings.transformData = true;
+
+    return config;
+  }
+
+  transformDataFn(data: AccountPurpose[]): AccountPurpose[] {
+    console.log('data', data);
+    data.forEach((item) => {
+      item.referenceName = item.shortName + ' ' + item.middleName;
+    });
+    return data;
   }
 
   customSortFn: (event: SortEvent) => number = (event: SortEvent) => {
     return 1;
   };
 
-  onRowUnselect(data: Product) {
+  onRowUnselect(data: AccountPurpose) {
     console.log('onRowUnselect', data);
   }
 
-  onRowSelect(data: Product) {
+  onRowSelect(data: AccountPurpose) {
     console.log('onRowSelect', data);
   }
 }

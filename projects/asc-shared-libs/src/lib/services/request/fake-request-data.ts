@@ -42,11 +42,6 @@ export const testBaseTableData: TableViewConfig = {
       globalSearch: true,
       filter: 'select',
     },
-    {
-      field: 'isActive',
-      headerId: 'L_IS_ACTIVE',
-      filter: 'boolean',
-    },
   ],
 };
 
