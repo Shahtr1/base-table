@@ -34,7 +34,6 @@ export type TableColumn = {
   sort?: boolean;
   globalSearch?: boolean;
   filter?: TableFilter;
-  frozen?: boolean;
 
   sourceUrl?: string;
   optionLabel?: string;

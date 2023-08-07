@@ -81,19 +81,19 @@
     <!--header-->
     <ng-template pTemplate="header">
       <tr>
-        <th *ngIf="selectionMode !== undefined">
+        <th *ngIf="selectionMode !== undefined" pFrozenColumn>
           <p-tableHeaderCheckbox
             *ngIf="selectionMode === 'multiple'"
             (click)="selectAll($event)"
             [disabled]="!isRowSelectable()"
           ></p-tableHeaderCheckbox>
         </th>
-        <th *ngIf="rowExpand"></th>
+        <th *ngIf="rowExpand" pFrozenColumn></th>
         <th
-          *ngFor="let col of tableColumns"
+          *ngFor="let col of tableColumns; let first = first"
           [pSortableColumn]="col.sort ? col.field : undefined"
           pFrozenColumn
-          [frozen]="col.frozen!"
+          [frozen]="first"
         >
           {{ col.header }}
           <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
@@ -101,12 +101,12 @@
         <th alignFrozen="right" pFrozenColumn></th>
       </tr>
       <tr>
-        <th *ngIf="selectionMode !== undefined"></th>
-        <th *ngIf="rowExpand"></th>
+        <th *ngIf="selectionMode !== undefined" pFrozenColumn></th>
+        <th *ngIf="rowExpand" pFrozenColumn></th>
         <th
-          *ngFor="let col of tableColumns"
+          *ngFor="let col of tableColumns; let first = first"
           pFrozenColumn
-          [frozen]="col.frozen!"
+          [frozen]="first"
         >
           <!--  text column filter-->
           <p-columnFilter
@@ -187,7 +187,7 @@
       let-ri="rowIndex"
     >
       <tr [pEditableRow]="item">
-        <td *ngIf="selectionMode !== undefined">
+        <td *ngIf="selectionMode !== undefined" pFrozenColumn>
           <p-tableCheckbox
             [value]="item"
             *ngIf="selectionMode === 'multiple'"
@@ -199,7 +199,7 @@
             [disabled]="!isRowSelectable()"
           ></p-tableRadioButton>
         </td>
-        <td *ngIf="rowExpand">
+        <td *ngIf="rowExpand" pFrozenColumn>
           <button
             type="button"
             pButton
@@ -210,9 +210,9 @@
           ></button>
         </td>
         <td
-          *ngFor="let col of tableColumns"
+          *ngFor="let col of tableColumns; let first = first"
           pFrozenColumn
-          [frozen]="col.frozen!"
+          [frozen]="first"
         >
           <p-cellEditor>
             <ng-template pTemplate="input">

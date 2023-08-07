@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { TableViewConfig } from '../../../asc-shared-libs/src/lib/model/table-config.model';
 import * as _ from 'lodash';
+import { TableColumn } from 'asc-shared-libs';
 
 type AccountPurpose = {
   refId: string;

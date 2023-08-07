@@ -44,7 +44,6 @@ export const tableColumnSchema = z.object({
   sort: z.boolean().optional(),
   globalSearch: z.boolean().optional(),
   filter: tableFilterSchema.optional(),
-  frozen: z.boolean().optional(),
   sourceUrl: z.string().optional(),
   optionLabel: z.string().optional(),
   type: z.string().optional(),
