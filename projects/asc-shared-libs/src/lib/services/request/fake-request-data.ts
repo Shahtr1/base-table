@@ -14,6 +14,7 @@ export const testBaseTableData: TableViewConfig = {
     softDelete: true,
     modifyConfig: true,
     globalSearch: false,
+    export: false,
   },
   columns: [
     { field: 'uuid', headerId: 'L_REF_ID', sort: true, filter: 'text' },

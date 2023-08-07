@@ -213,8 +213,8 @@ export class BaseTableComponent<TData> implements OnInit {
       this.rowsPerPage = this.tableSettings.rowsPerPage;
     }
 
-    if (this.export) {
-      if (this.tableSettings.export === false) this.export = false;
+    if (this.export === undefined) {
+      this.export = this.tableSettings.export;
     }
 
     if (this.showAddButton === undefined) {

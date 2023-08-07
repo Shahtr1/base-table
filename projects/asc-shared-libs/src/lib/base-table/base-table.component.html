@@ -69,7 +69,7 @@
               [exportTypes]="exportTypes"
               [selectedItems]="selectedItems"
               [exportFileName]="exportFileName"
-              [export]="export"
+              [export]="export === undefined ? true : export!"
             ></lib-toolbar-buttons>
           </div>
         </ng-container>
