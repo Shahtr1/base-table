@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
     ];
 
     config.settings.transformData = true;
+    // config.settings.export = false;
 
     return config;
   }

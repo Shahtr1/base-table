@@ -54,6 +54,8 @@ export class ToolbarButtonsComponent<TData> implements OnInit {
     },
   ];
 
+  @Input() export = true;
+
   @Input() showAddButton = true;
 
   @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];

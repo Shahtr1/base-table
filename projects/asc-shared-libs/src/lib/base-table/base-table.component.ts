@@ -32,6 +32,8 @@ import { RequestService } from '../services/request/request.service';
 export class BaseTableComponent<TData> implements OnInit {
   @Input() inferType?: TData;
 
+  @Input() export = true;
+
   @Input({ required: true }) tableId!: string;
 
   @Input() title?: string;
@@ -194,6 +196,15 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
+    console.log('this.export', this.export);
+    console.log('this.tableSettings.export', this.tableSettings.export);
+    this.checkInputsAndSettings();
+
+    this.setColumnsForExport();
+    this.fetchTableRows();
+  }
+
+  private checkInputsAndSettings() {
     if (!this.title && this.tableSettings.title) {
       this.generalTexts[toCamelCase(this.tableSettings.title)] = {
         labelId: this.tableSettings.title,
@@ -204,8 +215,9 @@ export class BaseTableComponent<TData> implements OnInit {
       this.rowsPerPage = this.tableSettings.rowsPerPage;
     }
 
-    this.setColumnsForExport();
-    this.fetchTableRows();
+    if (this.export) {
+      if (this.tableSettings.export === false) this.export = false;
+    }
   }
 
   private fetchTableRows() {

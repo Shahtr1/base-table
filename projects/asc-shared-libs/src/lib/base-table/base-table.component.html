@@ -64,6 +64,7 @@
               [exportTypes]="exportTypes"
               [selectedItems]="selectedItems"
               [exportFileName]="exportFileName"
+              [export]="export"
             ></lib-toolbar-buttons>
           </div>
         </ng-container>
@@ -140,7 +141,6 @@
               <p-multiSelect
                 [ngModel]="value"
                 [options]="getDropdownOptions(col.field)"
-                [placeholder]="generalTexts.multiselect.label"
                 [placeholder]="generalTexts.multiselect.label"
                 (onChange)="filter($event.value)"
                 appendTo="body"

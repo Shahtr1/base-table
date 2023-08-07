@@ -23,7 +23,7 @@
       tooltipPosition="bottom"
     ></button>
 
-    <div class="smart-button-wrapper">
+    <div class="smart-button-wrapper" *ngIf="export">
       <div class="title">{{ generalTexts.export.label }}</div>
       <div class="icon-wrapper">
         <p-checkbox

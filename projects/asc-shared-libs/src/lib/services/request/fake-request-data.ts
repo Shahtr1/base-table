@@ -4,7 +4,6 @@ import * as _ from 'lodash';
 export const testBaseTableData: TableViewConfig = {
   settings: {
     url: '/api/v5/account-purposes',
-    export: false,
     editButton: true,
     deleteButton: true,
     addButton: true,
