@@ -23,6 +23,7 @@ import { GeneralText } from '../model/lib.model';
 import { toCamelCase } from '../common/utils';
 import { FakeRequestService } from '../services/request/fake-request.service';
 import { RequestService } from '../services/request/request.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'lib-base-table',
@@ -75,8 +76,6 @@ export class BaseTableComponent<TData> implements OnInit {
   @Input() selectedItems: TData[] = [];
 
   @Input() rowExpand = false;
-
-  @Input() dataKey = 'id';
 
   @Input() globalFilterFields: string[] = [];
 
@@ -142,6 +141,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @ViewChild('table') table?: Table;
 
+  readonly dataKey = '______asc_datatable_uuid';
   private tableViewConfig!: TableViewConfig;
   private tableSettings!: TableSettings;
 
@@ -281,6 +281,14 @@ export class BaseTableComponent<TData> implements OnInit {
       this.tableSettings.transformData && this.transformDataFn
         ? this.transformDataFn(data)
         : data;
+
+    this.setUniqueKeyForTableItems(this.items);
+  }
+
+  private setUniqueKeyForTableItems(items: any[]) {
+    items.map((item) => {
+      item[this.dataKey] = uuidv4();
+    });
   }
 
   private getTableConfig(tableConfigResp: TableViewConfig) {
