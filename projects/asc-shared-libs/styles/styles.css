@@ -65,4 +65,52 @@ body::-webkit-scrollbar-thumb:hover,
   max-width: 20rem;
 }
 
+/* Table styles */
+p-table {
+  display: block;
+  padding: 5px;
+  box-shadow: 0 0 0.3rem 0 rgb(171, 196, 238);
+}
+
+/* Paginator styles */
+p-paginator .p-paginator {
+  justify-content: end;
+}
+p-paginator .p-paginator button.p-link,
+p-paginator .p-paginator .p-paginator-rpp-options {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+p-paginator .p-paginator button.p-link.p-ripple.p-element:hover,
+p-paginator .p-paginator .p-paginator-rpp-options.p-ripple.p-element:hover {
+  color: var(--primary-color) !important;
+}
+p-paginator .p-paginator .p-paginator-pages .p-paginator-page {
+  color: var(--primary-color);
+}
+p-paginator .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+p-paginator .p-paginator .p-paginator-pages .p-paginator-page.p-element:hover {
+  color: var(--primary-color);
+}
+p-paginator .p-paginator .p-paginator-current {
+  color: var(--primary-color);
+}
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-label,
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-trigger,
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-item {
+  color: var(--primary-color);
+}
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-label.p-ripple.p-element:hover,
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-trigger.p-ripple.p-element:hover,
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-item.p-ripple.p-element:hover {
+  color: var(--primary-color);
+}
+p-paginator .p-paginator .p-paginator-rpp-options .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
 /*# sourceMappingURL=styles.css.map */

@@ -1,295 +1,281 @@
-<div class="card">
-  <p-table
-    #table
-    editMode="row"
-    [columns]="tableColumns"
-    [dataKey]="dataKey"
-    [value]="items"
-    [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
-    responsiveLayout="stack"
-    [breakpoint]="responsiveLayoutBreakpoint + 'px'"
-    [paginator]="paginator"
-    [rows]="rowsPerPage"
-    [totalRecords]="totalRows"
-    [showCurrentPageReport]="true"
-    [currentPageReportTemplate]="getReportTemplateString()"
-    [rowsPerPageOptions]="rowsPerPageOptions"
-    (sortFunction)="getCustomSortFn($event)"
-    [customSort]="customSort"
-    [globalFilterFields]="globalFilterFields"
-    [selectionMode]="selectionMode"
-    [(selection)]="selectedItems"
-    [rowSelectable]="isRowSelectable"
-    (onRowSelect)="onRowSelect($event)"
-    (onRowUnselect)="onRowUnselect($event)"
-    [selectionPageOnly]="selectionPageOnly"
-    [rowHover]="rowHover"
-    [scrollHeight]="
-      scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'
-    "
-    [scrollable]="scrollHeight !== 'auto'"
-    [resizableColumns]="true"
-    columnResizeMode="expand"
-  >
-    <!--    caption-->
-    <ng-container *ngIf="showCaption">
-      <ng-template pTemplate="caption">
-        <ng-container>
-          <div #caption>
-            <ng-content select="caption"></ng-content>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="caption.childNodes.length == 0">
-          <div
-            class="caption-default-wrapper"
-            [ngStyle]="{
-              padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
-            }"
-          >
-            <span *ngIf="title">{{ title }}</span>
-            <span class="p-input-icon-left" *ngIf="getSetting(globalSearch)">
-              <i class="pi pi-search"></i>
-              <input
-                pInputText
-                type="text"
-                (input)="
-                  table.filterGlobal(getElement($event).value, 'contains')
-                "
-                [placeholder]="generalTexts.globalSearch.label"
-              />
-            </span>
-            <lib-toolbar-buttons
-              [showAddButton]="getSetting(showAddButton)"
-              [items]="items"
-              [exportColumns]="exportColumns"
-              [table]="table"
-              [exportTypes]="exportTypes"
-              [selectedItems]="selectedItems"
-              [exportFileName]="exportFileName"
-              [export]="getSetting(export)"
-            ></lib-toolbar-buttons>
-          </div>
-        </ng-container>
-      </ng-template>
-    </ng-container>
-
-    <!--header-->
-    <ng-template pTemplate="header">
-      <tr>
-        <th *ngIf="selectionMode !== undefined" pFrozenColumn>
-          <p-tableHeaderCheckbox
-            *ngIf="selectionMode === 'multiple'"
-            (click)="selectAll($event)"
-            [disabled]="!isRowSelectable()"
-          ></p-tableHeaderCheckbox>
-        </th>
-        <th *ngIf="rowExpand" pFrozenColumn></th>
-        <th
-          *ngFor="let col of tableColumns; let first = first"
-          [pSortableColumn]="col.sort ? col.field : undefined"
-          [ngStyle]="{ minWidth: col.filter === 'text' ? '13rem' : 'unset' }"
-          pFrozenColumn
-          [frozen]="first && getSetting(firstColumnFrozen)"
+<p-table
+  #table
+  editMode="row"
+  [columns]="tableColumns"
+  [dataKey]="dataKey"
+  [value]="items"
+  [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
+  responsiveLayout="stack"
+  [breakpoint]="responsiveLayoutBreakpoint + 'px'"
+  [paginator]="paginator"
+  [rows]="rowsPerPage"
+  [totalRecords]="totalRows"
+  [showCurrentPageReport]="true"
+  [currentPageReportTemplate]="getReportTemplateString()"
+  [rowsPerPageOptions]="rowsPerPageOptions"
+  (sortFunction)="getCustomSortFn($event)"
+  [customSort]="customSort"
+  [globalFilterFields]="globalFilterFields"
+  [selectionMode]="selectionMode"
+  [(selection)]="selectedItems"
+  [rowSelectable]="isRowSelectable"
+  (onRowSelect)="onRowSelect($event)"
+  (onRowUnselect)="onRowUnselect($event)"
+  [selectionPageOnly]="selectionPageOnly"
+  [rowHover]="rowHover"
+  [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
+  [scrollable]="scrollHeight !== 'auto'"
+  [resizableColumns]="true"
+  columnResizeMode="expand"
+>
+  <!--    caption-->
+  <ng-container *ngIf="showCaption">
+    <ng-template pTemplate="caption">
+      <ng-container>
+        <div #caption>
+          <ng-content select="caption"></ng-content>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="caption.childNodes.length == 0">
+        <div
+          class="caption-default-wrapper"
+          [ngStyle]="{
+            padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
+          }"
         >
-          {{ col.header }}
-          <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
-        </th>
-        <th alignFrozen="right" pFrozenColumn></th>
-      </tr>
-      <tr>
-        <th *ngIf="selectionMode !== undefined" pFrozenColumn></th>
-        <th *ngIf="rowExpand" pFrozenColumn></th>
-        <th
-          *ngFor="let col of tableColumns; let first = first"
-          pFrozenColumn
-          [frozen]="first && getSetting(firstColumnFrozen)"
-        >
-          <!--  text column filter-->
-          <p-columnFilter
-            type="text"
-            [field]="col.field"
-            *ngIf="col.filter === 'text'"
-            matchMode="contains"
-            [placeholder]="generalTexts.search.label"
-          ></p-columnFilter>
-
-          <!--  select column filter-->
-          <p-columnFilter
-            *ngIf="col.filter === 'select'"
-            [field]="col.field"
-            matchMode="equals"
-            [showMenu]="false"
-          >
-            <ng-template
-              pTemplate="filter"
-              let-value
-              let-filter="filterCallback"
-            >
-              <p-dropdown
-                [ngModel]="value"
-                [options]="getDropdownOptions(col.field)"
-                (onChange)="filter($event.value)"
-                [placeholder]="generalTexts.select.label"
-                [showClear]="true"
-                appendTo="body"
-              >
-              </p-dropdown>
-            </ng-template>
-          </p-columnFilter>
-
-          <!--  multiselect column filter-->
-          <p-columnFilter
-            *ngIf="col.filter === 'multiselect'"
-            [field]="col.field"
-            matchMode="in"
-            [showMenu]="false"
-            id="multiselect-column-filter"
-          >
-            <ng-template
-              pTemplate="filter"
-              let-value
-              let-filter="filterCallback"
-            >
-              <p-multiSelect
-                [ngModel]="value"
-                [options]="getDropdownOptions(col.field)"
-                [placeholder]="generalTexts.multiselect.label"
-                (onChange)="filter($event.value)"
-                appendTo="body"
-                selectedItemsLabel="ellipsis"
-              >
-              </p-multiSelect>
-            </ng-template>
-          </p-columnFilter>
-
-          <!--  boolean column filter-->
-          <p-columnFilter
-            type="boolean"
-            *ngIf="col.filter === 'boolean'"
-            [field]="col.field"
-            matchMode="equals"
-          ></p-columnFilter>
-        </th>
-        <th alignFrozen="right" pFrozenColumn></th>
-      </tr>
-    </ng-template>
-
-    <!--    body-->
-    <ng-template
-      pTemplate="body"
-      let-item
-      let-expanded="expanded"
-      let-editing="editing"
-      let-ri="rowIndex"
-    >
-      <tr [pEditableRow]="item">
-        <td *ngIf="selectionMode !== undefined" pFrozenColumn>
-          <p-tableCheckbox
-            [value]="item"
-            *ngIf="selectionMode === 'multiple'"
-            [disabled]="!isRowSelectable()"
-          ></p-tableCheckbox>
-          <p-tableRadioButton
-            [value]="item"
-            *ngIf="selectionMode === 'single'"
-            [disabled]="!isRowSelectable()"
-          ></p-tableRadioButton>
-        </td>
-        <td *ngIf="rowExpand" pFrozenColumn>
-          <button
-            type="button"
-            pButton
-            pRipple
-            [pRowToggler]="item"
-            class="p-button-text p-button-rounded p-button-plain"
-            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-          ></button>
-        </td>
-        <td
-          *ngFor="let col of tableColumns; let first = first"
-          pFrozenColumn
-          [frozen]="first && getSetting(firstColumnFrozen)"
-        >
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="item[col.field]" />
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{ item[col.field] }}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td alignFrozen="right" pFrozenColumn>
-          <div class="flex align-items-center justify-content-center gap-2">
-            <button
-              *ngIf="!editing"
-              pButton
-              pRipple
-              type="button"
-              pInitEditableRow
-              icon="pi pi-pencil"
-              (click)="onRowEditInit(item)"
-              class="p-button-rounded p-button-text"
-            ></button>
-            <button
-              *ngIf="!editing"
-              pButton
-              pRipple
-              type="button"
-              icon="pi pi-trash"
-              (click)="onRowDelete(item)"
-              class="p-button-rounded p-button-text p-button-danger"
-            ></button>
-            <button
-              *ngIf="editing"
-              pButton
-              pRipple
-              type="button"
-              pSaveEditableRow
-              icon="pi pi-check"
-              (click)="onRowEditSave(item)"
-              class="p-button-rounded p-button-text p-button-success mr-2"
-            ></button>
-            <button
-              *ngIf="editing"
-              pButton
-              pRipple
-              type="button"
-              pCancelEditableRow
-              icon="pi pi-times"
-              (click)="onRowEditCancel(item, ri)"
-              class="p-button-rounded p-button-text p-button-danger"
-            ></button>
-          </div>
-        </td>
-      </tr>
-    </ng-template>
-
-    <!--    summary-->
-    <ng-container *ngIf="showSummary">
-      <ng-template pTemplate="summary">
-        <ng-content select="summary"></ng-content>
-      </ng-template>
-    </ng-container>
-
-    <!--    row expansion template-->
-    <ng-template pTemplate="rowexpansion" let-item>
-      <ng-container
-        *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
-      >
+          <span *ngIf="title">{{ title }}</span>
+          <span class="p-input-icon-left" *ngIf="getSetting(globalSearch)">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="table.filterGlobal(getElement($event).value, 'contains')"
+              [placeholder]="generalTexts.globalSearch.label"
+            />
+          </span>
+          <lib-toolbar-buttons
+            [showAddButton]="getSetting(showAddButton)"
+            [items]="items"
+            [exportColumns]="exportColumns"
+            [table]="table"
+            [exportTypes]="exportTypes"
+            [selectedItems]="selectedItems"
+            [exportFileName]="exportFileName"
+            [export]="getSetting(export)"
+          ></lib-toolbar-buttons>
+        </div>
       </ng-container>
     </ng-template>
+  </ng-container>
 
-    <!--    empty message-->
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td
-          [attr.colspan]="calculateEmptyMessageColspan()"
-          style="text-align: center"
+  <!--header-->
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngIf="selectionMode !== undefined" pFrozenColumn>
+        <p-tableHeaderCheckbox
+          *ngIf="selectionMode === 'multiple'"
+          (click)="selectAll($event)"
+          [disabled]="!isRowSelectable()"
+        ></p-tableHeaderCheckbox>
+      </th>
+      <th *ngIf="rowExpand" pFrozenColumn></th>
+      <th
+        *ngFor="let col of tableColumns; let first = first"
+        [pSortableColumn]="col.sort ? col.field : undefined"
+        [ngStyle]="{ minWidth: col.filter === 'text' ? '13rem' : 'unset' }"
+        pFrozenColumn
+        [frozen]="first && getSetting(firstColumnFrozen)"
+      >
+        {{ col.header }}
+        <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
+      </th>
+      <th alignFrozen="right" pFrozenColumn></th>
+    </tr>
+    <tr>
+      <th *ngIf="selectionMode !== undefined" pFrozenColumn></th>
+      <th *ngIf="rowExpand" pFrozenColumn></th>
+      <th
+        *ngFor="let col of tableColumns; let first = first"
+        pFrozenColumn
+        [frozen]="first && getSetting(firstColumnFrozen)"
+      >
+        <!--  text column filter-->
+        <p-columnFilter
+          type="text"
+          [field]="col.field"
+          *ngIf="col.filter === 'text'"
+          matchMode="contains"
+          [placeholder]="generalTexts.search.label"
+        ></p-columnFilter>
+
+        <!--  select column filter-->
+        <p-columnFilter
+          *ngIf="col.filter === 'select'"
+          [field]="col.field"
+          matchMode="equals"
+          [showMenu]="false"
         >
-          {{ emptyMessage }}
-        </td>
-      </tr>
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-dropdown
+              [ngModel]="value"
+              [options]="getDropdownOptions(col.field)"
+              (onChange)="filter($event.value)"
+              [placeholder]="generalTexts.select.label"
+              [showClear]="true"
+              appendTo="body"
+            >
+            </p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+
+        <!--  multiselect column filter-->
+        <p-columnFilter
+          *ngIf="col.filter === 'multiselect'"
+          [field]="col.field"
+          matchMode="in"
+          [showMenu]="false"
+          id="multiselect-column-filter"
+        >
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-multiSelect
+              [ngModel]="value"
+              [options]="getDropdownOptions(col.field)"
+              [placeholder]="generalTexts.multiselect.label"
+              (onChange)="filter($event.value)"
+              appendTo="body"
+              selectedItemsLabel="ellipsis"
+            >
+            </p-multiSelect>
+          </ng-template>
+        </p-columnFilter>
+
+        <!--  boolean column filter-->
+        <p-columnFilter
+          type="boolean"
+          *ngIf="col.filter === 'boolean'"
+          [field]="col.field"
+          matchMode="equals"
+        ></p-columnFilter>
+      </th>
+      <th alignFrozen="right" pFrozenColumn></th>
+    </tr>
+  </ng-template>
+
+  <!--    body-->
+  <ng-template
+    pTemplate="body"
+    let-item
+    let-expanded="expanded"
+    let-editing="editing"
+    let-ri="rowIndex"
+  >
+    <tr [pEditableRow]="item">
+      <td *ngIf="selectionMode !== undefined" pFrozenColumn>
+        <p-tableCheckbox
+          [value]="item"
+          *ngIf="selectionMode === 'multiple'"
+          [disabled]="!isRowSelectable()"
+        ></p-tableCheckbox>
+        <p-tableRadioButton
+          [value]="item"
+          *ngIf="selectionMode === 'single'"
+          [disabled]="!isRowSelectable()"
+        ></p-tableRadioButton>
+      </td>
+      <td *ngIf="rowExpand" pFrozenColumn>
+        <button
+          type="button"
+          pButton
+          pRipple
+          [pRowToggler]="item"
+          class="p-button-text p-button-rounded"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+        ></button>
+      </td>
+      <td
+        *ngFor="let col of tableColumns; let first = first"
+        pFrozenColumn
+        [frozen]="first && getSetting(firstColumnFrozen)"
+      >
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="item[col.field]" />
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ item[col.field] }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td alignFrozen="right" pFrozenColumn>
+        <div class="flex align-items-center justify-content-center gap-2">
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            pInitEditableRow
+            icon="pi pi-pencil"
+            (click)="onRowEditInit(item)"
+            class="p-button-rounded p-button-text"
+          ></button>
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-trash"
+            (click)="onRowDelete(item)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pSaveEditableRow
+            icon="pi pi-check"
+            (click)="onRowEditSave(item)"
+            class="p-button-rounded p-button-text p-button-success mr-2"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            (click)="onRowEditCancel(item, ri)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <!--    summary-->
+  <ng-container *ngIf="showSummary">
+    <ng-template pTemplate="summary">
+      <ng-content select="summary"></ng-content>
     </ng-template>
-  </p-table>
-</div>
+  </ng-container>
+
+  <!--    row expansion template-->
+  <ng-template pTemplate="rowexpansion" let-item>
+    <ng-container
+      *ngTemplateOutlet="rowExpansionTemplate; context: { $implicit: item }"
+    >
+    </ng-container>
+  </ng-template>
+
+  <!--    empty message-->
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td
+        [attr.colspan]="calculateEmptyMessageColspan()"
+        style="text-align: center"
+      >
+        {{ emptyMessage }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -4,6 +4,8 @@
 @import "primeflex/primeflex.css";
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+$box-shadow: 0 0 0.3rem 0 rgb(171 196 238);
+
 html,
 body {
   font-size: 14px;
@@ -64,4 +66,56 @@ body::-webkit-scrollbar-thumb:hover,
 /* To avoid multiselect go to whole page width and beyond if all options are selected, we set width of parent to 20rem */
 #multiselect-column-filter .p-column-filter-row p-columnfilterformelement {
   max-width: 20rem;
+}
+
+/* Table styles */
+
+p-table {
+  display: block;
+  padding: 5px;
+  box-shadow: $box-shadow;
+}
+
+/* Paginator styles */
+p-paginator .p-paginator {
+  justify-content: end;
+  & button.p-link,
+  .p-paginator-rpp-options {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    &.p-ripple.p-element:hover {
+      color: var(--primary-color) !important;
+    }
+  }
+  & .p-paginator-pages .p-paginator-page {
+    color: var(--primary-color);
+    &.p-highlight {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    &.p-element:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  & .p-paginator-current {
+    color: var(--primary-color);
+  }
+
+  & .p-paginator-rpp-options {
+    & .p-dropdown-label,
+    .p-dropdown-trigger,
+    .p-dropdown-item {
+      color: var(--primary-color);
+      &.p-ripple.p-element:hover {
+        color: var(--primary-color);
+      }
+    }
+
+    & .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+  }
 }
