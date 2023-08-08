@@ -415,6 +415,10 @@ export class BaseTableComponent<TData> implements OnInit {
     console.log('index', index);
   }
 
+  onRowDelete(item: TData) {
+    console.log('delete item', item);
+  }
+
   calculateEmptyMessageColspan(): number {
     let colspan = 0;
 
