@@ -115,5 +115,13 @@
         }
       }
     }
+
+    & .smart-button-wrapper.selected-items {
+      & ::ng-deep {
+        & .p-speeddial-opened {
+          top: 10px;
+        }
+      }
+    }
   }
 }
