@@ -47,10 +47,7 @@
             }"
           >
             <span *ngIf="title">{{ title }}</span>
-            <span
-              class="p-input-icon-left"
-              *ngIf="globalSearch === undefined ? true : globalSearch!"
-            >
+            <span class="p-input-icon-left" *ngIf="getSetting(globalSearch)">
               <i class="pi pi-search"></i>
               <input
                 pInputText
@@ -62,16 +59,14 @@
               />
             </span>
             <lib-toolbar-buttons
-              [showAddButton]="
-                showAddButton === undefined ? true : showAddButton!
-              "
+              [showAddButton]="getSetting(showAddButton)"
               [items]="items"
               [exportColumns]="exportColumns"
               [table]="table"
               [exportTypes]="exportTypes"
               [selectedItems]="selectedItems"
               [exportFileName]="exportFileName"
-              [export]="export === undefined ? true : export!"
+              [export]="getSetting(export)"
             ></lib-toolbar-buttons>
           </div>
         </ng-container>
@@ -93,7 +88,7 @@
           *ngFor="let col of tableColumns; let first = first"
           [pSortableColumn]="col.sort ? col.field : undefined"
           pFrozenColumn
-          [frozen]="first"
+          [frozen]="first && getSetting(firstColumnFrozen)"
         >
           {{ col.header }}
           <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
@@ -106,7 +101,7 @@
         <th
           *ngFor="let col of tableColumns; let first = first"
           pFrozenColumn
-          [frozen]="first"
+          [frozen]="first && getSetting(firstColumnFrozen)"
         >
           <!--  text column filter-->
           <p-columnFilter
@@ -212,7 +207,7 @@
         <td
           *ngFor="let col of tableColumns; let first = first"
           pFrozenColumn
-          [frozen]="first"
+          [frozen]="first && getSetting(firstColumnFrozen)"
         >
           <p-cellEditor>
             <ng-template pTemplate="input">

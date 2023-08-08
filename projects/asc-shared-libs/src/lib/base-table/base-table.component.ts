@@ -33,6 +33,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class BaseTableComponent<TData> implements OnInit {
   @Input() inferType?: TData;
 
+  @Input() firstColumnFrozen?: boolean;
+
   @Input() export?: boolean;
 
   @Input() globalSearch?: boolean;
@@ -181,6 +183,10 @@ export class BaseTableComponent<TData> implements OnInit {
       : this.realRequestService;
   }
 
+  getSetting(field: any) {
+    return field === undefined ? true : field!;
+  }
+
   private loadTableConfig() {
     this.tableConfigService.load(this.tableId).subscribe((tableConfigResp) => {
       if (tableConfigResp) {
@@ -223,6 +229,10 @@ export class BaseTableComponent<TData> implements OnInit {
 
     if (this.globalSearch === undefined) {
       this.globalSearch = this.tableSettings.globalSearch;
+    }
+
+    if (this.firstColumnFrozen === undefined) {
+      this.firstColumnFrozen = this.tableSettings.firstColumnFrozen;
     }
   }
 

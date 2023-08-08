@@ -23,6 +23,7 @@ export const tableSettingsSchema = z.object({
   modifyConfig: z.boolean().optional(),
   export: z.boolean().optional(),
   showAddButton: z.boolean().optional(),
+  firstColumnFrozen: z.boolean().optional(),
   paging: z.boolean().optional(),
   showEditButton: z.boolean().optional(),
   showDeleteButton: z.boolean().optional(),

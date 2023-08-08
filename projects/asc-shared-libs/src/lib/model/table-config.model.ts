@@ -12,6 +12,7 @@ export type TableSettings = {
   modifyConfig?: boolean;
   export?: boolean;
   showAddButton?: boolean;
+  firstColumnFrozen?: boolean;
 
   paging?: boolean;
   showEditButton?: boolean;

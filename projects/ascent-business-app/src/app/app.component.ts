@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
     config.settings.export = true;
     config.settings.showAddButton = false;
     config.settings.globalSearch = true;
+    config.settings.firstColumnFrozen = true;
 
     return config;
   }
