@@ -87,6 +87,7 @@
         <th
           *ngFor="let col of tableColumns; let first = first"
           [pSortableColumn]="col.sort ? col.field : undefined"
+          [ngStyle]="{ minWidth: col.filter === 'text' ? '13rem' : 'unset' }"
           pFrozenColumn
           [frozen]="first && getSetting(firstColumnFrozen)"
         >
