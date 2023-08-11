@@ -8,3 +8,4 @@
 7. Fix excel export header
 8. Add dynamic softDelete key
 9. Fix dependency issue while compiling library
+10. Fix width of all columns
