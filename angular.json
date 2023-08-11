@@ -33,10 +33,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/asc-shared-libs/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -55,21 +52,22 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "jspdf-autotable",
+              "jspdf",
+              "file-saver"
+            ],
             "outputPath": "dist/ascent-business-app",
             "index": "projects/ascent-business-app/src/index.html",
             "main": "projects/ascent-business-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/ascent-business-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/ascent-business-app/src/favicon.ico",
               "projects/ascent-business-app/src/assets"
             ],
-            "styles": [
-              "projects/ascent-business-app/src/styles.scss"
-            ],
+            "styles": ["projects/ascent-business-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -126,19 +124,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/ascent-business-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/ascent-business-app/src/favicon.ico",
               "projects/ascent-business-app/src/assets"
             ],
-            "styles": [
-              "projects/ascent-business-app/src/styles.scss"
-            ],
+            "styles": ["projects/ascent-business-app/src/styles.scss"],
             "scripts": []
           }
         }
