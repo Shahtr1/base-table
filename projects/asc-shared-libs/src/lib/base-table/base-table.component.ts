@@ -412,7 +412,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   onRowEditCancel(item: TData, index: number) {
     console.log('cancel item', item);
-    console.log('index', index);
+    console.log('index:', index);
   }
 
   onRowDelete(item: TData) {
