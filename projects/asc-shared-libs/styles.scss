@@ -34,6 +34,7 @@ body::-webkit-scrollbar,
 .p-multiselect-items-wrapper::-webkit-scrollbar,
 .p-datatable-wrapper::-webkit-scrollbar {
   width: 12px;
+  height: 12px;
 }
 
 body::-webkit-scrollbar-track,
@@ -52,6 +53,12 @@ body::-webkit-scrollbar-thumb,
   background-color: #888;
   border-radius: 6px;
   border: 3px solid #f1f1f1;
+
+  &.horizontal {
+    border-width: 3px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+  }
 }
 
 /* Change color on hover */
