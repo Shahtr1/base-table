@@ -10,7 +10,10 @@
     "build:sass": "sass projects/asc-shared-libs/styles.scss projects/asc-shared-libs/styles/styles.css",
     "build-lib": "npm run build:sass && ng-packagr -p projects/asc-shared-libs/ng-package.json && ng serve"
   },
-  "private": true,
+  "private": false,
+  "publishConfig": {
+    "registry": "http://localhost:8081/repository/npm-private/"
+  },
   "dependencies": {
     "@angular/animations": "^16.1.7",
     "@angular/cdk": "^16.1.6",
