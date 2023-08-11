@@ -27,6 +27,7 @@
     "@angular/router": "^16.1.0",
     "@ngxs/logger-plugin": "^3.8.1",
     "@ngxs/store": "^3.8.1",
+    "canvg": "^4.0.1",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",

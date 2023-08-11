@@ -55,7 +55,10 @@
             "allowedCommonJsDependencies": [
               "jspdf-autotable",
               "jspdf",
-              "file-saver"
+              "file-saver",
+              "raf",
+              "core-js",
+              "rgbcolor"
             ],
             "outputPath": "dist/ascent-business-app",
             "index": "projects/ascent-business-app/src/index.html",
