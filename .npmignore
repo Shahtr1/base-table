@@ -1,0 +1,24 @@
+# Build artifacts
+dist/
+node_modules/
+
+# Development files
+test/
+*.config.js
+
+# Version control
+.git/
+.gitignore
+.hg/
+.svn/
+
+# Editor/IDE files
+.vscode/
+.idea/
+.DS_Store
+
+# Sensitive information
+config.json
+
+# Documentation
+docs/
