@@ -7,3 +7,4 @@
 6. Fix excel export header
 7. Add dynamic softDelete key
 8. Fix width of all columns
+9. Move cell editor to a separate component

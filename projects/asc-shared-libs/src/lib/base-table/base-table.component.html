@@ -197,14 +197,19 @@
         pFrozenColumn
         [frozen]="first && getSetting(firstColumnFrozen)"
       >
-        <p-cellEditor>
+        <p-cellEditor *ngIf="col.inputType; else textTemplate">
           <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="item[col.field]" />
+            <ng-container [ngSwitch]="col.inputType">
+              <ng-container *ngSwitchCase="'text'">
+                <input pInputText type="text" [(ngModel)]="item[col.field]" />
+              </ng-container>
+            </ng-container>
           </ng-template>
           <ng-template pTemplate="output">
             {{ item[col.field] }}
           </ng-template>
         </p-cellEditor>
+        <ng-template #textTemplate>{{ item[col.field] }}</ng-template>
       </td>
       <td alignFrozen="right" pFrozenColumn>
         <div class="flex align-items-center justify-content-center gap-2">
