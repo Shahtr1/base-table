@@ -24,6 +24,7 @@ import { toCamelCase } from '../common/utils';
 import { FakeRequestService } from '../services/request/fake-request.service';
 import { RequestService } from '../services/request/request.service';
 import { v4 as uuidv4 } from 'uuid';
+import { isArray } from 'lodash-es';
 
 @Component({
   selector: 'lib-base-table',
@@ -374,16 +375,25 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   onRowSelect(event: TableRowSelectEvent) {
+    this.changeObjectToArrayIfSingleModeSelection();
     this.selectedItemsChange.emit(this.selectedItems);
     this.onTableRowSelect.emit(event.data as TData);
   }
 
+  private changeObjectToArrayIfSingleModeSelection() {
+    if (!isArray(this.selectedItems)) {
+      this.selectedItems = [this.selectedItems];
+    }
+  }
+
   onRowUnselect(event: TableRowSelectEvent) {
+    this.changeObjectToArrayIfSingleModeSelection();
     this.selectedItemsChange.emit(this.selectedItems);
     this.onTableRowUnselect.emit(event.data as TData);
   }
 
   selectAll(data: Event) {
+    this.changeObjectToArrayIfSingleModeSelection();
     this.selectedItemsChange.emit(this.selectedItems);
   }
 

@@ -2,10 +2,9 @@
 1. Fix resizable columns
 2. Add draggable rows
 3. Add frozen rows (need reason)
-4. Add delete and export functionality in single mode of selection
-5. ColumnResizeMode not working
-6. Add import functionality
-7. Fix excel export header
-8. Add dynamic softDelete key
-9. Fix dependency issue while compiling library
-10. Fix width of all columns
+4. ColumnResizeMode not working
+5. Add import functionality
+6. Fix excel export header
+7. Add dynamic softDelete key
+8. Fix dependency issue while compiling library
+9. Fix width of all columns
