@@ -2,6 +2,16 @@ export type PagingType = 'client-side' | 'server-side';
 
 export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 
+export type InputType =
+  | 'text'
+  | 'select'
+  | 'multiselect'
+  | 'radio'
+  | 'checkbox'
+  | 'textarea'
+  | 'colorPicker'
+  | 'number';
+
 export type TableSettings = {
   url: string;
   title?: string;
@@ -35,10 +45,10 @@ export type TableColumn = {
   sort?: boolean;
   globalSearch?: boolean;
   filter?: TableFilter;
+  inputType?: InputType;
 
   sourceUrl?: string;
   optionLabel?: string;
-  type?: string;
   translate?: boolean;
 };
 
