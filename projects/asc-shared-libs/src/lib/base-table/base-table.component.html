@@ -203,6 +203,9 @@
               <ng-container *ngSwitchCase="'text'">
                 <input pInputText type="text" [(ngModel)]="item[col.field]" />
               </ng-container>
+              <ng-container *ngSwitchCase="'number'">
+                <input pInputText type="number" [(ngModel)]="item[col.field]" />
+              </ng-container>
             </ng-container>
           </ng-template>
           <ng-template pTemplate="output">
