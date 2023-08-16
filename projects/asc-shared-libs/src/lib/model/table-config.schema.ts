@@ -56,7 +56,7 @@ export const tableSettingsSchema = z.object({
   lazy: z.boolean().optional(),
 });
 
-export const inputSchema = z.object({
+export const inputFieldSchema = z.object({
   type: inputTypeSchema,
   placeholderId: z.string().optional(),
   placeholder: z.string().optional(),
@@ -69,7 +69,7 @@ export const tableColumnSchema = z.object({
   sort: z.boolean().optional(),
   globalSearch: z.boolean().optional(),
   filter: tableFilterSchema.optional(),
-  input: inputSchema.optional(),
+  input: inputFieldSchema.optional(),
   sourceUrl: z.string().optional(),
   optionLabel: z.string().optional(),
   translate: z.boolean().optional(),

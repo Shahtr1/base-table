@@ -22,12 +22,14 @@ import { TextService } from './services/text.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { CellEditorComponent } from './base-table/comps/cell-editor/cell-editor.component';
 
 @NgModule({
   declarations: [
     AscSharedLibsComponent,
     BaseTableComponent,
     ToolbarButtonsComponent,
+    CellEditorComponent,
   ],
   imports: [
     ReactiveFormsModule,

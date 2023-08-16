@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Inject,
@@ -169,7 +170,8 @@ export class BaseTableComponent<TData> implements OnInit {
     private textService: TextService,
     @Inject('environment') private environment: any,
     private fakeRestService: FakeRequestService,
-    private realRequestService: RequestService
+    private realRequestService: RequestService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -426,6 +428,7 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   onRowEditSave(item: TData) {
+    this.cdr.detectChanges();
     console.log('save item', item);
   }
 

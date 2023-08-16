@@ -2,7 +2,7 @@ export type PagingType = 'client-side' | 'server-side';
 
 export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 
-export type Input = {
+export type InputField = {
   type: InputType;
   placeholderId?: string;
   placeholder?: string;
@@ -58,7 +58,7 @@ export type TableColumn = {
   sort?: boolean;
   globalSearch?: boolean;
   filter?: TableFilter;
-  input?: Input;
+  input?: InputField;
 
   sourceUrl?: string;
   optionLabel?: string;

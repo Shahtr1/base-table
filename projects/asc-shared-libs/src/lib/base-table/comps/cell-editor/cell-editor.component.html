@@ -1,0 +1,17 @@
+<p-cellEditor *ngIf="inputField">
+  <ng-template pTemplate="input">
+    <ng-container [ngSwitch]="inputField.type">
+      <!--              text-->
+      <ng-container *ngSwitchCase="'text'">
+        <input pInputText type="text" [(ngModel)]="field" />
+      </ng-container>
+      <!--              number-->
+      <ng-container *ngSwitchCase="'number'">
+        <input pInputText type="number" [(ngModel)]="field" />
+      </ng-container>
+    </ng-container>
+  </ng-template>
+  <ng-template pTemplate="output">
+    {{ field }}
+  </ng-template>
+</p-cellEditor>
