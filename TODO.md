@@ -1,4 +1,5 @@
 # TODO
+
 1. Fix resizable columns
 2. Add draggable rows
 3. Add frozen rows (need reason)
@@ -9,3 +10,4 @@
 8. Fix width of all columns
 9. Move cell editor to a separate component
 10. add duplicate check for the columns
+11. Add date filter

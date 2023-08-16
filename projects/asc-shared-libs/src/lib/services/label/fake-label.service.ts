@@ -29,6 +29,11 @@ export class FakeLabelService implements ILabelService {
       L_SELECTED_ONLY: 'Selected only',
       L_IS_ACTIVE: 'Is Active',
       L_REFERENCE_NAME: 'Reference Name',
+      L_ENTER_REFERENCE_NAME: 'Enter reference name',
+      L_ENTER_SHORT_NAME: 'Enter short name',
+      L_ENTER_MIDDLE_NAME: 'Enter middle name',
+      L_ENTER_FULL_NAME: 'Enter full name',
+      L_ENTER_TRXN_STATUS: 'Enter transaction status',
     });
   }
 }

@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.accountPurposes = this.getAccountPurposeData();
   }
 
-  private getAccountPurposeData() {
+  private getAccountPurposeData(): AccountPurpose[] {
     let testAccountPurposeData = [];
     for (let i = 0; i < 100; i++) {
       testAccountPurposeData.push({
@@ -52,6 +52,10 @@ export class AppComponent implements OnInit {
         field: 'referenceName',
         headerId: 'L_REFERENCE_NAME',
         filter: 'text',
+        input: {
+          type: 'text',
+          placeholderId: 'L_ENTER_REFERENCE_NAME',
+        },
       },
       {
         field: 'isActive',

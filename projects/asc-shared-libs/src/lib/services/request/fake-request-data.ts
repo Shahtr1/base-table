@@ -24,28 +24,40 @@ export const testBaseTableData: TableViewConfig = {
       sort: true,
       globalSearch: true,
       filter: 'select',
-      inputType: 'text',
+      input: {
+        type: 'text',
+        placeholderId: 'L_ENTER_SHORT_NAME',
+      },
     },
     {
       field: 'middleName',
       headerId: 'L_ACCOUNT_PURPOSE_MIDDLE_NAME',
       filter: 'multiselect',
       sort: true,
-      inputType: 'multiselect',
+      input: {
+        type: 'multiselect',
+        placeholderId: 'L_ENTER_MIDDLE_NAME',
+      },
     },
     {
       field: 'fullName',
       headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
       sourceUrl: '/api/v5/work-flow-states?size=20',
       optionLabel: 'desc',
-      inputType: 'select',
+      input: {
+        type: 'select',
+        placeholderId: 'L_ENTER_FULL_NAME',
+      },
     },
     {
       field: 'trxnStatus',
       headerId: 'L_TRXN_STATUS',
       globalSearch: true,
       filter: 'select',
-      inputType: 'checkbox',
+      input: {
+        type: 'checkbox',
+        placeholderId: 'L_ENTER_TRXN_STATUS',
+      },
     },
   ],
 };

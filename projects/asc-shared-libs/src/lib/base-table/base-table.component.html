@@ -68,7 +68,7 @@
     </ng-template>
   </ng-container>
 
-  <!--header-->
+  <!--  header-->
   <ng-template pTemplate="header">
     <tr>
       <th *ngIf="selectionMode !== undefined" pFrozenColumn>
@@ -197,14 +197,30 @@
         pFrozenColumn
         [frozen]="first && getSetting(firstColumnFrozen)"
       >
-        <p-cellEditor *ngIf="col.inputType; else textTemplate">
+        <p-cellEditor *ngIf="col.input; else textTemplate">
           <ng-template pTemplate="input">
-            <ng-container [ngSwitch]="col.inputType">
+            <ng-container [ngSwitch]="col.input.type">
+              <!--              text-->
               <ng-container *ngSwitchCase="'text'">
-                <input pInputText type="text" [(ngModel)]="item[col.field]" />
+                <input
+                  pInputText
+                  type="text"
+                  [(ngModel)]="item[col.field]"
+                  [placeholder]="
+                    getTranslationFromLabelId(col.input.placeholderId)
+                  "
+                />
               </ng-container>
+              <!--              number-->
               <ng-container *ngSwitchCase="'number'">
-                <input pInputText type="number" [(ngModel)]="item[col.field]" />
+                <input
+                  pInputText
+                  type="number"
+                  [(ngModel)]="item[col.field]"
+                  [placeholder]="
+                    getTranslationFromLabelId(col.input.placeholderId)
+                  "
+                />
               </ng-container>
             </ng-container>
           </ng-template>

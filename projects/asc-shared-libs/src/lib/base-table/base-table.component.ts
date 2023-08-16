@@ -329,12 +329,16 @@ export class BaseTableComponent<TData> implements OnInit {
       }
 
       this.tableColumns.map((col) => {
-        col.header = this.generalTexts[toCamelCase(col.headerId!)].label;
+        col.header = this.getTranslationFromLabelId(col.headerId!);
         if (col.globalSearch) {
           this.addFieldToGlobalFilterFields(col);
         }
       });
     };
+  }
+
+  getTranslationFromLabelId(labelId?: string) {
+    return labelId ? this.generalTexts[toCamelCase(labelId)].label : '';
   }
 
   private addFieldToGlobalFilterFields(col: TableColumn) {
@@ -350,6 +354,11 @@ export class BaseTableComponent<TData> implements OnInit {
       if (col.headerId) {
         const key = toCamelCase(col.headerId);
         this.generalTexts[key] = { labelId: col.headerId };
+      }
+
+      if (col.input?.placeholderId) {
+        const key = toCamelCase(col.input.placeholderId);
+        this.generalTexts[key] = { labelId: col.input.placeholderId };
       }
     });
 

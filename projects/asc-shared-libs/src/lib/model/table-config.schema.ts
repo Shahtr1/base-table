@@ -15,13 +15,20 @@ export const tableFilterSchema = z.union([
 
 export const inputTypeSchema = z.union([
   z.literal("text"),
+  z.literal("number"),
   z.literal("select"),
   z.literal("multiselect"),
   z.literal("radio"),
   z.literal("checkbox"),
   z.literal("textarea"),
-  z.literal("colorPicker"),
-  z.literal("number"),
+  z.literal("color"),
+  z.literal("calendar"),
+  z.literal("chips"),
+  z.literal("editor"),
+  z.literal("mask"),
+  z.literal("switch"),
+  z.literal("knob"),
+  z.literal("select-button"),
 ]);
 
 export const tableSettingsSchema = z.object({
@@ -49,6 +56,12 @@ export const tableSettingsSchema = z.object({
   lazy: z.boolean().optional(),
 });
 
+export const inputSchema = z.object({
+  type: inputTypeSchema,
+  placeholderId: z.string().optional(),
+  placeholder: z.string().optional(),
+});
+
 export const tableColumnSchema = z.object({
   field: z.string(),
   headerId: z.string(),
@@ -56,7 +69,7 @@ export const tableColumnSchema = z.object({
   sort: z.boolean().optional(),
   globalSearch: z.boolean().optional(),
   filter: tableFilterSchema.optional(),
-  inputType: inputTypeSchema.optional(),
+  input: inputSchema.optional(),
   sourceUrl: z.string().optional(),
   optionLabel: z.string().optional(),
   translate: z.boolean().optional(),

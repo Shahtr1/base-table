@@ -2,15 +2,28 @@ export type PagingType = 'client-side' | 'server-side';
 
 export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 
+export type Input = {
+  type: InputType;
+  placeholderId?: string;
+  placeholder?: string;
+};
+
 export type InputType =
   | 'text'
+  | 'number'
   | 'select'
   | 'multiselect'
   | 'radio'
   | 'checkbox'
   | 'textarea'
-  | 'colorPicker'
-  | 'number';
+  | 'color'
+  | 'calendar'
+  | 'chips'
+  | 'editor'
+  | 'mask'
+  | 'switch'
+  | 'knob'
+  | 'select-button';
 
 export type TableSettings = {
   url: string;
@@ -45,7 +58,7 @@ export type TableColumn = {
   sort?: boolean;
   globalSearch?: boolean;
   filter?: TableFilter;
-  inputType?: InputType;
+  input?: Input;
 
   sourceUrl?: string;
   optionLabel?: string;
