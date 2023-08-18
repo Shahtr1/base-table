@@ -10,7 +10,6 @@ import { RippleModule } from 'primeng/ripple';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TooltipModule } from 'primeng/tooltip';
-import { ToolbarButtonsComponent } from './base-table/comps/toolbar-buttons/toolbar-buttons.component';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgxsModule, Store } from '@ngxs/store';
@@ -18,17 +17,12 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { LabelState } from './store/state/label.state';
 import { GetLabels } from './store/actions/label.action';
-import { TextService } from './services/text.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { TagModule } from 'primeng/tag';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
-  declarations: [
-    AscSharedLibsComponent,
-    BaseTableComponent,
-    ToolbarButtonsComponent,
-  ],
+  declarations: [AscSharedLibsComponent, BaseTableComponent],
   imports: [
     ReactiveFormsModule,
     BrowserAnimationsModule,
