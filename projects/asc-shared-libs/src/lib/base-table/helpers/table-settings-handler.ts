@@ -1,6 +1,10 @@
 import { toCamelCase } from '../../common/utils';
 import { BaseTableComponent } from '../base-table.component';
 
+/**
+ * TableSettingsHandler:
+ * Handles the logic for setting table settings like title, rows per page, export, etc.
+ * */
 export class TableSettingsHandler<TData> {
   constructor(private tableComponent: BaseTableComponent<TData>) {}
 

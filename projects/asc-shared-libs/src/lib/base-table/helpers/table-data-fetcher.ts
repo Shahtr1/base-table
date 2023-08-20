@@ -1,6 +1,10 @@
 import { BaseTableComponent } from '../base-table.component';
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * TableDataFetcher:
+ *  Handles the logic for fetching table rows from the API or using preloaded data.
+ * */
 export class TableDataFetcher<TData> {
   constructor(private tableComponent: BaseTableComponent<TData>) {}
 

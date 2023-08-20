@@ -23,7 +23,6 @@ import { GeneralText } from '../model/lib.model';
 import { toCamelCase } from '../common/utils';
 import { FakeRequestService } from '../services/request/fake-request.service';
 import { RequestService } from '../services/request/request.service';
-import { v4 as uuidv4 } from 'uuid';
 import { isArray } from 'lodash-es';
 import { TableSettingsHandler } from './helpers/table-settings-handler';
 import { TableDataFetcher } from './helpers/table-data-fetcher';
@@ -176,7 +175,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-
     this.loadTableConfig();
   }
 
@@ -212,23 +210,6 @@ export class BaseTableComponent<TData> implements OnInit {
 
     const tableDataFetcher = new TableDataFetcher<TData>(this);
     tableDataFetcher.fetchTableRows();
-  }
-
-  private setData(data: any[], total: number) {
-    this.totalRows = total;
-
-    this.items =
-      this.tableSettings.transformData && this.transformDataFn
-        ? this.transformDataFn(data)
-        : data;
-
-    this.setUniqueKeyForTableItems(this.items);
-  }
-
-  private setUniqueKeyForTableItems(items: any[]) {
-    items.map((item) => {
-      item[this.dataKey] = uuidv4();
-    });
   }
 
   private getTableConfig(tableConfigResp: TableViewConfig) {
