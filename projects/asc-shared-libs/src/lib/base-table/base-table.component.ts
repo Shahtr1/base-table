@@ -26,6 +26,7 @@ import { RequestService } from '../services/request/request.service';
 import { v4 as uuidv4 } from 'uuid';
 import { isArray } from 'lodash-es';
 import { TableSettingsHandler } from './helpers/table-settings-handler';
+import { TableDataFetcher } from './helpers/table-data-fetcher';
 
 @Component({
   selector: 'lib-base-table',
@@ -55,7 +56,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Input() rowHover = true;
 
-  private setItemsEmpty = false;
+  setItemsEmpty = false;
 
   private _items: TData[] = [];
 
@@ -168,7 +169,7 @@ export class BaseTableComponent<TData> implements OnInit {
     private primengConfig: PrimeNGConfig,
     private tableConfigService: TableConfigService,
     private textService: TextService,
-    @Inject('environment') private environment: any,
+    @Inject('environment') public environment: any,
     private fakeRestService: FakeRequestService,
     private realRequestService: RequestService
   ) {}
@@ -209,55 +210,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
     this.setColumnsForExport();
 
-    this.fetchTableRows();
-  }
-
-  private fetchTableRows() {
-    if (!this.tableSettings.url) {
-      console.warn('Table url is not defined');
-      return;
-    }
-
-    if (this.setItemsEmpty) {
-      console.warn('Items manually set to empty!');
-      if (this.tableSettings.url)
-        console.warn(`Fetching from api ${this.tableSettings.url} cancelled!`);
-      return;
-    }
-
-    if (this.items.length > 0) {
-      console.warn('Rows already have data acquired from input!');
-      this.setData(this.items, this.items.length);
-      if (this.tableSettings.url)
-        console.warn(`Fetching from api ${this.tableSettings.url} cancelled!`);
-      return;
-    }
-
-    const { url, query } = this.tableSettings;
-
-    const options = Object.assign(
-      {
-        page: this.pageNumber,
-        size: this.rowsPerPage,
-      },
-      query
-    );
-
-    if (this.tableSettings.softDelete) {
-      options['isEnabled.equals'] = true;
-    }
-
-    this.requestService
-      .request(this.environment.apiUrl, 'GET', url, options)
-      .subscribe((response) => {
-        let data = [];
-        let total = 0;
-        if (response && response.body) {
-          data = response.body;
-          total = response.headers.get('x-total-count') || 0;
-        }
-        this.setData(data, total);
-      });
+    const tableDataFetcher = new TableDataFetcher<TData>(this);
+    tableDataFetcher.fetchTableRows();
   }
 
   private setData(data: any[], total: number) {
