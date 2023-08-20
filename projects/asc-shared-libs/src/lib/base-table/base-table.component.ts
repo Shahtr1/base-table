@@ -251,13 +251,13 @@ export class BaseTableComponent<TData> implements OnInit {
     return labelId ? this.generalTexts[toCamelCase(labelId)].label : '';
   }
 
-  private addFieldToGlobalFilterFields(col: TableColumn) {
+  addFieldToGlobalFilterFields(col: TableColumn) {
     if (!this.globalFilterFields.find((field) => field === col.field)) {
       this.globalFilterFields.push(col.field);
     }
   }
 
-  private pushTableColumnsHeaderIdToGeneralTexts(
+  pushTableColumnsHeaderIdToGeneralTexts(
     handleAfterTranslationSuccess: () => void
   ) {
     this.tableColumns.forEach((col) => {
