@@ -164,6 +164,9 @@ export class BaseTableComponent<TData> implements OnInit {
     currentPageReportTemplate: { labelId: 'L_CURRENT_PAGE_REPORT_TEMPLATE' },
   };
 
+  private tableSettingsHandler: TableSettingsHandler<TData>;
+  private tableDataFetcher: TableDataFetcher<TData>;
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private tableConfigService: TableConfigService,
@@ -171,7 +174,10 @@ export class BaseTableComponent<TData> implements OnInit {
     @Inject('environment') public environment: any,
     private fakeRestService: FakeRequestService,
     private realRequestService: RequestService
-  ) {}
+  ) {
+    this.tableSettingsHandler = new TableSettingsHandler(this);
+    this.tableDataFetcher = new TableDataFetcher(this);
+  }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -203,13 +209,11 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
-    const settingsHandler = new TableSettingsHandler<TData>(this);
-    settingsHandler.handleManualSettings();
+    this.tableSettingsHandler.handleManualSettings();
 
     this.setColumnsForExport();
 
-    const tableDataFetcher = new TableDataFetcher<TData>(this);
-    tableDataFetcher.fetchTableRows();
+    this.tableDataFetcher.fetchTableRows();
   }
 
   private getTableConfig(tableConfigResp: TableViewConfig) {
