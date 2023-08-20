@@ -25,6 +25,7 @@ import { FakeRequestService } from '../services/request/fake-request.service';
 import { RequestService } from '../services/request/request.service';
 import { v4 as uuidv4 } from 'uuid';
 import { isArray } from 'lodash-es';
+import { TableSettingsHandler } from './helpers/table-settings-handler';
 
 @Component({
   selector: 'lib-base-table',
@@ -146,7 +147,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   readonly dataKey = '______asc_datatable_uuid';
   private tableViewConfig!: TableViewConfig;
-  private tableSettings!: TableSettings;
+  tableSettings!: TableSettings;
 
   tableColumns: TableColumn[] = [];
   exportColumns!: ExportColumn[];
@@ -203,38 +204,12 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
-    this.handleManualSettings();
+    const settingsHandler = new TableSettingsHandler<TData>(this);
+    settingsHandler.handleManualSettings();
 
     this.setColumnsForExport();
+
     this.fetchTableRows();
-  }
-
-  private handleManualSettings() {
-    if (!this.title && this.tableSettings.title) {
-      this.generalTexts[toCamelCase(this.tableSettings.title)] = {
-        labelId: this.tableSettings.title,
-      };
-    }
-
-    if (!this.rowsPerPage && this.tableSettings.rowsPerPage) {
-      this.rowsPerPage = this.tableSettings.rowsPerPage;
-    }
-
-    if (this.export === undefined) {
-      this.export = this.tableSettings.export;
-    }
-
-    if (this.showAddButton === undefined) {
-      this.showAddButton = this.tableSettings.showAddButton;
-    }
-
-    if (this.globalSearch === undefined) {
-      this.globalSearch = this.tableSettings.globalSearch;
-    }
-
-    if (this.firstColumnFrozen === undefined) {
-      this.firstColumnFrozen = this.tableSettings.firstColumnFrozen;
-    }
   }
 
   private fetchTableRows() {
