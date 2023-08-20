@@ -34,6 +34,7 @@ import { TableInputOptions } from './helpers/table-input-options';
 })
 export class BaseTableComponent<TData> implements OnInit {
   @Input({ required: true }) tableId!: string;
+
   @Input()
   inputOptions: TableInputOptions<TData> = new TableInputOptions<TData>();
 

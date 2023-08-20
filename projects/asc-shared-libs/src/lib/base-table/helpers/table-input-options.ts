@@ -28,7 +28,7 @@ export class TableInputOptions<TData> {
   exportFileName!: string;
   customSortFn?: (event: SortEvent) => number;
   modifyConfigFn?: (config: TableViewConfig) => TableViewConfig;
-  transformDataFn?: (data: any[]) => any[];
+  transformDataFn?: (data: TData[]) => TData[];
 
   constructor(options: Partial<TableInputOptions<TData>> = {}) {
     Object.assign(this, options);
