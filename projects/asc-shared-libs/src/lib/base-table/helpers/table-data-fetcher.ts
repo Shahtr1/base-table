@@ -69,8 +69,8 @@ export class TableDataFetcher<TData> {
 
     this.tableComponent.items =
       this.tableComponent.tableSettings.transformData &&
-      this.tableComponent.transformDataFn
-        ? this.tableComponent.transformDataFn(data)
+      this.tableComponent.inputOptions.transformDataFn
+        ? this.tableComponent.inputOptions.transformDataFn(data)
         : data;
 
     this.setUniqueKeyForTableItems(this.tableComponent.items);

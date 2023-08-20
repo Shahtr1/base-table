@@ -11,7 +11,6 @@ import {
 import { PrimeNGConfig, SortEvent } from 'primeng/api';
 import { Table, TableRowSelectEvent } from 'primeng/table';
 import { ExportColumn, Size } from './model/base-table.model';
-import { exportType } from './comps/toolbar-buttons/model/toolbar-button.model';
 import { TableConfigService } from '../services/table-config.service';
 import {
   TableColumn,
@@ -26,6 +25,7 @@ import { RequestService } from '../services/request/request.service';
 import { isArray } from 'lodash-es';
 import { TableSettingsHandler } from './helpers/table-settings-handler';
 import { TableDataFetcher } from './helpers/table-data-fetcher';
+import { TableInputOptions } from './helpers/table-input-options';
 
 @Component({
   selector: 'lib-base-table',
@@ -33,29 +33,15 @@ import { TableDataFetcher } from './helpers/table-data-fetcher';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
-  @Input() inferType?: TData;
-
-  @Input() firstColumnFrozen?: boolean;
-
-  @Input() export?: boolean;
-
-  @Input() globalSearch?: boolean;
-
   @Input({ required: true }) tableId!: string;
-
-  @Input() title?: string;
-
-  @Input() showAddButton?: boolean;
-
-  @Input() scrollHeight: number | 'auto' = 'auto';
-
-  @Input() emptyMessage!: string;
-
-  @Input() selectionPageOnly = false;
-
-  @Input() rowHover = true;
+  @Input()
+  inputOptions: TableInputOptions<TData> = new TableInputOptions<TData>();
 
   setItemsEmpty = false;
+
+  @Input() selectedItems: TData[] = [];
+
+  @Input() rowExpansionTemplate!: TemplateRef<any>;
 
   private _items: TData[] = [];
 
@@ -75,60 +61,26 @@ export class BaseTableComponent<TData> implements OnInit {
 
   @Output() onTableRowUnselect = new EventEmitter<TData>();
 
-  @Input() selectionMode: 'single' | 'multiple' | undefined = undefined;
-
-  @Input() selectedItems: TData[] = [];
-
-  @Input() rowExpand = false;
-
-  @Input() globalFilterFields: string[] = [];
-
-  @Input() customSort = false;
-
-  @Input() rowsSelectionDisabled = false;
-
   private _rowsPerPage = 10;
 
   @Input() set rowsPerPage(value: number) {
     this._rowsPerPage = value;
-    this.rowsPerPageOptions.find((size) => size === value) ||
-      this.rowsPerPageOptions.push(value);
+    this.inputOptions.rowsPerPageOptions.find((size) => size === value) ||
+      this.inputOptions.rowsPerPageOptions.push(value);
 
     // sort array in ascending order
-    this.rowsPerPageOptions.sort((a, b) => a - b);
+    this.inputOptions.rowsPerPageOptions.sort((a, b) => a - b);
   }
 
   get rowsPerPage(): number {
     return this._rowsPerPage;
   }
 
-  @Input() paginator = true;
-
-  @Input() responsiveLayoutBreakpoint: number = 768;
-
-  @Input() currentPageReportTemplate!: string;
-
-  @Input() rowsPerPageOptions = [10, 20, 50];
-
   @Input() set size(value: Size) {
     this._selectedSize = this.sizes.find((size) => size.name === value)!;
   }
 
-  @Input() showCaption = true;
-  @Input() showSummary = true;
-
-  @Input() rowExpansionTemplate!: TemplateRef<any>;
-
-  @Input() exportTypes: exportType[] = ['pdf', 'excel', 'csv'];
-
-  @Input() exportFileName!: string;
-
   // callback functions
-
-  @Input() customSortFn?: (event: SortEvent) => number;
-
-  @Input() modifyConfigFn?: (config: TableViewConfig) => TableViewConfig;
-  @Input() transformDataFn?: (data: any[]) => any[];
 
   private sizes: { name: Size; class: string }[] = [
     { name: 'small', class: 'p-datatable-sm' },
@@ -217,8 +169,11 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private getTableConfig(tableConfigResp: TableViewConfig) {
-    if (tableConfigResp.settings.modifyConfig && this.modifyConfigFn) {
-      tableConfigResp = this.modifyConfigFn(tableConfigResp);
+    if (
+      tableConfigResp.settings.modifyConfig &&
+      this.inputOptions.modifyConfigFn
+    ) {
+      tableConfigResp = this.inputOptions.modifyConfigFn(tableConfigResp);
     }
     return tableConfigResp;
   }
@@ -236,8 +191,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private getHandleAfterTranslationSuccess() {
     return () => {
-      if (!this.title && this.tableSettings.title) {
-        this.title = this.generalTexts[
+      if (!this.inputOptions.title && this.tableSettings.title) {
+        this.inputOptions.title = this.generalTexts[
           toCamelCase(this.tableSettings.title)
         ].label;
       }
@@ -256,8 +211,10 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private addFieldToGlobalFilterFields(col: TableColumn) {
-    if (!this.globalFilterFields.find((field) => field === col.field)) {
-      this.globalFilterFields.push(col.field);
+    if (
+      !this.inputOptions.globalFilterFields.find((field) => field === col.field)
+    ) {
+      this.inputOptions.globalFilterFields.push(col.field);
     }
   }
 
@@ -282,19 +239,21 @@ export class BaseTableComponent<TData> implements OnInit {
   private translateGeneralTexts(success: () => void) {
     this.textService.convert(this.generalTexts).subscribe((res) => {
       this.generalTexts = { ...res };
-      if (!this.emptyMessage) {
-        this.emptyMessage = this.generalTexts['defaultEmptyMessage'].label!;
+      if (!this.inputOptions.emptyMessage) {
+        this.inputOptions.emptyMessage = this.generalTexts[
+          'defaultEmptyMessage'
+        ].label!;
       }
       success();
     });
   }
 
   isRowSelectable() {
-    return !this.rowsSelectionDisabled;
+    return !this.inputOptions?.rowsSelectionDisabled;
   }
 
   getCustomSortFn(event: SortEvent) {
-    if (this.customSortFn) this.customSortFn(event);
+    if (this.inputOptions.customSortFn) this.inputOptions.customSortFn(event);
   }
 
   onRowSelect(event: TableRowSelectEvent) {
@@ -326,7 +285,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   getReportTemplateString(): string {
     return (
-      this.currentPageReportTemplate ||
+      this.inputOptions.currentPageReportTemplate ||
       this.generalTexts['currentPageReportTemplate'].label!
     );
   }
@@ -356,11 +315,11 @@ export class BaseTableComponent<TData> implements OnInit {
     let colspan = 0;
 
     colspan = this.tableColumns.length;
-    if (this.rowExpand) {
+    if (this.inputOptions.rowExpand) {
       colspan++;
     }
 
-    if (this.selectionMode !== undefined) {
+    if (this.inputOptions.selectionMode !== undefined) {
       colspan++;
     }
 

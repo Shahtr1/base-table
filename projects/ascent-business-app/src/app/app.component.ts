@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { TableViewConfig } from '../../../asc-shared-libs/src/lib/model/table-config.model';
 import * as _ from 'lodash-es';
+import { TableInputOptions } from '../../../asc-shared-libs/src/lib/base-table/helpers/table-input-options';
 
 type AccountPurpose = {
   refId: string;
@@ -19,6 +20,8 @@ type AccountPurpose = {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  tableInputOptions!: TableInputOptions<AccountPurpose>;
+
   constructor() {}
 
   accountPurposes: AccountPurpose[] = [];
@@ -27,6 +30,26 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.accountPurposes = this.getAccountPurposeData();
+
+    this.setTableInputOptions();
+  }
+
+  private setTableInputOptions() {
+    this.tableInputOptions = new TableInputOptions<AccountPurpose>({
+      customSort: false,
+      customSortFn: this.customSortFn.bind(this),
+      selectionMode: 'multiple',
+      rowExpand: true,
+      scrollHeight: 370,
+      exportTypes: ['pdf', 'csv', 'excel'],
+      selectionPageOnly: true,
+      modifyConfigFn: this.modifyConfigFn.bind(this),
+      transformDataFn: this.transformDataFn.bind(this),
+      exportFileName: 'account-purposes',
+      globalSearch: true,
+      showAddButton: true,
+      rowsSelectionDisabled: false,
+    });
   }
 
   private getAccountPurposeData(): AccountPurpose[] {
@@ -68,7 +91,7 @@ export class AppComponent implements OnInit {
     config.settings.export = true;
     config.settings.showAddButton = false;
     config.settings.globalSearch = true;
-    config.settings.firstColumnFrozen = false;
+    config.settings.firstColumnFrozen = true;
 
     return config;
   }

@@ -6,30 +6,34 @@
   [value]="items"
   [styleClass]="selectedSize.class + ' p-datatable-gridlines'"
   responsiveLayout="stack"
-  [breakpoint]="responsiveLayoutBreakpoint + 'px'"
-  [paginator]="paginator"
+  [breakpoint]="inputOptions.responsiveLayoutBreakpoint + 'px'"
+  [paginator]="inputOptions.paginator"
   [rows]="rowsPerPage"
   [totalRecords]="totalRows"
   [showCurrentPageReport]="true"
   [currentPageReportTemplate]="getReportTemplateString()"
-  [rowsPerPageOptions]="rowsPerPageOptions"
+  [rowsPerPageOptions]="inputOptions.rowsPerPageOptions"
   (sortFunction)="getCustomSortFn($event)"
-  [customSort]="customSort"
-  [globalFilterFields]="globalFilterFields"
-  [selectionMode]="selectionMode"
+  [customSort]="inputOptions.customSort"
+  [globalFilterFields]="inputOptions.globalFilterFields"
+  [selectionMode]="inputOptions.selectionMode"
   [(selection)]="selectedItems"
   [rowSelectable]="isRowSelectable"
   (onRowSelect)="onRowSelect($event)"
   (onRowUnselect)="onRowUnselect($event)"
-  [selectionPageOnly]="selectionPageOnly"
-  [rowHover]="rowHover"
-  [scrollHeight]="scrollHeight === 'auto' ? scrollHeight : scrollHeight + 'px'"
-  [scrollable]="scrollHeight !== 'auto'"
+  [selectionPageOnly]="inputOptions.selectionPageOnly"
+  [rowHover]="inputOptions.rowHover"
+  [scrollHeight]="
+    inputOptions.scrollHeight === 'auto'
+      ? inputOptions.scrollHeight
+      : inputOptions.scrollHeight + 'px'
+  "
+  [scrollable]="inputOptions.scrollHeight !== 'auto'"
   [resizableColumns]="true"
   columnResizeMode="expand"
 >
   <!--    caption-->
-  <ng-container *ngIf="showCaption">
+  <ng-container *ngIf="inputOptions.showCaption">
     <ng-template pTemplate="caption">
       <ng-container>
         <div #caption>
@@ -40,11 +44,17 @@
         <div
           class="caption-default-wrapper"
           [ngStyle]="{
-            padding: rowExpand && !selectionMode ? '0 2rem' : 'unset'
+            padding:
+              inputOptions.rowExpand && !inputOptions.selectionMode
+                ? '0 2rem'
+                : 'unset'
           }"
         >
-          <span *ngIf="title">{{ title }}</span>
-          <span class="p-input-icon-left" *ngIf="getSetting(globalSearch)">
+          <span *ngIf="inputOptions.title">{{ inputOptions.title }}</span>
+          <span
+            class="p-input-icon-left"
+            *ngIf="getSetting(inputOptions.globalSearch)"
+          >
             <i class="pi pi-search"></i>
             <input
               pInputText
@@ -54,14 +64,14 @@
             />
           </span>
           <lib-toolbar-buttons
-            [showAddButton]="getSetting(showAddButton)"
+            [showAddButton]="getSetting(inputOptions.showAddButton)"
             [items]="items"
             [exportColumns]="exportColumns"
             [table]="table"
-            [exportTypes]="exportTypes"
+            [exportTypes]="inputOptions.exportTypes"
             [selectedItems]="selectedItems"
-            [exportFileName]="exportFileName"
-            [export]="getSetting(export)"
+            [exportFileName]="inputOptions.exportFileName"
+            [export]="getSetting(inputOptions.export)"
           ></lib-toolbar-buttons>
         </div>
       </ng-container>
@@ -71,20 +81,20 @@
   <!--  header-->
   <ng-template pTemplate="header">
     <tr>
-      <th *ngIf="selectionMode !== undefined" pFrozenColumn>
+      <th *ngIf="inputOptions.selectionMode !== undefined" pFrozenColumn>
         <p-tableHeaderCheckbox
-          *ngIf="selectionMode === 'multiple'"
+          *ngIf="inputOptions.selectionMode === 'multiple'"
           (click)="selectAll($event)"
           [disabled]="!isRowSelectable()"
         ></p-tableHeaderCheckbox>
       </th>
-      <th *ngIf="rowExpand" pFrozenColumn></th>
+      <th *ngIf="inputOptions.rowExpand" pFrozenColumn></th>
       <th
         *ngFor="let col of tableColumns; let first = first"
         [pSortableColumn]="col.sort ? col.field : undefined"
         [ngStyle]="{ minWidth: col.filter === 'text' ? '13rem' : 'unset' }"
         pFrozenColumn
-        [frozen]="first && getSetting(firstColumnFrozen)"
+        [frozen]="first && getSetting(inputOptions.firstColumnFrozen)"
       >
         {{ col.header }}
         <p-sortIcon [field]="col.field" *ngIf="col.sort"></p-sortIcon>
@@ -92,12 +102,12 @@
       <th alignFrozen="right" pFrozenColumn></th>
     </tr>
     <tr>
-      <th *ngIf="selectionMode !== undefined" pFrozenColumn></th>
-      <th *ngIf="rowExpand" pFrozenColumn></th>
+      <th *ngIf="inputOptions.selectionMode !== undefined" pFrozenColumn></th>
+      <th *ngIf="inputOptions.rowExpand" pFrozenColumn></th>
       <th
         *ngFor="let col of tableColumns; let first = first"
         pFrozenColumn
-        [frozen]="first && getSetting(firstColumnFrozen)"
+        [frozen]="first && getSetting(inputOptions.firstColumnFrozen)"
       >
         <!--  text column filter-->
         <p-columnFilter
@@ -170,19 +180,19 @@
     let-ri="rowIndex"
   >
     <tr [pEditableRow]="item">
-      <td *ngIf="selectionMode !== undefined" pFrozenColumn>
+      <td *ngIf="inputOptions.selectionMode !== undefined" pFrozenColumn>
         <p-tableCheckbox
           [value]="item"
-          *ngIf="selectionMode === 'multiple'"
+          *ngIf="inputOptions.selectionMode === 'multiple'"
           [disabled]="!isRowSelectable()"
         ></p-tableCheckbox>
         <p-tableRadioButton
           [value]="item"
-          *ngIf="selectionMode === 'single'"
+          *ngIf="inputOptions.selectionMode === 'single'"
           [disabled]="!isRowSelectable()"
         ></p-tableRadioButton>
       </td>
-      <td *ngIf="rowExpand" pFrozenColumn>
+      <td *ngIf="inputOptions.rowExpand" pFrozenColumn>
         <button
           type="button"
           pButton
@@ -195,7 +205,7 @@
       <td
         *ngFor="let col of tableColumns; let first = first"
         pFrozenColumn
-        [frozen]="first && getSetting(firstColumnFrozen)"
+        [frozen]="first && getSetting(inputOptions.firstColumnFrozen)"
       >
         <p-cellEditor *ngIf="col.input; else textTemplate">
           <ng-template pTemplate="input">
@@ -277,7 +287,7 @@
   </ng-template>
 
   <!--    summary-->
-  <ng-container *ngIf="showSummary">
+  <ng-container *ngIf="inputOptions.showSummary">
     <ng-template pTemplate="summary">
       <ng-content select="summary"></ng-content>
     </ng-template>
@@ -298,7 +308,7 @@
         [attr.colspan]="calculateEmptyMessageColspan()"
         style="text-align: center"
       >
-        {{ emptyMessage }}
+        {{ inputOptions.emptyMessage }}
       </td>
     </tr>
   </ng-template>
