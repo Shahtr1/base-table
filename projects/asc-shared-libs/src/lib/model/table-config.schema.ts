@@ -36,6 +36,7 @@ export const inputTypeSchema = z.union([
   z.literal("switch"),
   z.literal("knob"),
   z.literal("select-button"),
+  z.literal("autocomplete"),
 ]);
 
 export const tableSettingsSchema = z.object({

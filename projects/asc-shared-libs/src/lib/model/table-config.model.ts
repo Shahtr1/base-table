@@ -38,7 +38,8 @@ export type InputType =
   | 'mask'
   | 'switch'
   | 'knob'
-  | 'select-button';
+  | 'select-button'
+  | 'autocomplete';
 
 export type TableSettings = {
   url: string;
