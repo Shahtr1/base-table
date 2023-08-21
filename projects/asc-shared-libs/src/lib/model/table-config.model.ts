@@ -2,10 +2,26 @@ export type PagingType = 'client-side' | 'server-side';
 
 export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 
+export type SelectConfig = {
+  options?: Record<string, any>[];
+
+  /** Will take label(key) as default */
+  optionLabel?: string;
+
+  /** Will take value(key) as default, if no value, then will take whole object */
+  optionValue?: string;
+
+  /** filter by which key?, Will take label(key) as default */
+  filterBy?: string;
+
+  disabled?: boolean;
+};
+
 export type InputField = {
   type: InputType;
   placeholderId?: string;
   placeholder?: string;
+  selectConfig?: SelectConfig;
 };
 
 export type InputType =

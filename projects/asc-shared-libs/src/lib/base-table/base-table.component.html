@@ -221,6 +221,7 @@
                   "
                 />
               </ng-container>
+
               <!--              number-->
               <ng-container *ngSwitchCase="'number'">
                 <input
@@ -232,6 +233,61 @@
                   "
                 />
               </ng-container>
+
+              <!--              select-->
+              <ng-container *ngSwitchCase="'select'">
+                <p-dropdown
+                  [options]="col.input.selectConfig!.options"
+                  [(ngModel)]="item[col.field]"
+                  [placeholder]="
+                    getTranslationFromLabelId(col.input.placeholderId)
+                  "
+                  [showClear]="true"
+                  appendTo="body"
+                  [optionLabel]="col.input.selectConfig!.optionLabel"
+                  [optionValue]="col.input.selectConfig!.optionValue"
+                  [filter]="true"
+                  [filterBy]="col.input.selectConfig!.filterBy"
+                  [disabled]="col.input.selectConfig!.disabled || false"
+                >
+                </p-dropdown>
+              </ng-container>
+
+              <!--              multiselect-->
+              <ng-container *ngSwitchCase="'multiselect'"> </ng-container>
+
+              <!--              radio-->
+              <ng-container *ngSwitchCase="'radio'"> </ng-container>
+
+              <!--              checkbox-->
+              <ng-container *ngSwitchCase="'checkbox'"> </ng-container>
+
+              <!--              textarea-->
+              <ng-container *ngSwitchCase="'textarea'"> </ng-container>
+
+              <!--              color-->
+              <ng-container *ngSwitchCase="'color'"> </ng-container>
+
+              <!--              calendar-->
+              <ng-container *ngSwitchCase="'calendar'"> </ng-container>
+
+              <!--              chips-->
+              <ng-container *ngSwitchCase="'chips'"> </ng-container>
+
+              <!--              editor-->
+              <ng-container *ngSwitchCase="'editor'"> </ng-container>
+
+              <!--              mask-->
+              <ng-container *ngSwitchCase="'mask'"> </ng-container>
+
+              <!--              switch-->
+              <ng-container *ngSwitchCase="'switch'"> </ng-container>
+
+              <!--              knob-->
+              <ng-container *ngSwitchCase="'knob'"> </ng-container>
+
+              <!--              select-button-->
+              <ng-container *ngSwitchCase="'select-button'"> </ng-container>
             </ng-container>
           </ng-template>
           <ng-template pTemplate="output">

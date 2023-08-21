@@ -47,6 +47,22 @@ export const testBaseTableData: TableViewConfig = {
       input: {
         type: 'select',
         placeholderId: 'L_ENTER_FULL_NAME',
+        selectConfig: {
+          options: [
+            {
+              myLabel: 'name',
+              value: 'id',
+              key: 'abc',
+            },
+            {
+              myLabel: 'name2',
+              value: 'id3',
+              key: 'def',
+            },
+          ],
+          optionLabel: 'myLabel',
+          filterBy: 'key',
+        },
       },
     },
     {

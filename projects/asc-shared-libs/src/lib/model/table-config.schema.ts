@@ -13,6 +13,14 @@ export const tableFilterSchema = z.union([
   z.literal("boolean"),
 ]);
 
+export const selectConfigSchema = z.object({
+  options: z.array(z.record(z.any())).optional(),
+  optionLabel: z.string().optional(),
+  optionValue: z.string().optional(),
+  filterBy: z.string().optional(),
+  disabled: z.boolean().optional(),
+});
+
 export const inputTypeSchema = z.union([
   z.literal("text"),
   z.literal("number"),
@@ -60,6 +68,7 @@ export const inputFieldSchema = z.object({
   type: inputTypeSchema,
   placeholderId: z.string().optional(),
   placeholder: z.string().optional(),
+  selectConfig: selectConfigSchema.optional(),
 });
 
 export const tableColumnSchema = z.object({
