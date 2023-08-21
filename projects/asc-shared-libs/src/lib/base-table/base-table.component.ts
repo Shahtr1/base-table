@@ -16,6 +16,7 @@ import {
   TableColumn,
   TableSettings,
   TableViewConfig,
+  TextConfig,
 } from '../model/table-config.model';
 import { TextService } from '../services/text.service';
 import { GeneralText } from '../model/lib.model';

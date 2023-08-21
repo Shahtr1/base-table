@@ -212,15 +212,30 @@
             <ng-container [ngSwitch]="col.input.type">
               <!--              text-->
               <ng-container *ngSwitchCase="'text'">
-                <input
-                  pInputText
-                  type="text"
-                  [(ngModel)]="item[col.field]"
-                  [placeholder]="
-                    getTranslationFromLabelId(col.input.placeholderId)
-                  "
-                  [disabled]="col.input.disabled || false"
-                />
+                <span
+                  [ngClass]="[
+                    col.input.textConfig?.position === 'right' &&
+                    col.input.textConfig?.icon
+                      ? 'p-input-icon-right'
+                      : col.input?.textConfig?.icon
+                      ? 'p-input-icon-left'
+                      : ''
+                  ]"
+                >
+                  <i
+                    *ngIf="col.input?.textConfig?.icon"
+                    [class]="col.input.textConfig?.icon"
+                  ></i>
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="item[col.field]"
+                    [placeholder]="
+                      getTranslationFromLabelId(col.input?.placeholderId)
+                    "
+                    [disabled]="col.input?.disabled || false"
+                  />
+                </span>
               </ng-container>
 
               <!--              number-->
@@ -230,27 +245,27 @@
                   type="number"
                   [(ngModel)]="item[col.field]"
                   [placeholder]="
-                    getTranslationFromLabelId(col.input.placeholderId)
+                    getTranslationFromLabelId(col.input?.placeholderId)
                   "
-                  [disabled]="col.input.disabled || false"
+                  [disabled]="col.input?.disabled || false"
                 />
               </ng-container>
 
               <!--              select-->
               <ng-container *ngSwitchCase="'select'">
                 <p-dropdown
-                  [options]="col.input.selectConfig!.options"
+                  [options]="(col.input?.selectConfig)!.options"
                   [(ngModel)]="item[col.field]"
                   [placeholder]="
-                    getTranslationFromLabelId(col.input.placeholderId)
+                    getTranslationFromLabelId(col.input?.placeholderId)
                   "
                   [showClear]="true"
                   appendTo="body"
-                  [optionLabel]="col.input.selectConfig!.optionLabel"
-                  [optionValue]="col.input.selectConfig!.optionValue"
+                  [optionLabel]="(col.input?.selectConfig)!.optionLabel"
+                  [optionValue]="(col.input?.selectConfig)!.optionValue"
                   [filter]="true"
-                  [filterBy]="col.input.selectConfig!.filterBy"
-                  [disabled]="col.input.disabled || false"
+                  [filterBy]="(col.input?.selectConfig)!.filterBy"
+                  [disabled]="col.input?.disabled || false"
                 >
                 </p-dropdown>
               </ng-container>

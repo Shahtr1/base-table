@@ -1,3 +1,7 @@
+import { PrimeIcons } from 'primeng/api';
+
+export type PrimeIconValues = typeof PrimeIcons[keyof typeof PrimeIcons];
+
 export type PagingType = 'client-side' | 'server-side';
 
 export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
@@ -15,11 +19,17 @@ export type SelectConfig = {
   filterBy?: string;
 };
 
+export type TextConfig = {
+  position?: 'left' | 'right';
+  icon?: PrimeIconValues;
+};
+
 export type InputField = {
   type: InputType;
   placeholderId?: string;
   placeholder?: string;
   selectConfig?: SelectConfig;
+  textConfig?: TextConfig;
   disabled?: boolean;
 };
 

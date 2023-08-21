@@ -20,6 +20,10 @@ export const selectConfigSchema = z.object({
   filterBy: z.string().optional(),
 });
 
+export const textConfigSchema = z.object({
+  position: z.union([z.literal("left"), z.literal("right")]).optional(),
+});
+
 export const inputTypeSchema = z.union([
   z.literal("text"),
   z.literal("number"),
@@ -69,6 +73,7 @@ export const inputFieldSchema = z.object({
   placeholderId: z.string().optional(),
   placeholder: z.string().optional(),
   selectConfig: selectConfigSchema.optional(),
+  textConfig: textConfigSchema.optional(),
   disabled: z.boolean().optional(),
 });
 

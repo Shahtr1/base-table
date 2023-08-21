@@ -78,6 +78,10 @@ export class AppComponent implements OnInit {
         input: {
           type: 'text',
           placeholderId: 'L_ENTER_REFERENCE_NAME',
+          textConfig: {
+            icon: 'pi pi-camera',
+            position: 'right',
+          },
         },
       },
       {
