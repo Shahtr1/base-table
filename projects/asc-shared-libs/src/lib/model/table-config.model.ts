@@ -13,8 +13,6 @@ export type SelectConfig = {
 
   /** filter by which key?, Will take label(key) as default */
   filterBy?: string;
-
-  disabled?: boolean;
 };
 
 export type InputField = {
@@ -22,6 +20,7 @@ export type InputField = {
   placeholderId?: string;
   placeholder?: string;
   selectConfig?: SelectConfig;
+  disabled?: boolean;
 };
 
 export type InputType =

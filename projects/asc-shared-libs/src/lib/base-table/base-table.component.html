@@ -219,6 +219,7 @@
                   [placeholder]="
                     getTranslationFromLabelId(col.input.placeholderId)
                   "
+                  [disabled]="col.input.disabled || false"
                 />
               </ng-container>
 
@@ -231,6 +232,7 @@
                   [placeholder]="
                     getTranslationFromLabelId(col.input.placeholderId)
                   "
+                  [disabled]="col.input.disabled || false"
                 />
               </ng-container>
 
@@ -248,7 +250,7 @@
                   [optionValue]="col.input.selectConfig!.optionValue"
                   [filter]="true"
                   [filterBy]="col.input.selectConfig!.filterBy"
-                  [disabled]="col.input.selectConfig!.disabled || false"
+                  [disabled]="col.input.disabled || false"
                 >
                 </p-dropdown>
               </ng-container>

@@ -18,7 +18,6 @@ export const selectConfigSchema = z.object({
   optionLabel: z.string().optional(),
   optionValue: z.string().optional(),
   filterBy: z.string().optional(),
-  disabled: z.boolean().optional(),
 });
 
 export const inputTypeSchema = z.union([
@@ -69,6 +68,7 @@ export const inputFieldSchema = z.object({
   placeholderId: z.string().optional(),
   placeholder: z.string().optional(),
   selectConfig: selectConfigSchema.optional(),
+  disabled: z.boolean().optional(),
 });
 
 export const tableColumnSchema = z.object({
