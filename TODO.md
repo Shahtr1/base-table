@@ -12,3 +12,4 @@
 10. add duplicate check for the columns
 11. Add date filter
 12. Add virtual scroll in select dropdown
+13. Check if textConfig is working
