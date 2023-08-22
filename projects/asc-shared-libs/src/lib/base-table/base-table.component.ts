@@ -16,7 +16,6 @@ import {
   TableColumn,
   TableSettings,
   TableViewConfig,
-  TextConfig,
 } from '../model/table-config.model';
 import { TextService } from '../services/text.service';
 import { GeneralText } from '../model/lib.model';
@@ -70,7 +69,7 @@ export class BaseTableComponent<TData> implements OnInit {
     this.inputOptions.rowsPerPageOptions.find((size) => size === value) ||
       this.inputOptions.rowsPerPageOptions.push(value);
 
-    // sort array in ascending order
+    /** sort array in ascending order */
     this.inputOptions.rowsPerPageOptions.sort((a, b) => a - b);
   }
 
@@ -151,7 +150,7 @@ export class BaseTableComponent<TData> implements OnInit {
   private loadTableConfig() {
     this.tableConfigService.load(this.tableId).subscribe((tableConfigResp) => {
       if (tableConfigResp) {
-        this.tableViewConfig = this.getTableConfig(tableConfigResp);
+        this.tableViewConfig = this.handleTableConfig(tableConfigResp);
         this.tableSettings = this.tableViewConfig.settings;
         this.tableColumns = this.tableViewConfig.columns;
 
@@ -165,12 +164,12 @@ export class BaseTableComponent<TData> implements OnInit {
   private tableInit() {
     this.tableSettingsHandler.handleManualSettings();
 
-    this.setColumnsForExport();
+    this.setColumnsForExport__AndTranslateGeneralTexts();
 
     this.tableDataFetcher.fetchTableRows();
   }
 
-  private getTableConfig(tableConfigResp: TableViewConfig) {
+  private handleTableConfig(tableConfigResp: TableViewConfig) {
     if (
       tableConfigResp.settings.modifyConfig &&
       this.inputOptions.modifyConfigFn
@@ -180,8 +179,8 @@ export class BaseTableComponent<TData> implements OnInit {
     return tableConfigResp;
   }
 
-  private setColumnsForExport() {
-    this.pushTableColumnsHeaderIdToGeneralTexts(
+  private setColumnsForExport__AndTranslateGeneralTexts() {
+    this.pushTableColumnsHeaderIdToGeneralTexts__AndTranslateGeneralTexts(
       this.getHandleAfterTranslationSuccess()
     );
 
@@ -193,11 +192,7 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private getHandleAfterTranslationSuccess() {
     return () => {
-      if (!this.inputOptions.title && this.tableSettings.title) {
-        this.inputOptions.title = this.generalTexts[
-          toCamelCase(this.tableSettings.title)
-        ].label;
-      }
+      this.setTranslatedTitle();
 
       this.tableColumns.map((col) => {
         col.header = this.getTranslationFromLabelId(col.headerId!);
@@ -206,6 +201,14 @@ export class BaseTableComponent<TData> implements OnInit {
         }
       });
     };
+  }
+
+  private setTranslatedTitle() {
+    if (!this.inputOptions.title && this.tableSettings.title) {
+      this.inputOptions.title = this.generalTexts[
+        toCamelCase(this.tableSettings.title)
+      ].label;
+    }
   }
 
   getTranslationFromLabelId(labelId?: string) {
@@ -220,7 +223,7 @@ export class BaseTableComponent<TData> implements OnInit {
     }
   }
 
-  private pushTableColumnsHeaderIdToGeneralTexts(
+  private pushTableColumnsHeaderIdToGeneralTexts__AndTranslateGeneralTexts(
     handleAfterTranslationSuccess: () => void
   ) {
     this.tableColumns.forEach((col) => {
