@@ -327,4 +327,16 @@ export class BaseTableComponent<TData> implements OnInit {
 
     return colspan;
   }
+
+  getTextSpanClasses(textConfig: any): string[] {
+    const classes: string[] = [];
+
+    if (textConfig?.position === 'right' && textConfig?.icon) {
+      classes.push('p-input-icon-right');
+    } else if (textConfig?.icon) {
+      classes.push('p-input-icon-left');
+    }
+
+    return classes;
+  }
 }

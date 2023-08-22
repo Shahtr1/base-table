@@ -212,16 +212,7 @@
             <ng-container [ngSwitch]="col.input.type">
               <!--              text-->
               <ng-container *ngSwitchCase="'text'">
-                <span
-                  [ngClass]="[
-                    col.input.textConfig?.position === 'right' &&
-                    col.input.textConfig?.icon
-                      ? 'p-input-icon-right'
-                      : col.input?.textConfig?.icon
-                      ? 'p-input-icon-left'
-                      : ''
-                  ]"
-                >
+                <span [ngClass]="getTextSpanClasses(col.input?.textConfig)">
                   <i
                     *ngIf="col.input?.textConfig?.icon"
                     [class]="col.input.textConfig?.icon"
