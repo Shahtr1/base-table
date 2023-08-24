@@ -1,6 +1,9 @@
 import { PrimeIcons } from 'primeng/api';
 
-export type PrimeIconValues = typeof PrimeIcons[keyof typeof PrimeIcons];
+export type PrimeIconValues = (typeof PrimeIcons)[Exclude<
+  keyof typeof PrimeIcons,
+  'prototype'
+>];
 
 export type PagingType = 'client-side' | 'server-side';
 
