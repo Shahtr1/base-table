@@ -224,7 +224,7 @@
                     type="text"
                     [(ngModel)]="item[col.field]"
                     [placeholder]="
-                      getTranslationFromLabelId(col.input?.placeholderId)
+                      getTranslationFromId(col.input?.placeholderId)
                     "
                     [disabled]="col.input?.disabled || false"
                   />
@@ -237,9 +237,7 @@
                   pInputText
                   type="number"
                   [(ngModel)]="item[col.field]"
-                  [placeholder]="
-                    getTranslationFromLabelId(col.input?.placeholderId)
-                  "
+                  [placeholder]="getTranslationFromId(col.input?.placeholderId)"
                   [disabled]="col.input?.disabled || false"
                 />
               </ng-container>
@@ -253,12 +251,10 @@
                     []
                   "
                   [(ngModel)]="item[col.field]"
-                  [placeholder]="
-                    getTranslationFromLabelId(col.input?.placeholderId)
-                  "
+                  [placeholder]="getTranslationFromId(col.input?.placeholderId)"
                   [showClear]="true"
                   appendTo="body"
-                  [optionLabel]="(col.input?.selectConfig)!.optionLabel"
+                  optionLabel="translated_option_label"
                   [optionValue]="(col.input?.selectConfig)!.optionValue"
                   [filter]="true"
                   [filterBy]="(col.input?.selectConfig)!.filterBy"
