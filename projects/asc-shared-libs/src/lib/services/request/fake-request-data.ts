@@ -1,7 +1,6 @@
-import { TableViewConfig } from '../../model/table-config.model';
 import * as _ from 'lodash-es';
 
-export const testBaseTableData: TableViewConfig = {
+export const testBaseTableData: any = {
   settings: {
     url: '/api/v5/account-purposes',
     showEditButton: true,

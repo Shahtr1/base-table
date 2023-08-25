@@ -13,3 +13,5 @@
 11. Add date filter
 12. Add virtual scroll in select dropdown
 13. Check if textConfig is working
+14. Custom component in action column
+15. Direction ltr rtl
