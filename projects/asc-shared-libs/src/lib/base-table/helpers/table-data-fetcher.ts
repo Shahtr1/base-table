@@ -9,13 +9,8 @@ export class TableDataFetcher<TData> {
   constructor(private tableComponent: BaseTableComponent<TData>) {}
 
   fetchTableRows() {
-    const {
-      tableSettings,
-      rowsPerPage,
-      pageNumber,
-      items,
-      requestService,
-    } = this.tableComponent;
+    const { tableSettings, rowsPerPage, pageNumber, items, requestService } =
+      this.tableComponent;
 
     if (!tableSettings.url) {
       console.warn('Table url is not defined');
@@ -51,17 +46,15 @@ export class TableDataFetcher<TData> {
       options['isEnabled.equals'] = true;
     }
 
-    requestService
-      .request(this.tableComponent.environment.apiUrl, 'GET', url, options)
-      .subscribe((response) => {
-        let data = [];
-        let total = 0;
-        if (response && response.body) {
-          data = response.body;
-          total = response.headers.get('x-total-count') || 0;
-        }
-        this.setData(data, total);
-      });
+    requestService.request('GET', url, options).subscribe((response) => {
+      let data = [];
+      let total = 0;
+      if (response && response.body) {
+        data = response.body;
+        total = response.headers.get('x-total-count') || 0;
+      }
+      this.setData(data, total);
+    });
   }
 
   private setData(data: any[], total: number) {

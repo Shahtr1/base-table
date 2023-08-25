@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
         headerId: 'L_REFERENCE_NAME',
         filter: 'text',
         input: {
-          type: 'text',
+          type: 'number',
           placeholderId: 'L_ENTER_REFERENCE_NAME',
           textConfig: {
             icon: 'pi pi-camera',

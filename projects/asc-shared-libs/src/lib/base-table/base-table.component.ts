@@ -26,6 +26,7 @@ import { isArray } from 'lodash-es';
 import { TableSettingsHandler } from './helpers/table-settings-handler';
 import { TableDataFetcher } from './helpers/table-data-fetcher';
 import { TableInputOptions } from './helpers/table-input-options';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'lib-base-table',
@@ -205,9 +206,8 @@ export class BaseTableComponent<TData> implements OnInit {
 
   private setTranslatedTitle() {
     if (!this.inputOptions.title && this.tableSettings.title) {
-      this.inputOptions.title = this.generalTexts[
-        toCamelCase(this.tableSettings.title)
-      ].label;
+      this.inputOptions.title =
+        this.generalTexts[toCamelCase(this.tableSettings.title)].label;
     }
   }
 
@@ -245,9 +245,8 @@ export class BaseTableComponent<TData> implements OnInit {
     this.textService.convert(this.generalTexts).subscribe((res) => {
       this.generalTexts = { ...res };
       if (!this.inputOptions.emptyMessage) {
-        this.inputOptions.emptyMessage = this.generalTexts[
-          'defaultEmptyMessage'
-        ].label!;
+        this.inputOptions.emptyMessage =
+          this.generalTexts['defaultEmptyMessage'].label!;
       }
       success();
     });
@@ -284,7 +283,7 @@ export class BaseTableComponent<TData> implements OnInit {
     this.selectedItemsChange.emit(this.selectedItems);
   }
 
-  getElement($event: Event): HTMLInputElement {
+  getInputElement($event: Event): HTMLInputElement {
     return $event.target as HTMLInputElement;
   }
 
@@ -341,5 +340,9 @@ export class BaseTableComponent<TData> implements OnInit {
     }
 
     return classes;
+  }
+
+  getOptionsFromUrl(url?: string): Observable<Record<string, any>[]> {
+    return of([]);
   }
 }

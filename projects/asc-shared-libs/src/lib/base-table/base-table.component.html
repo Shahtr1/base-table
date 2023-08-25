@@ -59,7 +59,9 @@
             <input
               pInputText
               type="text"
-              (input)="table.filterGlobal(getElement($event).value, 'contains')"
+              (input)="
+                table.filterGlobal(getInputElement($event).value, 'contains')
+              "
               [placeholder]="generalTexts.globalSearch.label"
             />
           </span>
@@ -245,7 +247,11 @@
               <!--              select-->
               <ng-container *ngSwitchCase="'select'">
                 <p-dropdown
-                  [options]="(col.input?.selectConfig)!.options"
+                  [options]="
+                    (col.input?.selectConfig)!.options ??
+                    (getOptionsFromUrl(col.input?.selectConfig?.url) | async) ??
+                    []
+                  "
                   [(ngModel)]="item[col.field]"
                   [placeholder]="
                     getTranslationFromLabelId(col.input?.placeholderId)
