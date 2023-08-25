@@ -23,6 +23,8 @@ export class FakeRequestService implements IRequestService {
       respData = [{ definition: JSON.stringify(testBaseTableData) }];
     } else if (route.includes('account-purpose')) {
       respData = this.testAccountPurposeData;
+    } else if (route.includes('select-url')) {
+      respData = this.testAccountPurposeData;
     }
 
     return new Observable((observer) => {

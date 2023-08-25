@@ -34,6 +34,8 @@ export class FakeLabelService implements ILabelService {
       L_ENTER_MIDDLE_NAME: 'Enter middle name',
       L_ENTER_FULL_NAME: 'Enter full name',
       L_ENTER_TRXN_STATUS: 'Enter transaction status',
+      L_NAME_1: 'Name 1',
+      L_NAME_2: 'Name 2',
     });
   }
 }

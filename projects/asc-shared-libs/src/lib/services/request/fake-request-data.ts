@@ -54,12 +54,12 @@ export const testBaseTableData: TableViewConfig = {
         selectConfig: {
           options: [
             {
-              myLabel: 'name',
+              myLabel: 'L_NAME_1',
               value: 'id',
               key: 'abc',
             },
             {
-              myLabel: 'name2',
+              myLabel: 'L_NAME_2',
               value: 'id3',
               key: 'def',
             },
@@ -96,4 +96,8 @@ export function getAccountPurposeData() {
   }
 
   return testAccountPurposeData;
+}
+
+export function getSelectData() {
+  return [{ id: 1, name: '' }];
 }

@@ -155,9 +155,29 @@ export class BaseTableComponent<TData> implements OnInit {
         this.tableSettings = this.tableViewConfig.settings;
         this.tableColumns = this.tableViewConfig.columns;
 
+        this.passSelectOptionsToGeneralTexts();
+
         console.info('Table configuration:', this.tableViewConfig);
 
         this.tableInit();
+      }
+    });
+  }
+
+  private passSelectOptionsToGeneralTexts() {
+    this.tableColumns.map((col) => {
+      if (col.input?.type === 'select') {
+        const selectConfig = col.input?.selectConfig;
+        if (selectConfig?.options?.length) {
+          selectConfig.options.map((option) => {
+            const optionKey = selectConfig!.optionLabel ?? 'label';
+            if (option[optionKey]) {
+              this.generalTexts[toCamelCase(option[optionKey])] = {
+                labelId: option[optionKey],
+              };
+            }
+          });
+        }
       }
     });
   }
@@ -196,12 +216,28 @@ export class BaseTableComponent<TData> implements OnInit {
       this.setTranslatedTitle();
 
       this.tableColumns.map((col) => {
-        col.header = this.getTranslationFromLabelId(col.headerId!);
+        col.header = this.getTranslationFromId(col.headerId!);
+
+        this.setSelectOptionsTranslation(col);
+
         if (col.globalSearch) {
           this.addFieldToGlobalFilterFields(col);
         }
       });
     };
+  }
+
+  private setSelectOptionsTranslation(col: TableColumn) {
+    if (col.input?.type === 'select') {
+      const selectConfig = col.input?.selectConfig;
+      if (selectConfig?.options?.length) {
+        const optionKey = selectConfig!.optionLabel ?? 'label';
+        selectConfig.options.map((option) => {
+          option['translated_option_label'] =
+            this.generalTexts[toCamelCase(option[optionKey])].label;
+        });
+      }
+    }
   }
 
   private setTranslatedTitle() {
@@ -211,8 +247,8 @@ export class BaseTableComponent<TData> implements OnInit {
     }
   }
 
-  getTranslationFromLabelId(labelId?: string) {
-    return labelId ? this.generalTexts[toCamelCase(labelId)].label : '';
+  getTranslationFromId(id?: string) {
+    return id ? this.generalTexts[toCamelCase(id)].label : '';
   }
 
   private addFieldToGlobalFilterFields(col: TableColumn) {
@@ -342,7 +378,7 @@ export class BaseTableComponent<TData> implements OnInit {
     return classes;
   }
 
-  getOptionsFromUrl(url?: string): Observable<Record<string, any>[]> {
-    return of([]);
+  getOptionsFromUrl(urlPath?: string): Observable<Record<string, any>[]> {
+    return urlPath ? this.requestService.request('GET', urlPath) : of([]);
   }
 }
