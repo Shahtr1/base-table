@@ -13,6 +13,8 @@ export class TextService {
   // TODO: Why isn't this working?
   // Switched to this.store.select() in convert() below, till we get the answer (Best of Luck!)
   // @Select(LabelState.getLabels) labels$!: Observable<LabelConfig>;
+  // Some info here! As its getting deprecated soon, so we are on the right track
+  // https://stackoverflow.com/a/76938577/13964289
 
   convert(data: GeneralText): Observable<GeneralText> {
     const labels$ = this.getLabelsFromState();
