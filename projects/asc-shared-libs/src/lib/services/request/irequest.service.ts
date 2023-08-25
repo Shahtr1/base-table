@@ -3,8 +3,8 @@ import { HttpVerbs } from '../../model/lib.model';
 
 export interface IRequestService {
   request(
-    apiEndpoint: string,
     method: HttpVerbs,
+    apiEndpoint: string,
     route: string,
     data?: any,
     options?: any

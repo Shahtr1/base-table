@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { IRequestService } from './irequest.service';
@@ -11,7 +11,10 @@ export class RequestService implements IRequestService {
   private loggedIn = false;
   private token?: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject('environment') public environment: any
+  ) {}
 
   setLoggedIn(loggedIn: boolean, token?: string): void {
     this.loggedIn = loggedIn;
@@ -19,18 +22,18 @@ export class RequestService implements IRequestService {
   }
 
   request(
-    apiEndpoint: string,
     method: HttpVerbs,
-    route: string,
+    urlPath: string,
     data?: any,
     options: any = { rawBody: false }
   ): Observable<any> {
+    const apiEndpoint = this.environment.apiUrl;
     if (method === 'GET') {
-      return this.get(apiEndpoint, route, data, options);
+      return this.get(urlPath, data, options);
     }
 
     if (method === 'DELETE') {
-      return this.http.request(method, apiEndpoint + route, {
+      return this.http.request(method, apiEndpoint + urlPath, {
         responseType: 'json',
         observe: 'body',
       });
@@ -39,7 +42,7 @@ export class RequestService implements IRequestService {
     return this.http
       .request(
         method,
-        apiEndpoint + route,
+        apiEndpoint + urlPath,
         options.rawBody
           ? data
           : {
@@ -51,12 +54,8 @@ export class RequestService implements IRequestService {
       .pipe(retry(1));
   }
 
-  private get(
-    apiEndpoint: string,
-    route: string,
-    data?: any,
-    options?: any
-  ): Observable<any> {
+  private get(urlPath: string, data?: any, options?: any): Observable<any> {
+    const apiEndpoint = this.environment.apiUrl;
     let params = new HttpParams();
     if (data !== undefined) {
       Object.getOwnPropertyNames(data).forEach((key) => {
@@ -65,7 +64,7 @@ export class RequestService implements IRequestService {
     }
 
     return this.http
-      .get(apiEndpoint + route, {
+      .get(apiEndpoint + urlPath, {
         ...options,
         params,
         observe: 'response',

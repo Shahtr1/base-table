@@ -11,12 +11,12 @@ export class FakeRequestService implements IRequestService {
   private testAccountPurposeData = getAccountPurposeData();
 
   request(
-    apiEndpoint: string,
     method: HttpVerbs,
     route: string,
     data?: any,
     options?: any
   ): Observable<any> {
+    const apiEndpoint = '';
     this.logData(apiEndpoint, method, route, data, options);
     let respData: any;
     if (route.includes('app-table-designs')) {

@@ -20,9 +20,8 @@ export class TableConfigService {
   }
 
   load(tableId: string): Observable<TableViewConfig> | never {
-    console.log('Environment variables:', this.env);
     return this.requestService
-      .request(this.env.apiUrl, 'GET', '/api/v5/app-table-designs', {
+      .request('GET', '/api/v5/app-table-designs', {
         'name.equals': tableId,
       })
       .pipe(

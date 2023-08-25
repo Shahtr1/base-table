@@ -1,6 +1,7 @@
 import * as _ from 'lodash-es';
+import { TableViewConfig } from '../../model/table-config.model';
 
-export const testBaseTableData: any = {
+export const testBaseTableData: TableViewConfig = {
   settings: {
     url: '/api/v5/account-purposes',
     showEditButton: true,
@@ -26,6 +27,10 @@ export const testBaseTableData: any = {
       input: {
         type: 'text',
         placeholderId: 'L_ENTER_SHORT_NAME',
+        textConfig: {
+          position: 'left',
+          icon: 'pi pi-search',
+        },
       },
     },
     {
