@@ -22,6 +22,7 @@ export const selectConfigSchema = z.object({
   optionLabel: z.string().optional(),
   optionValue: z.string().optional(),
   filterBy: z.string().optional(),
+  url: z.string().optional(),
 });
 
 export const textConfigSchema = z.object({

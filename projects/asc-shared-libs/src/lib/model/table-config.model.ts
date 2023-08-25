@@ -12,6 +12,9 @@ export type TableFilter = 'text' | 'select' | 'multiselect' | 'boolean';
 export type SelectConfig = {
   options?: Record<string, any>[];
 
+  /** url to get select options */
+  url?: string;
+
   /** Will take label(key) as default */
   optionLabel?: string;
 
