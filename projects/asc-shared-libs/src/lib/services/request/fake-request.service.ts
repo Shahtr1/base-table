@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { IRequestService } from './irequest.service';
 import { Observable } from 'rxjs';
 import { HttpVerbs } from '../../model/lib.model';
-import { getAccountPurposeData, testBaseTableData } from './fake-request-data';
+import {
+  getAccountPurposeData,
+  getSelectData,
+  testBaseTableData,
+} from './fake-request-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FakeRequestService implements IRequestService {
   private testAccountPurposeData = getAccountPurposeData();
+  private testSelectData = getSelectData();
 
   request(
     method: HttpVerbs,
@@ -24,7 +29,7 @@ export class FakeRequestService implements IRequestService {
     } else if (route.includes('account-purpose')) {
       respData = this.testAccountPurposeData;
     } else if (route.includes('select-url')) {
-      respData = this.testAccountPurposeData;
+      respData = this.testSelectData;
     }
 
     return new Observable((observer) => {
