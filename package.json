@@ -9,7 +9,8 @@
     "test": "ng test",
     "build:doc": "compodoc -p projects/asc-shared-libs/tsconfig.lib.json -d dist/asc-shared-libs/documentation",
     "build:sass": "sass projects/asc-shared-libs/styles.scss projects/asc-shared-libs/styles/styles.css",
-    "build:lib": "npm run build:sass  && ng-packagr -p projects/asc-shared-libs/ng-package.json && npm run build:doc && ng serve"
+    "build:lib": "npm run build:sass  && ng-packagr -p projects/asc-shared-libs/ng-package.json && npm run build:doc && ng serve",
+    "release": "release-it"
   },
   "private": false,
   "publishConfig": {
@@ -62,6 +63,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^16.0.0",
+    "release-it": "^16.1.5",
     "typescript": "~5.1.3"
   }
 }
