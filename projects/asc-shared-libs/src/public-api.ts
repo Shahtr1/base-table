@@ -15,3 +15,4 @@ export * from './lib/model/table-config.schema';
 export * from './lib/services/request/request.service';
 export * from './lib/services/table-config.service';
 export * from './lib/services/text.service';
+export * from './lib/base-table/helpers/table-input-options';
