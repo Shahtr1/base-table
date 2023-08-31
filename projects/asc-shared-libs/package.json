@@ -31,9 +31,7 @@
     "registry": "http://localhost:8081/repository/npm-private/"
   },
   "exports": {
-    ".": {
-      "sass": "./_index.scss"
-    }
+    "./styles/styles.css": "./styles/styles.css"
   },
   "sideEffects": false
 }
