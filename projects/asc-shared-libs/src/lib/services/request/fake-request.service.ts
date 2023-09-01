@@ -12,7 +12,7 @@ import {
   providedIn: 'root',
 })
 export class FakeRequestService implements IRequestService {
-  private testAccountPurposeData = getAccountPurposeData();
+  private testTableEntries = getAccountPurposeData();
   private testSelectData = getSelectData();
 
   request(
@@ -24,10 +24,10 @@ export class FakeRequestService implements IRequestService {
     const apiEndpoint = '';
     this.logData(apiEndpoint, method, route, data, options);
     let respData: any;
-    if (route.includes('app-table-designs')) {
-      respData = [{ definition: JSON.stringify(testBaseTableData) }];
-    } else if (route.includes('account-purpose')) {
-      respData = this.testAccountPurposeData;
+    if (route.includes('app-base-tables')) {
+      respData = [{ viewConfig: JSON.stringify(testBaseTableData) }];
+    } else if (route.includes('client-accounts')) {
+      respData = this.testTableEntries;
     } else if (route.includes('select-url')) {
       respData = this.testSelectData;
     }

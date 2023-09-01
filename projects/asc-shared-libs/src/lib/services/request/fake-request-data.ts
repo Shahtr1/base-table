@@ -3,11 +3,11 @@ import { TableViewConfig } from '../../model/table-config.model';
 
 export const testBaseTableData: TableViewConfig = {
   settings: {
-    url: '/api/v5/account-purposes',
+    url: '/api/client-accounts',
     showEditButton: true,
     showDeleteButton: true,
     showAddButton: false,
-    title: 'L_ACCOUNT_PURPOSE',
+    title: 'L_CLIENT_ACCOUNTS',
     transformData: true,
     editCallBack: true,
     addCallBack: true,
@@ -46,8 +46,6 @@ export const testBaseTableData: TableViewConfig = {
     {
       field: 'fullName',
       headerId: 'L_ACCOUNT_PURPOSE_FULL_NAME',
-      sourceUrl: '/api/v5/work-flow-states?size=20',
-      optionLabel: 'desc',
       input: {
         type: 'select',
         placeholderId: 'L_ENTER_FULL_NAME',

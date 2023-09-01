@@ -1,5 +1,6 @@
 <p-table
   #table
+  *ngIf="showTable"
   editMode="row"
   [columns]="tableColumns"
   [dataKey]="dataKey"

@@ -34,6 +34,8 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./base-table.component.scss'],
 })
 export class BaseTableComponent<TData> implements OnInit {
+  @Input() showTable = false;
+
   @Input({ required: true }) tableId!: string;
 
   @Input()
@@ -183,6 +185,7 @@ export class BaseTableComponent<TData> implements OnInit {
   }
 
   private tableInit() {
+    this.showTable = true;
     this.tableSettingsHandler.handleManualSettings();
 
     this.setColumnsForExport__AndTranslateGeneralTexts();

@@ -9,7 +9,7 @@ import { LabelConfig } from '../../model/label-config.model';
 export class FakeLabelService implements ILabelService {
   getLabels(): Observable<LabelConfig> {
     return of({
-      L_ACCOUNT_PURPOSE: 'Account Purpose',
+      L_CLIENT_ACCOUNTS: 'Client Accounts',
       L_NEW: 'New',
       L_NEW_TOOLTIP: 'Add new row',
       L_DELETE_ALL_SELECTED: 'Delete all selected rows',

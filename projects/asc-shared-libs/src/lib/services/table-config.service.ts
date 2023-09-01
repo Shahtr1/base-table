@@ -21,13 +21,15 @@ export class TableConfigService {
 
   load(tableId: string): Observable<TableViewConfig> | never {
     return this.requestService
-      .request('GET', '/api/v5/app-table-designs', {
+      .request('GET', '/api/app-base-tables', {
         'name.equals': tableId,
       })
       .pipe(
         map((res: any) => {
+          console.log('res', res);
           try {
-            const parsedData = JSON.parse(res.body[0]['definition']);
+            const parsedData = JSON.parse(res.body[0]['viewConfig']);
+            console.log('parsedData', parsedData);
             return tableViewConfigSchema.parse(parsedData) as TableViewConfig;
           } catch (error) {
             throw new Error(`Data validation error: ${error}`);
