@@ -13,3 +13,4 @@
 11. Add virtual scroll in select dropdown
 12. Custom component in action column
 13. Direction ltr rtl
+14. Add scroll height to 100%
