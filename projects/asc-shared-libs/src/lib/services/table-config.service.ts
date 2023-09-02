@@ -26,10 +26,8 @@ export class TableConfigService {
       })
       .pipe(
         map((res: any) => {
-          console.log('res', res);
           try {
             const parsedData = JSON.parse(res.body[0]['viewConfig']);
-            console.log('parsedData', parsedData);
             return tableViewConfigSchema.parse(parsedData) as TableViewConfig;
           } catch (error) {
             throw new Error(`Data validation error: ${error}`);
