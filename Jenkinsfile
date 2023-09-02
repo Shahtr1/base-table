@@ -4,9 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your GitHub repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Shahtr1/base-table.git']]])
-            }
+                      // Use the correct SSH URL for your GitHub repository
+                      checkout([$class: 'GitSCM',
+                                branches: [[name: '*/main']],
+                                userRemoteConfigs: [[
+                                  url: 'git@github.com:Shahtr1/base-table.git',
+                                  credentialsId: 'jenkins'
+                                ]]])
+                  }
         }
 
         stage('Build and Test') {
