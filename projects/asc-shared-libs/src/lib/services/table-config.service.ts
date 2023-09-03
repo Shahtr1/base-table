@@ -22,7 +22,7 @@ export class TableConfigService {
   load(tableId: string): Observable<TableViewConfig> | never {
     return this.requestService
       .request('GET', '/api/app-base-tables', {
-        'name.equals': tableId,
+        'uuid.equals': tableId,
       })
       .pipe(
         map((res: any) => {
