@@ -3,6 +3,4 @@ export enum Language {
   AR = 'ar',
 }
 
-export type LabelConfig = {
-  [key: string]: string;
-};
+export type LabelConfig = Record<string, Record<string, string>>;
