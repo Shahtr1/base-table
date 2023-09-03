@@ -5,7 +5,6 @@ import { GetLabels } from '../actions/label.action';
 import { LabelService } from '../../services/label/label.service';
 import { FakeLabelService } from '../../services/label/fake-label.service';
 import { tap } from 'rxjs';
-import { labelConfigSchema } from '../../model/label-config.schema';
 
 export class LabelStateModel {
   labels: LabelConfig = {};
@@ -40,11 +39,6 @@ export class LabelState {
   getLabels({ getState, setState }: StateContext<LabelStateModel>) {
     return this.labelService.getLabels().pipe(
       tap((labelConfig) => {
-        try {
-          labelConfigSchema.parse(labelConfig);
-        } catch (error) {
-          throw new Error(`Data validation error: ${error}`);
-        }
         const state = getState();
         setState({
           ...state,
