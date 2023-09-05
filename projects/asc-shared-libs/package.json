@@ -27,9 +27,7 @@
     "@compodoc/compodoc": "^1.1.21",
     "@babel/plugin-proposal-private-methods": "^7.18.6"
   },
-  "publishConfig": {
-    "registry": "http://localhost:8081/repository/npm-private/"
-  },
+
   "exports": {
     "./styles/styles.css": "./styles/styles.css"
   },

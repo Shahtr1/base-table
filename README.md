@@ -17,3 +17,10 @@
       ],
 
 ```
+
+## Use this in package.json in lib and main project to publish to nexus
+```
+"publishConfig": {
+    "registry": "http://localhost:8081/repository/npm-private/"
+  },
+```

@@ -1,5 +1,5 @@
-registry=***
+registry=http://localhost:8081/repository/npm-group/
 
-_auth=***
+_auth=YWRtaW46YWRtaW4xMjM=
 
-email=***
+email=tramboos123@gmail.com
