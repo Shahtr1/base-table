@@ -13,6 +13,9 @@
     "release": "release-it"
   },
   "private": false,
+  "publishConfig": {
+    "registry": "http://localhost:8081/repository/npm-private/"
+  },
   "dependencies": {
     "@angular/animations": "^16.1.7",
     "@angular/cdk": "^16.1.6",
