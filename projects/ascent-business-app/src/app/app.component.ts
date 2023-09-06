@@ -22,6 +22,8 @@ type AccountPurpose = {
 export class AppComponent implements OnInit {
   tableInputOptions!: TableInputOptions<AccountPurpose>;
 
+
+
   constructor() {}
 
   accountPurposes: AccountPurpose[] = [];
@@ -73,14 +75,14 @@ export class AppComponent implements OnInit {
       ...config.columns,
       {
         field: 'referenceName',
-        headerId: 'L_REFERENCE_NAME',
+        "headerId": 'L_REFERENCE_NAME',
         filter: 'text',
         input: {
           type: 'number',
           placeholderId: 'L_ENTER_REFERENCE_NAME',
-          textConfig: {
-            icon: 'pi pi-camera',
-            position: 'right',
+          "textConfig": {
+            "icon": 'pi pi-camera',
+            "position": 'right',
           },
         },
       },
