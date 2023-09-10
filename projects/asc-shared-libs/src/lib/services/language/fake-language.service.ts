@@ -12,12 +12,12 @@ export class FakeLanguageService implements ILanguageService {
       {
         direction: 'LTR',
         name: 'English',
-        uuid: 'english',
+        uuid: 'ENGLISH',
       },
       {
         direction: 'RTL',
         name: 'Arabic',
-        uuid: 'arabic',
+        uuid: 'ARABIC',
       },
     ]);
   }

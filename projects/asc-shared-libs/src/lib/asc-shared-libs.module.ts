@@ -24,6 +24,8 @@ import { GetLanguages } from './store/actions/language.action';
 import { LanguageState } from './store/state/language.state';
 import { noop, switchMap, take } from 'rxjs';
 import { GetLabels } from './store/actions/label.action';
+import { PropertyState } from './store/state/property.state';
+import { GetProperties } from './store/actions/property.action';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { GetLabels } from './store/actions/label.action';
     TooltipModule,
     SpeedDialModule,
     CheckboxModule,
-    NgxsModule.forRoot([LabelState, LanguageState]),
+    NgxsModule.forRoot([LabelState, LanguageState, PropertyState]),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     DropdownModule,
@@ -57,6 +59,7 @@ export class AscSharedLibsModule {
   constructor(private store: Store) {
     console.info('Dispatching languages...');
     this.store.dispatch(new GetLanguages());
+    this.store.dispatch(new GetProperties());
 
     this.getLabelsDispatcher$().subscribe(noop);
   }

@@ -17,7 +17,7 @@ export class TextService {
       map((labels) => {
         // TODO : fix this here, NO hard coding
         return this.applyLabel(data, labels['english']);
-      })
+      }),
     );
   }
 
@@ -29,7 +29,7 @@ export class TextService {
 
   private getLabelsFromState() {
     return this.store.select(
-      (state) => state.labels.labels
+      (state) => state.labels.labels,
     ) as Observable<LabelConfig>;
   }
 
